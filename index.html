@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Saldamis | Salda Gölü Kenarında En İyi Kafe, Restoran ve Kahvaltı Mekanı</title>
+  <meta name="description"
+    content="Salda Gölü sahilinde, doğayla iç içe eşsiz lavanta deneyimi. Yöresel serpme kahvaltı, leziz akşam yemeği ve taze lavantalı limonata için Saldamis Restoran & Kafe'ye davetlisiniz.">
+  <meta name="keywords"
+    content="Salda, Salda kafe, salda restorant, salda kahvaltı mekanları, salda gölü restoran, yeşilova kafe, salda bölgesinde kafe restorant kahvaltı, saldamis, salda gölü yemek">
+  
+  <!-- ==========================================================================
+       SEO YEREL İŞLETME KİMLİĞİ (Google Haritalar & Arama için JSON-LD Schema)
+       ========================================================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Saldamis Cafe & Restoran",
+    "image": "https://www.saldamis.com/images/salda-hero.png",
+    "@id": "",
+    "url": "https://www.saldamis.com",
+    "telephone": "+905550000000",
+    "menu": "https://www.saldamis.com/menu.html",
+    "servesCuisine": "Türk Mutfağı, Serpme Kahvaltı, Izgara, Gözleme",
+    "priceRange": "₺₺",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Salda Gölü Sahili, Doğanbaba",
+      "addressLocality": "Yeşilova",
+      "addressRegion": "Burdur",
+      "postalCode": "15250",
+      "addressCountry": "TR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 37.551389,
+      "longitude": 29.696111
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "08:00",
+      "closes": "23:00"
+    }
+  }
+  </script>
+
+  <!-- Google Fonts: Outfit (Başlıklar), Plus Jakarta Sans (Gövde) & Montserrat (Header) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide İkon Kütüphanesi -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Modern Özel Tasarım Sistemi (CSS) -->
+  <link rel="stylesheet" href="style.css?v=14">
+
+  <!-- Tema Tercihini Erken Uygula -->
+  <script>
+    if (localStorage.getItem('saldamisTheme') === 'dark') {
+      document.documentElement.classList.add('dark-theme');
+      document.addEventListener('DOMContentLoaded', () => document.body.classList.add('dark-theme'));
+    }
+  </script>
+  <!-- SEO & Open Graph Meta Tags -->
+  <meta name="description" content="Salda Gölü'nün eşsiz manzarasında, doğal ürünlerle hazırlanan serpme kahvaltı, yöresel lezzetler ve özel hediyelik eşyalar.">
+  <meta property="og:title" content="Saldamis | Doğal Kahvaltı & Hediyelik">
+  <meta property="og:description" content="Salda Gölü'nün eşsiz manzarasında, doğal ürünlerle hazırlanan serpme kahvaltı, yöresel lezzetler ve özel hediyelik eşyalar.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/username/saldamis/main/images/header-bg.jpg">
+  <meta property="og:url" content="https://saldamis.com">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body>
+  <!-- PRELOADER -->
+  <div id="preloader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ffffff; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s ease;">
+    <div style="width: 60px; height: 60px; border: 5px solid #e2e8f0; border-top: 5px solid #7c3aed; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1rem;"></div>
+    <h2 style="font-family: 'Playfair Display', serif; color: #4c1d95; margin: 0; font-size: 1.5rem; letter-spacing: 1px;">Saldamis</h2>
+    <style>
+      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+  </div>
+  <script>
+    window.addEventListener('load', () => {
+      const preloader = document.getElementById('preloader');
+      if(preloader) {
+        preloader.style.opacity = '0';
+        setTimeout(() => preloader.style.visibility = 'hidden', 600);
+      }
+    });
+  </script>
+
+  <!-- ==========================================================================
+       NAVİGASYON (HEADER)
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container header-container">
+
+      <div class="brand-and-theme" style="display: flex; align-items: center; gap: 1rem;">
+        <div class="left-header-actions">
+          <!-- Tema Değiştirme Butonu -->
+          <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Tema Değiştir">
+            <i data-lucide="moon" class="theme-icon-moon"></i>
+            <i data-lucide="sun" class="theme-icon-sun"></i>
+          </button>
+        </div>
+
+        <!-- Marka Başlığı -->
+        <a href="index.html" class="brand-wrapper" title="Saldamis Cafe & Restoran">
+          <div class="brand-text-block">
+            <span class="brand-title">
+              SALDA<span class="accent-lavender">MIS</span>
+            </span>
+            <span class="brand-subtitle">Aile Restoranı & Hediyelik Eşya</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Masaüstü Navigasyon -->
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html#hakkimizda" class="nav-link">Hakkımızda</a></li>
+          <li><a href="menu.html" class="nav-link">Menü & İmzalar</a></li>
+          <li><a href="index.html#turlar" class="nav-link">Tur & Gruplar (B2B)</a></li>
+          <li><a href="hediyelik.html" class="nav-link">Lavanta Dükkanı</a></li>
+          <li><a href="index.html#rehber" class="nav-link">Salda Rehberi</a></li>
+          <li><a href="index.html#yorumlar" class="nav-link">Yorumlar</a></li>
+          <li><a href="https://maps.google.com/?q=Saldamis+Kafe+Restoran+Salda" target="_blank" class="nav-link">İletişim & Konum</a></li>
+        </ul>
+      </nav>
+
+      <!-- Sağ Aksiyonlar: Sepet & Rezervasyon & Mobil Menü -->
+      <div class="header-actions">
+        
+
+        <!-- Dil Seçeneği (Translate) -->
+        <div class="lang-dropdown" style="position: relative; display: inline-block;">
+          <button class="lang-btn" id="langBtn" style="display: flex; align-items: center; gap: 0.5rem; background: var(--c-white); border: 1px solid var(--c-sand-200); padding: 0.4rem 0.75rem; border-radius: 9999px; cursor: pointer; font-family: var(--font-body); font-weight: 600; color: var(--c-dark-700); transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <img src="https://flagcdn.com/w20/tr.png" alt="TR" style="width: 20px; border-radius: 2px;">
+            <span style="display: none;" class="lang-text-desktop">Türkçe</span>
+            <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+          </button>
+          
+          <div class="lang-menu" id="langMenu" style="display: none; position: absolute; top: 120%; right: 0; background: var(--c-white); border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 140px; overflow: hidden; z-index: 1000; border: 1px solid var(--c-sand-100);">
+            <button class="lang-item" data-lang="tr" data-lang-name="Türkçe" data-flag="tr" style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.75rem 1rem; border: none; background: transparent; cursor: pointer; text-align: left; font-family: var(--font-body); font-weight: 500; color: var(--c-dark-700);">
+              <img src="https://flagcdn.com/w20/tr.png" alt="TR" style="width: 20px; border-radius: 2px;"> Türkçe
+            </button>
+            <button class="lang-item" data-lang="en" data-lang-name="English" data-flag="gb" style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.75rem 1rem; border: none; background: transparent; cursor: pointer; text-align: left; font-family: var(--font-body); font-weight: 500; color: var(--c-dark-700);">
+              <img src="https://flagcdn.com/w20/gb.png" alt="EN" style="width: 20px; border-radius: 2px;"> English
+            </button>
+            <button class="lang-item" data-lang="ru" data-lang-name="Русский" data-flag="ru" style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.75rem 1rem; border: none; background: transparent; cursor: pointer; text-align: left; font-family: var(--font-body); font-weight: 500; color: var(--c-dark-700);">
+              <img src="https://flagcdn.com/w20/ru.png" alt="RU" style="width: 20px; border-radius: 2px;"> Русский
+            </button>
+            <button class="lang-item" data-lang="de" data-lang-name="Deutsch" data-flag="de" style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.75rem 1rem; border: none; background: transparent; cursor: pointer; text-align: left; font-family: var(--font-body); font-weight: 500; color: var(--c-dark-700);">
+              <img src="https://flagcdn.com/w20/de.png" alt="DE" style="width: 20px; border-radius: 2px;"> Deutsch
+            </button>
+            <button class="lang-item" data-lang="it" data-lang-name="Italiano" data-flag="it" style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.75rem 1rem; border: none; background: transparent; cursor: pointer; text-align: left; font-family: var(--font-body); font-weight: 500; color: var(--c-dark-700);">
+              <img src="https://flagcdn.com/w20/it.png" alt="IT" style="width: 20px; border-radius: 2px;"> Italiano
+            </button>
+            <button class="lang-item" data-lang="es" data-lang-name="Español" data-flag="es" style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.75rem 1rem; border: none; background: transparent; cursor: pointer; text-align: left; font-family: var(--font-body); font-weight: 500; color: var(--c-dark-700);">
+              <img src="https://flagcdn.com/w20/es.png" alt="ES" style="width: 20px; border-radius: 2px;"> Español
+            </button>
+          </div>
+        </div>
+        
+        <style>
+          .lang-item:hover { background-color: var(--c-sand-50) !important; color: var(--c-salda-600) !important; }
+          .lang-btn:hover { background-color: var(--c-sand-50); border-color: var(--c-salda-200); }
+          @media(min-width: 768px) { .lang-text-desktop { display: inline-block !important; } }
+          
+          /* Google Translate Orijinal Arayüzünü Gizleme */
+          .skiptranslate iframe { display: none !important; }
+          body { top: 0px !important; }
+          .goog-te-banner-frame { display: none !important; }
+          #goog-gt-tt { display: none !important; }
+          .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
+        </style>
+
+        <!-- Dükkan Sepet Butonu (Aşama 2'de Aktif Olacak) -->
+        <button class="cart-toggle-btn" id="cartToggleBtn" aria-label="Alışveriş Sepeti" style="display:none;">
+          <i data-lucide="shopping-bag" style="width:20px; height:20px;"></i>
+          <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
+        </button>
+
+        <!-- Hızlı Masa / Grup Rezervasyon Butonu -->
+        <a href="index.html#turlar" class="btn btn-primary btn-sm">
+          <i data-lucide="calendar-check" style="width:16px; height:16px;"></i>
+          <span>Rezervasyon</span>
+        </a>
+
+        <!-- Mobil Menü Aç/Kapat Butonu -->
+        <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Menüyü Aç">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       HERO (KARŞILAMA BÖLÜMÜ)
+       ========================================================================== -->
+  <section class="hero-section">
+    <div class="hero-bg-wrapper">
+      <img src="images/salda-hero.png" class="hero-bg-image" alt="Salda Gölü">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="container hero-content">
+      <h1 class="hero-title">
+        Lavantanın<br>
+        Büyüleyici<br>
+        Kokusu,<br>
+        <span class="text-gradient-salda">Salda'nın<br>
+        Turkuazında</span><br>
+        Buluştu.
+      </h1>
+      
+      <!-- İleride kullanılabilecek gizlenmiş butonlar -->
+      <div class="hero-cta-group" style="display: none;">
+        <a href="menu.html" class="btn btn-lavender btn-lg">
+          <i data-lucide="utensils" style="width:18px; height:18px;"></i>
+          Menüyü İncele
+        </a>
+        <a href="#iletisim" class="btn btn-secondary btn-lg"
+          style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: white;">
+          <i data-lucide="map-pin" style="width:18px; height:18px;"></i>
+          Konum
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       YORUMLAR (GOOGLE REVIEWS)
+       ========================================================================== -->
+  <section id="yorumlar" style="background-color: var(--c-sand-50); padding: 6rem 0;">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 3.5rem;">
+        <h2 style="font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; color: var(--c-dark-900); margin-bottom: 1rem;">Misafirlerimizin Gözünden</h2>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; font-size: 1.15rem; font-weight: 600;">
+          <span style="color: var(--c-amber); display: flex; gap: 4px;">
+            <i data-lucide="star" style="fill: currentColor; width:22px; height:22px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:22px; height:22px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:22px; height:22px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:22px; height:22px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:22px; height:22px;"></i>
+          </span>
+          <span style="color: var(--c-dark-700);">4.9 / 5 (Google Haritalar)</span>
+        </div>
+      </div>
+      
+      <style>
+        .review-carousel::-webkit-scrollbar { display: none; }
+      </style>
+      <div class="review-carousel" style="display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 2rem; padding: 1rem 0 2rem 0; scrollbar-width: none; -ms-overflow-style: none;">
+        
+        <!-- Yorum 1 -->
+        <div style="flex: 0 0 calc(50% - 1rem); min-width: 280px; max-width: 500px; scroll-snap-align: center; display: flex; flex-direction: column; background: var(--c-white); padding: 2.5rem 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); position: relative; transition: transform 0.3s ease;">
+          <i data-lucide="quote" style="position: absolute; top: 2rem; right: 2rem; width: 40px; height: 40px; color: var(--c-sand-200); opacity: 0.4;"></i>
+          <div style="display: flex; gap: 2px; color: var(--c-amber); margin-bottom: 1.25rem;">
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+          </div>
+          <p style="color: var(--c-dark-700); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2rem; font-style: italic;">
+            "Manzara tek kelimeyle şahane! Lavanta bahçesi ve Salda Gölü'nün turkuazı birleşince harika bir atmosfer oluşmuş. Yemekler çok lezzetli, kesinlikle tavsiye ederim."
+          </p>
+          <div style="display: flex; align-items: center; gap: 1rem; margin-top: auto;">
+            <div style="width: 48px; height: 48px; background: var(--c-lavender-200); color: var(--c-lavender-900); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.3rem;">A</div>
+            <div>
+              <div style="font-weight: 700; color: var(--c-dark-900); font-size: 1.1rem;">Ayşe Yılmaz</div>
+              <div style="font-size: 0.9rem; color: var(--c-muted); display: flex; align-items: center; gap: 0.25rem;">Yerel Rehber</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Yorum 2 -->
+        <div style="flex: 0 0 calc(50% - 1rem); min-width: 280px; max-width: 500px; scroll-snap-align: center; display: flex; flex-direction: column; background: var(--c-white); padding: 2.5rem 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); position: relative; transition: transform 0.3s ease;">
+          <i data-lucide="quote" style="position: absolute; top: 2rem; right: 2rem; width: 40px; height: 40px; color: var(--c-sand-200); opacity: 0.4;"></i>
+          <div style="display: flex; gap: 2px; color: var(--c-amber); margin-bottom: 1.25rem;">
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+          </div>
+          <p style="color: var(--c-dark-700); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2rem; font-style: italic;">
+            "Kahvaltısı inanılmaz zengin ve doyurucu. Kendi üretimleri olan reçeller ve peynirler çok kaliteli. Çalışanlar çok güler yüzlü ve ilgiliydi."
+          </p>
+          <div style="display: flex; align-items: center; gap: 1rem; margin-top: auto;">
+            <div style="width: 48px; height: 48px; background: var(--c-salda-200); color: var(--c-salda-900); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.3rem;">B</div>
+            <div>
+              <div style="font-weight: 700; color: var(--c-dark-900); font-size: 1.1rem;">Burak K.</div>
+              <div style="font-size: 0.9rem; color: var(--c-muted); display: flex; align-items: center; gap: 0.25rem;">Google Yorumu</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Yorum 3 -->
+        <div style="flex: 0 0 calc(50% - 1rem); min-width: 280px; max-width: 500px; scroll-snap-align: center; display: flex; flex-direction: column; background: var(--c-white); padding: 2.5rem 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); position: relative; transition: transform 0.3s ease;">
+          <i data-lucide="quote" style="position: absolute; top: 2rem; right: 2rem; width: 40px; height: 40px; color: var(--c-sand-200); opacity: 0.4;"></i>
+          <div style="display: flex; gap: 2px; color: var(--c-amber); margin-bottom: 1.25rem;">
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+          </div>
+          <p style="color: var(--c-dark-700); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2rem; font-style: italic;">
+            "Lavantalı limonatayı mutlaka denemelisiniz, çok ferahlatıcıydı. Hem fiyatlar uygun hem de porsiyonlar oldukça doyurucu. Tekrar geleceğiz."
+          </p>
+          <div style="display: flex; align-items: center; gap: 1rem; margin-top: auto;">
+            <div style="width: 48px; height: 48px; background: #fef08a; color: #854d0e; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.3rem;">E</div>
+            <div>
+              <div style="font-weight: 700; color: var(--c-dark-900); font-size: 1.1rem;">Elif M.</div>
+              <div style="font-size: 0.9rem; color: var(--c-muted); display: flex; align-items: center; gap: 0.25rem;">Yerel Rehber</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Yorum 4 -->
+        <div style="flex: 0 0 calc(50% - 1rem); min-width: 280px; max-width: 500px; scroll-snap-align: center; display: flex; flex-direction: column; background: var(--c-white); padding: 2.5rem 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); position: relative; transition: transform 0.3s ease;">
+          <i data-lucide="quote" style="position: absolute; top: 2rem; right: 2rem; width: 40px; height: 40px; color: var(--c-sand-200); opacity: 0.4;"></i>
+          <div style="display: flex; gap: 2px; color: var(--c-amber); margin-bottom: 1.25rem;">
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+          </div>
+          <p style="color: var(--c-dark-700); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2rem; font-style: italic;">
+            "Güler yüzlü hizmet ve harika lezzetler. Özellikle saç kavurması çok başarılıydı, porsiyonlar çok doyurucu. Ailece çok memnun kaldık."
+          </p>
+          <div style="display: flex; align-items: center; gap: 1rem; margin-top: auto;">
+            <div style="width: 48px; height: 48px; background: #e0e7ff; color: #4338ca; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.3rem;">K</div>
+            <div>
+              <div style="font-weight: 700; color: var(--c-dark-900); font-size: 1.1rem;">Kemal D.</div>
+              <div style="font-size: 0.9rem; color: var(--c-muted); display: flex; align-items: center; gap: 0.25rem;">Google Yorumu</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Yorum 5 -->
+        <div style="flex: 0 0 calc(50% - 1rem); min-width: 280px; max-width: 500px; scroll-snap-align: center; display: flex; flex-direction: column; background: var(--c-white); padding: 2.5rem 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); position: relative; transition: transform 0.3s ease;">
+          <i data-lucide="quote" style="position: absolute; top: 2rem; right: 2rem; width: 40px; height: 40px; color: var(--c-sand-200); opacity: 0.4;"></i>
+          <div style="display: flex; gap: 2px; color: var(--c-amber); margin-bottom: 1.25rem;">
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+            <i data-lucide="star" style="fill: currentColor; width:18px; height:18px;"></i>
+          </div>
+          <p style="color: var(--c-dark-700); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2rem; font-style: italic;">
+            "Göl kenarında kahvaltı yapmak için mükemmel bir tercih. Tostları çok lezzetli, çocuklar da bayıldı. Herkese gözü kapalı öneririm."
+          </p>
+          <div style="display: flex; align-items: center; gap: 1rem; margin-top: auto;">
+            <div style="width: 48px; height: 48px; background: #ffedd5; color: #c2410c; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.3rem;">S</div>
+            <div>
+              <div style="font-weight: 700; color: var(--c-dark-900); font-size: 1.1rem;">Sevgi A.</div>
+              <div style="font-size: 0.9rem; color: var(--c-muted); display: flex; align-items: center; gap: 0.25rem;">Yerel Rehber</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 3.5rem;">
+        <a href="https://maps.google.com/?q=Saldamis+Kafe+Restoran+Salda" target="_blank" class="btn" style="padding: 1rem 3rem; font-size: 1.15rem; border-radius: 9999px; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4); background: linear-gradient(135deg, var(--c-amber) 0%, #d97706 100%); color: white; border: none; font-weight: 700; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+          <i data-lucide="map-pin" style="width:22px; height:22px; margin-right: 0.5rem;"></i>
+          Konum ve İletişim
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       DISCOVER (KEŞFEDİN) BÖLÜMÜ
+       ========================================================================== -->
+  <section class="premium-discover-section" id="discover">
+    <div class="container discover-container">
+      
+      <!-- Sağ Görsel Kolajı (Artık Üstte/Solda) -->
+      <div class="discover-image-col">
+        <div class="elegant-carousel">
+           <div class="carousel-track">
+             <!-- Breakfast 2. Kısım (Sağ) -->
+             <div class="carousel-slice">
+               <img src="images/breakfast.jpg" class="img-right" alt="Kahvaltı Sağ">
+             </div>
+             <!-- Lemonade 1. Kısım (Sol) -->
+             <div class="carousel-slice">
+               <img src="images/lemonade.jpg" class="img-left" alt="Limonata Sol">
+             </div>
+             <!-- Lemonade 2. Kısım (Sağ) -->
+             <div class="carousel-slice">
+               <img src="images/lemonade.jpg" class="img-right" alt="Limonata Sağ">
+             </div>
+             <!-- Mekan 1. Kısım (Sol) -->
+             <div class="carousel-slice">
+               <img src="images/mekan-1.jpg" class="img-left" alt="Mekan Sol">
+             </div>
+             <!-- Mekan 2. Kısım (Sağ) -->
+             <div class="carousel-slice">
+               <img src="images/mekan-1.jpg" class="img-right" alt="Mekan Sağ">
+             </div>
+             <!-- Dessert 1. Kısım (Sol) -->
+             <div class="carousel-slice">
+               <img src="images/dessert.jpg" class="img-left" alt="Tatlı Sol">
+             </div>
+             <!-- Dessert 2. Kısım (Sağ) -->
+             <div class="carousel-slice">
+               <img src="images/dessert.jpg" class="img-right" alt="Tatlı Sağ">
+             </div>
+             <!-- Breakfast 1. Kısım (Sol) - Döngü tamamlansın diye -->
+             <div class="carousel-slice">
+               <img src="images/breakfast.jpg" class="img-left" alt="Kahvaltı Sol">
+             </div>
+           </div>
+        </div>
+      </div>
+
+      <!-- Sol Metin / Aksiyon (Artık Altta/Sağda) -->
+      <div class="discover-text-col">
+        <div class="discover-actions" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
+          <a href="menu.html" class="btn-elegant-primary" style="flex: 1; min-width: max-content; display: inline-flex; justify-content: center; align-items: center;">
+            Menüyü Keşfet
+            <i data-lucide="arrow-right" style="width:18px; height:18px; margin-left: 0.5rem;"></i>
+          </a>
+          <a href="hediyelik.html" class="btn-elegant-secondary" style="flex: 1; min-width: max-content; display: inline-flex; justify-content: center; align-items: center;">
+            Hediyelik Eşyalar
+            <i data-lucide="gift" style="width:18px; height:18px; margin-left: 0.5rem;"></i>
+          </a>
+        </div>
+        <h2 class="discover-title">Sade, Doğal,<br>Eşsiz.</h2>
+        <p class="discover-desc">
+          <strong>Salda bölgesinin</strong> eşsiz doğasıyla iç içe olan Saldamis, hem huzurlu bir <strong>kafe</strong> hem de keyifli bir <strong>restoran</strong> olarak misafirlerini ağırlıyor. Salda Gölü'nün büyüleyici manzarasına karşı güne yöresel <strong>serpme kahvaltı</strong> ile başlayabilir, günün ilerleyen saatlerinde ise meşhur <strong>kıymalı tost</strong>, sıcak <strong>gözleme</strong> çeşitleri ve ferahlatıcı lavantalı limonatamızın tadını çıkarabilirsiniz. <strong>Salda kahvaltı ve yemek mekanları</strong> arasında doğallığı ve kalitesiyle öne çıkan işletmemizde, günün her saati size özel lezzetler sunmaktan mutluluk duyarız.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       MİNİMAL FOOTER
+       ========================================================================== -->
+  <footer class="minimal-footer" id="iletisim">
+    <div class="container footer-container">
+      <div class="footer-brand">
+         <h3>SALDA<span>MIS</span></h3>
+         <p>Salda Gölü Sahili, Doğanbaba / Yeşilova, Burdur</p>
+      </div>
+      <div class="footer-contact">
+         <p>Rezervasyon: <strong>0555 000 00 00</strong></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       YÜZEN HIZLI İLETİŞİM AKSİYONLARI (FLOATING BAR)
+       ========================================================================== -->
+  <div class="floating-actions">
+    <button class="back-to-top" id="backToTopBtn" aria-label="Yukarı Çık">
+      <i data-lucide="arrow-up" style="width:20px; height:20px;"></i>
+    </button>
+    <a href="https://wa.me/905550000000?text=Merhaba,%20Saldamis%20hakkında%20bilgi%20almak%20istiyorum."
+      target="_blank" class="float-wa-btn" title="WhatsApp ile İletişim">
+      <i data-lucide="message-circle" style="width:28px; height:28px;"></i>
+    </a>
+  </div>
+  
+  <!-- Özel Dil Çeviri Altyapısı (Google Translate API) -->
+  <div id="google_translate_element" style="display:none;"></div>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'tr', autoDisplay: false}, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const langBtn = document.getElementById('langBtn');
+      const langMenu = document.getElementById('langMenu');
+      const langItems = document.querySelectorAll('.lang-item');
+
+      if(langBtn && langMenu) {
+        langBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          langMenu.style.display = langMenu.style.display === 'none' ? 'block' : 'none';
+        });
+
+        document.addEventListener('click', () => {
+          langMenu.style.display = 'none';
+        });
+
+        langItems.forEach(item => {
+          item.addEventListener('click', () => {
+            const langCode = item.getAttribute('data-lang');
+            const langName = item.getAttribute('data-lang-name');
+            const flagCode = item.getAttribute('data-flag');
+
+            // Butonun görüntüsünü seçilen dile göre güncelle
+            const textSpan = langBtn.querySelector('.lang-text-desktop');
+            if(textSpan) textSpan.textContent = langName;
+            langBtn.querySelector('img').src = `https://flagcdn.com/w20/${flagCode}.png`;
+
+            // Google Çeviriyi Tetikle (Sihirli Kısım)
+            const select = document.querySelector('.goog-te-combo');
+            if (select) {
+              select.value = langCode;
+              select.dispatchEvent(new Event('change'));
+            } else {
+              // Çeviri kutusu yüklenmemişse çerezle zorla ve sayfayı yenile
+              document.cookie = `googtrans=/tr/${langCode}; path=/; domain=${window.location.hostname}`;
+              document.cookie = `googtrans=/tr/${langCode}; path=/`;
+              window.location.reload();
+            }
+          });
+        });
+      }
+    });
+  </script>
+
+  <!-- Özel JavaScript Dosyası -->
+  <script src="app.js?v=3"></script>
+</body>
+
+</html>

@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yönetici Paneli - Saldamis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8fafc;
+      padding: 2rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .admin-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    #loginSection,
+    #dashboardSection {
+      display: none;
+    }
+
+    .menu-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .menu-item-info {
+      flex: 1;
+    }
+
+    .menu-item-actions button {
+      margin-left: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background-color: #0ea5e9;
+      color: white;
+    }
+
+    .btn-secondary {
+      background-color: #64748b;
+      color: white;
+    }
+
+    .btn-edit {
+      background-color: #3b82f6;
+    }
+
+    .btn-delete {
+      background-color: #ef4444;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="admin-container">
+    <h1 style="margin-bottom: 2rem; text-align: center;">YÖNETİM</h1>
+
+    <!-- GİRİŞ EKRANI -->
+    <div id="loginSection">
+      <h2 style="margin-bottom: 1rem;">Giriş Yapın</h2>
+      <div class="form-group">
+        <label>E-posta</label>
+        <input type="email" id="emailInput">
+      </div>
+      <div class="form-group">
+        <label>Şifre</label>
+        <input type="password" id="passwordInput">
+      </div>
+      <button class="btn btn-primary" id="loginBtn" style="width: 100%;">Giriş Yap</button>
+      <p id="loginError" style="color: red; margin-top: 1rem; display: none;"></p>
+    </div>
+
+    <!-- YÖNETİM EKRANI -->
+    <div id="dashboardSection" style="display: none;">
+
+      <!-- ANA DASHBOARD (Yeni) -->
+      <div id="mainDashboardView">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+          <h2>Yönetim Paneli</h2>
+          <button class="btn btn-secondary" id="logoutBtn">Çıkış Yap</button>
+        </div>
+
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <button class="btn btn-secondary"
+            style="flex: 1; min-width: 200px; padding: 1.5rem; font-size: 1.2rem; font-weight: bold;"
+            onclick="alert('Garson modülü yakında aktif edilecek!')">GARSON</button>
+          <button class="btn btn-primary"
+            style="flex: 1; min-width: 200px; padding: 1.5rem; font-size: 1.2rem; font-weight: bold;"
+            id="openMenuBtn">MENÜ</button>
+          <button class="btn btn-secondary"
+            style="flex: 1; min-width: 200px; padding: 1.5rem; font-size: 1.2rem; font-weight: bold;"
+            id="openMarketBtn">HEDİYELİK</button>
+        </div>
+      </div>
+
+      <!-- DÜZENLEME EKRANI -->
+      <div id="editorView" style="display: none;">
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 id="editorTitle">Menü Ürünleri</h2>
+            <button class="btn btn-secondary" id="backToDashboardBtn">← Ana Menü</button>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; width: 100%;">
+            <button class="btn btn-primary" id="cleanDupBtn" style="background-color: #ef4444; width: 100%;">Çift
+              Eklenenleri Sil</button>
+            <button class="btn btn-primary" id="seedBtn" style="background-color: #10b981; width: 100%;">Tüm Örnek
+              Ürünleri Yükle</button>
+          </div>
+        </div>
+
+        <div style="background: #f1f5f9; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+          <h3 style="margin-bottom: 1rem;" id="formTitle">Yeni Ürün Ekle</h3>
+          <input type="hidden" id="editId">
+          <div class="form-group">
+            <label>Kategori</label>
+            <details
+              style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 0.75rem; background: white; cursor: pointer;">
+              <summary style="outline: none; font-weight: bold; color: #475569; user-select: none;">Kategorileri Seçmek
+                İçin Tıklayın</summary>
+              <div id="categoryCheckboxes" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2e8f0;"></div>
+            </details>
+          </div>
+          <div class="form-group">
+            <label>Ürün Adı</label>
+            <input type="text" id="itemName" placeholder="Örn: Serpme Köy Kahvaltısı">
+          </div>
+          <div class="form-group">
+            <label>Fiyat (₺)</label>
+            <input type="number" id="itemPrice" placeholder="Örn: 550">
+          </div>
+          <div class="form-group">
+            <label>Menüdeki Sırası</label>
+            <select id="itemOrder"
+              style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; background: white;">
+              <option value="">Sırasız (En sona atar)</option>
+              <script>
+                for (let i = 1; i <= 30; i++) {
+                  document.write('<option value="' + i + '">' + i + '</option>');
+                }
+              </script>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>ürün açıklaması </label>
+            <textarea id="itemDesc" rows="3" placeholder="Örn: Salda balı, köy tereyağı..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Ürün Fotoğrafı (Opsiyonel)</label>
+            <input type="file" id="itemImage" accept="image/*" style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; background: white;">
+            <small style="color: #64748b; margin-top: 0.25rem; display: block;">Eğer fotoğraf seçmezseniz kategorinin varsayılan fotoğrafı kullanılır.</small>
+          </div>
+          <button class="btn btn-primary" id="saveItemBtn">Kaydet</button>
+          <button class="btn btn-secondary" id="cancelEditBtn" style="display:none;">İptal</button>
+        </div>
+
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3>Mevcut Menü</h3>
+            <button class="btn btn-secondary" id="showAllCatsBtn" style="display: none; padding: 0.5rem 1rem; font-size: 0.9rem;">← Tüm Kategoriler</button>
+          </div>
+          <div id="adminCategoryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; margin-top: 1rem;">
+            <!-- Categories will be generated here -->
+          </div>
+          <div id="menuItemsList" style="margin-top: 1rem; display: none;">
+            <!-- Ürünler buraya gelecek -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBY74WvWBN3taHZ2U8s-KLbZ8t3o7mPjlw",
+      authDomain: "saldamis.firebaseapp.com",
+      projectId: "saldamis",
+      storageBucket: "saldamis.firebasestorage.app",
+      messagingSenderId: "960732616510",
+      appId: "1:960732616510:web:78bca06f0063075d3dfe6f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+    const storage = getStorage(app);
+
+    // DOM Elements
+    const loginSection = document.getElementById('loginSection');
+    const dashboardSection = document.getElementById('dashboardSection');
+    const loginBtn = document.getElementById('loginBtn');
+    const emailInput = document.getElementById('emailInput');
+    const passwordInput = document.getElementById('passwordInput');
+    const loginError = document.getElementById('loginError');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    const menuItemsList = document.getElementById('menuItemsList');
+    const saveItemBtn = document.getElementById('saveItemBtn');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+    const itemNameInput = document.getElementById('itemName');
+    const itemPriceInput = document.getElementById('itemPrice');
+    const itemOrderInput = document.getElementById('itemOrder');
+    const itemDescInput = document.getElementById('itemDesc');
+    const categoryCheckboxesContainer = document.getElementById('categoryCheckboxes');
+    const editIdInput = document.getElementById('editId');
+    const formTitle = document.getElementById('formTitle');
+
+    // New Dashboard Elements
+    const mainDashboardView = document.getElementById('mainDashboardView');
+    const editorView = document.getElementById('editorView');
+    const openMarketBtn = document.getElementById('openMarketBtn');
+    const backToDashboardBtn = document.getElementById('backToDashboardBtn');
+    const editorTitle = document.getElementById('editorTitle');
+    window.currentCollection = 'menuItems';
+    
+    const menuCatDefs = [
+      {value: 'kahvalti', label: 'Kahvaltı'}, {value: 'tostlar', label: 'Tostlar'},
+      {value: 'yemek', label: 'Yemek'}, {value: 'gozlemeler', label: 'Gözlemeler'},
+      {value: 'corbalar', label: 'Çorbalar'}, {value: 'salata', label: 'Salata'},
+      {value: 'tatli', label: 'Tatlı'}, {value: 'sicak-icecek', label: 'Sıcak İçecek'},
+      {value: 'soguk-icecek', label: 'Soğuk İçecek'}
+    ];
+    
+    const marketCatDefs = [
+      {value: 'paketler', label: 'Paketler'}, {value: 'sabunlar', label: 'Sabunlar'},
+      {value: 'dogal-yaglar', label: 'Doğal Yağlar'}, {value: 'kolonya-kozmetik', label: 'Kolonya & Kozmetik'},
+      {value: 'dogal-urunler', label: 'Doğal Ürünler'}, {value: 'magnet-acacak', label: 'Magnet & Açacak'},
+      {value: 'oda-susleri', label: 'Oda Süsleri'}, {value: 'diger', label: 'Diğer'}
+    ];
+    const openMenuBtn = document.getElementById('openMenuBtn');
+    
+    const adminCategoryGrid = document.getElementById('adminCategoryGrid');
+    const showAllCatsBtn = document.getElementById('showAllCatsBtn');
+    
+    window.adminAllItems = [];
+
+    // Auth State Observer
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        loginSection.style.display = 'none';
+        dashboardSection.style.display = 'block';
+        mainDashboardView.style.display = 'block';
+        editorView.style.display = 'none';
+        if (window.lucide) window.lucide.createIcons();
+      } else {
+        loginSection.style.display = 'block';
+        dashboardSection.style.display = 'none';
+      }
+    });
+
+    // Dashboard Navigation
+    function renderCheckboxes(cats) {
+      categoryCheckboxesContainer.innerHTML = '';
+      cats.forEach(c => {
+        categoryCheckboxesContainer.innerHTML += `<label style="font-weight: normal; margin: 0; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" value="${c.value}" style="width: auto; margin: 0;"> ${c.label}</label>`;
+      });
+    }
+
+    if (openMenuBtn) {
+      openMenuBtn.addEventListener('click', () => {
+        window.currentCollection = 'menuItems';
+        editorTitle.textContent = "Restoran Menüsü";
+        renderCheckboxes(menuCatDefs);
+        mainDashboardView.style.display = 'none';
+        editorView.style.display = 'block';
+        loadMenuItems();
+      });
+    }
+    if (openMarketBtn) {
+      openMarketBtn.addEventListener('click', () => {
+        window.currentCollection = 'marketItems';
+        editorTitle.textContent = "Hediyelik Eşya Dükkanı";
+        renderCheckboxes(marketCatDefs);
+        mainDashboardView.style.display = 'none';
+        editorView.style.display = 'block';
+        loadMenuItems();
+      });
+    }
+    if (backToDashboardBtn) {
+      backToDashboardBtn.addEventListener('click', () => {
+        editorView.style.display = 'none';
+        mainDashboardView.style.display = 'block';
+      });
+    }
+
+    // Login
+    loginBtn.addEventListener('click', async () => {
+      loginBtn.textContent = "Giriş Yapılıyor...";
+      try {
+        await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
+        loginError.style.display = 'none';
+      } catch (error) {
+        loginError.textContent = "Hatalı e-posta veya şifre!";
+        loginError.style.display = 'block';
+      } finally {
+        loginBtn.textContent = "Giriş Yap";
+      }
+    });
+
+    // Clean Duplicates
+    const cleanDupBtn = document.getElementById('cleanDupBtn');
+    if (cleanDupBtn) {
+      cleanDupBtn.addEventListener('click', async () => {
+        if (!confirm("Veritabanındaki aynı isimdeki ürünlerin kopyaları kalıcı olarak silinecek, onaylıyor musunuz?")) return;
+
+        cleanDupBtn.disabled = true;
+        cleanDupBtn.textContent = "Temizleniyor...";
+
+        try {
+          const snapshot = await getDocs(collection(db, window.currentCollection));
+          const seenNames = {};
+          const deletePromises = [];
+          let duplicateCount = 0;
+
+          snapshot.forEach(docSnap => {
+            const data = docSnap.data();
+            if (seenNames[data.name]) {
+              // This is a duplicate, delete it
+              deletePromises.push(deleteDoc(doc(db, window.currentCollection, docSnap.id)));
+              duplicateCount++;
+            } else {
+              seenNames[data.name] = true;
+            }
+          });
+
+          if (deletePromises.length > 0) {
+            await Promise.all(deletePromises);
+            alert(duplicateCount + " adet kopya ürün başarıyla temizlendi!");
+            loadMenuItems(); // Refresh list
+          } else {
+            alert("Hiçbir kopya ürün bulunamadı. Veritabanı zaten temiz!");
+          }
+        } catch (error) {
+          console.error("Silme hatası:", error);
+          alert("Silinirken hata oluştu.");
+        } finally {
+          cleanDupBtn.textContent = "Çift Eklenenleri Sil";
+          cleanDupBtn.disabled = false;
+        }
+      });
+    }
+
+    // Seed Data (Örnek Ürünleri Yükle)
+    const seedBtn = document.getElementById('seedBtn');
+    seedBtn.addEventListener('click', async () => {
+      if (!confirm("Kıymalı tost, serpme kahvaltı gibi eklediğimiz tüm örnek ürünler veritabanına kalıcı olarak eklenecek. Onaylıyor musunuz?")) return;
+
+      seedBtn.disabled = true;
+      seedBtn.textContent = "Yükleniyor...";
+
+      const isMenu = window.currentCollection === 'menuItems';
+      const dummyItems = isMenu ? [
+        { name: 'Serpme Kahvaltı', price: 1400, category: 'kahvalti', order: 1, desc: 'Taze köy yumurtası, organik reçeller, çeşitli peynirler, zeytinler ve sınırsız çay ile hazırlanan zengin kahvaltı sofrası.' },
+        { name: 'Kahvaltı Tabağı', price: 510, category: 'kahvalti', order: 2, desc: 'Hızlı ve doyurucu bir başlangıç için özenle seçilmiş peynir, zeytin, domates ve yumurtadan oluşan klasik kahvaltı tabağı.' },
+        { name: 'Omlet', price: 180, category: 'kahvalti', order: 3, desc: 'Tereyağında tam kıvamında pişirilmiş, içi yumuşacık klasik sade omlet.' },
+        { name: 'Menemen', price: 200, category: 'kahvalti, yemek', order: 4, desc: 'Mevsim domatesleri, taze yeşil biber ve köy yumurtası ile hazırlanan sıcacık menemen.' },
+        { name: 'Patates Kızartması', price: 150, category: 'kahvalti, yemek', order: 5, desc: 'Çıtır çıtır, altın renginde kızarmış taze patatesler.' },
+        { name: 'Kıymalı Tost', price: 160, category: 'tostlar', order: 1, desc: 'Özel baharatlarla kavrulmuş bol kıymalı çıtır tost.' },
+        { name: 'Kıyma Kaşar Tost', price: 170, category: 'tostlar', order: 2, desc: 'Kavrulmuş kıyma ve eriyen sıcak kaşar peyniri.' },
+        { name: 'Kıymalı Bomba Tost', price: 210, category: 'tostlar', order: 3, desc: 'İçi bol kıymalı ve zengin malzemeli özel bomba tost.' },
+        { name: 'Kıyma Yumurta Tost', price: 170, category: 'tostlar', order: 4, desc: 'Kavrulmuş kıyma ve yumurtanın doyurucu uyumu.' },
+        { name: 'Sucuklu Tost', price: 140, category: 'tostlar', order: 5, desc: 'Kaliteli sucuk dilimleriyle hazırlanan klasik lezzet.' },
+        { name: 'Kaşarlı Tost', price: 120, category: 'tostlar', order: 6, desc: 'Eriyen taze kaşar peyniriyle sıcacık klasik tost.' },
+        { name: 'Yumurtalı Tost', price: 130, category: 'tostlar', order: 7, desc: 'Tost ekmeği arasında taze çırpılmış yumurta.' },
+        { name: 'Sucuk Kaşar Tost', price: 150, category: 'tostlar', order: 8, desc: 'Bol sucuk ve eriyen kaşarın efsanevi buluşması.' },
+        { name: 'Bomba Tost', price: 200, category: 'tostlar', order: 9, desc: 'İçinde yok yok! Enfes malzemelerle dolu özel bomba tost.' },
+
+        { name: 'Saç Kavurma', price: 350, category: 'yemek', desc: 'Kendi suyunda özel baharatlarla ağır ağır pişmiş enfes saç kavurma.' },
+        { name: 'Köfte Porsiyon', price: 280, category: 'yemek', desc: 'Özel baharatlarla yoğrulmuş ızgara köfte porsiyon.' },
+        { name: 'Köfte Ekmek', price: 180, category: 'yemek', desc: 'Sıcak ekmek arası enfes ızgara köfte.' },
+        { name: 'Tavuk Sote', price: 240, category: 'yemek', desc: 'Mevsim sebzeleri ile sotelenmiş taze tavuk göğsü.' },
+
+        { name: 'Patatesli Gözleme', price: 120, category: 'gozlemeler', order: 1, desc: 'Taze yufka içinde özel baharatlı patates harcı.' },
+        { name: 'Kaşarlı Gözleme', price: 130, category: 'gozlemeler', order: 2, desc: 'Eriyen taze kaşar peyniriyle sıcacık gözleme.' },
+        { name: 'Otlu (Sebzeli) Gözleme', price: 120, category: 'gozlemeler', order: 3, desc: 'Mevsim yeşillikleri ve özel harçla hazırlanmış gözleme.' },
+        { name: 'Peynirli Gözleme', price: 125, category: 'gozlemeler', order: 4, desc: 'Klasik beyaz peynirli nefis el açması gözleme.' },
+        { name: 'Tahinli Gözleme', price: 140, category: 'gozlemeler', order: 5, desc: 'Tahin ve şekerin eşsiz uyumu.' },
+        { name: 'Ballı Gözleme', price: 140, category: 'gozlemeler', order: 6, desc: 'Özel süzme bal ile tatlandırılmış gözleme.' },
+        { name: 'Çikolatalı Gözleme', price: 130, category: 'gozlemeler', order: 7, desc: 'Bol akışkan çikolatalı tatlı gözleme.' },
+        { name: 'Kıymalı Gözleme', price: 160, category: 'gozlemeler', order: 8, desc: 'Kavrulmuş kıyma harcı ile hazırlanan doyurucu gözleme.' },
+        { name: '2 Malzeme Karışık', price: 150, category: 'gozlemeler', order: 9, desc: 'Seçeceğiniz 2 farklı malzeme ile hazırlanan karışık gözleme.' },
+        { name: '3 Malzeme Karışık', price: 170, category: 'gozlemeler', order: 10, desc: 'Seçeceğiniz 3 farklı malzeme ile hazırlanan dolu dolu gözleme.' },
+
+        { name: 'Süzme Mercimek Çorbası', price: 110, category: 'corbalar', desc: 'Tereyağlı sos eşliğinde, sıcacık ve şifa dolu geleneksel mercimek çorbası.' },
+
+        { name: 'Sezar Salata', price: 180, category: 'salata', desc: 'Özel Sezar sosu, kruton ve parmesan peyniri ile harmanlanmış taze yeşillikler.' },
+        { name: 'San Sebastian', price: 140, category: 'tatli', desc: 'İçi akışkan, üzeri hafif yanık orijinal tarifiyle enfes cheesecake.' },
+
+        { name: 'Lavanta Çayı', price: 60, category: 'sicak-icecek', desc: 'Salda nın meşhur lavanta tarlalarından toplanan taze lavanta çayı.' },
+        { name: 'Türk Kahvesi', price: 70, category: 'sicak-icecek', desc: 'Geleneksel yöntemlerle bol köpüklü hazırlanmış Türk kahvesi.' },
+        { name: 'Çay', price: 20, category: 'sicak-icecek', desc: 'İnce belli bardakta tavşan kanı taze demlenmiş çay.' },
+        { name: 'Ihlamur', price: 50, category: 'sicak-icecek', desc: 'Şifa kaynağı taze yaprak ıhlamur.' },
+        { name: 'Kekik Çayı', price: 50, category: 'sicak-icecek', desc: 'Ferahlatıcı dağ kekiğinden demlenmiş sıcak çay.' },
+        { name: 'Nane Limon', price: 55, category: 'sicak-icecek', desc: 'Taze nane ve limon ile kaynatılmış sıcacık şifa.' },
+        { name: 'Salep', price: 80, category: 'sicak-icecek', desc: 'Tarçın serpilmiş sımsıcak geleneksel kış içeceği.' },
+
+        { name: 'Lavanta Gazozu', price: 50, category: 'soguk-icecek', desc: 'Salda nın yöresel lavantasıyla aromalandırılmış serinletici gazoz.' },
+        { name: 'Lavantalı Limonata', price: 85, category: 'soguk-icecek', desc: 'Taze sıkım limon suyu ve lavanta özleriyle hazırlanan ferahlatıcı yaz içeceği.' },
+        { name: 'Limonata', price: 70, category: 'soguk-icecek', desc: 'Ev yapımı, taze sıkılmış serinletici limonata.' },
+        { name: 'Zafer Gazoz', price: 40, category: 'soguk-icecek', desc: 'Yılların eskitemediği efsanevi Zafer gazoz.' },
+        { name: 'Kola', price: 45, category: 'soguk-icecek', desc: 'Soğuk servis edilen kutu kola.' },
+        { name: 'Fanta', price: 45, category: 'soguk-icecek', desc: 'Soğuk servis edilen kutu fanta.' },
+        { name: 'Soda', price: 30, category: 'soguk-icecek', desc: 'Sade mineralli su.' },
+        { name: 'Meyveli Soda', price: 35, category: 'soguk-icecek', desc: 'Soğuk meyveli maden suyu.' },
+        { name: 'Meyve Suyu', price: 35, category: 'soguk-icecek', desc: 'Karışık veya şeftalili kutu meyve suyu.' },
+        { name: 'Su', price: 15, category: 'soguk-icecek', desc: 'Pet şişe doğal kaynak suyu.' },
+        { name: 'Ice Tea', price: 45, category: 'soguk-icecek', desc: 'Şeftali veya limon aromalı soğuk çay.' }
+      ] : [
+        { name: 'Lavanta Hediye Paketi', price: 450, category: 'paketler', order: 1, desc: 'İçerisinde lavanta sabunu, lavanta kesesi ve doğal lavanta yağı bulunan özel tasarım hediye kutusu.' },
+        { name: 'Doğal Lavanta Sabunu', price: 75, category: 'sabunlar', order: 1, desc: 'Cildi nemlendiren, tamamen doğal yöntemlerle üretilmiş el yapımı lavanta sabunu.' },
+        { name: 'Saf Lavanta Yağı', price: 120, category: 'dogal-yaglar', order: 1, desc: 'Rahatlatıcı etkisiyle bilinen soğuk sıkım %100 saf lavanta yağı (20ml).' },
+        { name: 'Lavanta Kolonyası', price: 90, category: 'kolonya-kozmetik', order: 1, desc: 'Ferahlatıcı ve kalıcı kokusuyla Salda hatırası özel üretim lavanta kolonyası.' },
+        { name: 'Lavanta Çiçeği Balı', price: 250, category: 'dogal-urunler', order: 1, desc: 'Sadece lavanta çiçeklerinden elde edilen, yoğun aromalı organik süzme bal.' },
+        { name: 'Salda Gölü Magneti', price: 35, category: 'magnet-acacak', order: 1, desc: 'Buzdolabınızı süsleyecek ahşap tasarımlı özel Salda Gölü magneti.' },
+        { name: 'Kurutulmuş Lavanta Buketi', price: 85, category: 'oda-susleri', order: 1, desc: 'Evinizin havasını değiştirecek, aylarca kokusunu koruyan doğal lavanta buketi.' }
+      ];
+
+      try {
+        const snapshot = await getDocs(collection(db, window.currentCollection));
+        const existingItems = [];
+        snapshot.forEach(docSnap => {
+          existingItems.push({ id: docSnap.id, ...docSnap.data() });
+        });
+
+        let updatedCount = 0;
+        let addedCount = 0;
+        for (const item of dummyItems) {
+          const existingDoc = existingItems.find(x => x.name === item.name);
+          if (!existingDoc) {
+            await addDoc(collection(db, window.currentCollection), item);
+            addedCount++;
+          } else if (!existingDoc.order || existingDoc.order !== item.order) {
+            // Eğer var olan ürünün sırası yoksa veya farklıysa, sadece sırayı (ve eksikse category vs.) güncelle
+            await updateDoc(doc(db, window.currentCollection, existingDoc.id), {
+              order: item.order || 99
+            });
+            updatedCount++;
+          }
+        }
+
+        if (addedCount > 0 || updatedCount > 0) {
+          alert(`İşlem tamam! ${addedCount} yeni ürün eklendi, ${updatedCount} ürünün sırası güncellendi.`);
+        } else {
+          alert("Tüm örnek ürünler zaten veritabanında mevcut!");
+        }
+
+        loadMenuItems();
+      } catch (error) {
+        alert("Hata oluştu: " + error.message);
+      } finally {
+        seedBtn.style.display = "none";
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener('click', () => {
+      signOut(auth);
+    });
+
+    // Load Menu Items
+    async function loadMenuItems() {
+      menuItemsList.innerHTML = '<p>Yükleniyor...</p>';
+      try {
+        const querySnapshot = await getDocs(collection(db, window.currentCollection));
+        const allItems = [];
+        querySnapshot.forEach((docSnap) => {
+          allItems.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        
+        window.adminAllItems = allItems;
+        renderAdminCategoryGrid();
+
+      } catch (error) {
+        console.error("Veri çekme hatası: ", error);
+        menuItemsList.innerHTML = '<p>Menü yüklenirken bir hata oluştu.</p>';
+      }
+    }
+    
+    function renderAdminCategoryGrid() {
+      const menuImages = {
+        'kahvalti': 'images/breakfast.jpg', 'tostlar': 'images/breakfast.jpg',
+        'yemek': 'images/mekan-1.jpg', 'gozlemeler': 'images/breakfast.jpg',
+        'corbalar': 'images/mekan-1.jpg', 'salata': 'images/salda-hero.png',
+        'tatli': 'images/dessert.jpg', 'sicak-icecek': 'images/header-bg.jpg',
+        'soguk-icecek': 'images/lemonade.jpg'
+      };
+      const isMenu = window.currentCollection === 'menuItems';
+      const menuTitles = isMenu ? {
+        'kahvalti': 'KAHVALTI', 'tostlar': 'TOSTLAR', 'yemek': 'YEMEK',
+        'gozlemeler': 'GÖZLEMELER', 'corbalar': 'ÇORBALAR', 'salata': 'SALATA',
+        'tatli': 'TATLI', 'sicak-icecek': 'SICAK İÇECEK', 'soguk-icecek': 'SOĞUK İÇECEK'
+      } : {
+        'paketler': 'Paketler', 'sabunlar': 'Sabunlar', 'dogal-yaglar': 'Doğal Yağlar',
+        'kolonya-kozmetik': 'Kolonya & Kozmetik', 'dogal-urunler': 'Doğal Ürünler',
+        'magnet-acacak': 'Magnet & Açacak', 'oda-susleri': 'Oda Süsleri', 'diger': 'Diğer'
+      };
+      const order = isMenu ? ['kahvalti', 'tostlar', 'yemek', 'gozlemeler', 'corbalar', 'salata', 'tatli', 'sicak-icecek', 'soguk-icecek'] 
+                           : ['paketler', 'sabunlar', 'dogal-yaglar', 'kolonya-kozmetik', 'dogal-urunler', 'magnet-acacak', 'oda-susleri', 'diger'];
+      
+      adminCategoryGrid.innerHTML = '';
+      adminCategoryGrid.style.display = 'grid';
+      menuItemsList.style.display = 'none';
+      showAllCatsBtn.style.display = 'none';
+      
+      order.forEach(cat => {
+        const card = document.createElement('div');
+        card.style.cssText = "background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); cursor: pointer; text-align: center;";
+        card.innerHTML = `
+          <img src="${menuImages[cat] || 'images/header-bg.jpg'}" alt="${menuTitles[cat]}" style="width: 100%; height: 100px; object-fit: cover; display: block;">
+          <h3 style="padding: 0.5rem; margin: 0; font-size: 0.9rem; font-weight: bold;">${menuTitles[cat]}</h3>
+        `;
+        card.addEventListener('click', () => {
+          renderItemsForCategory(cat);
+        });
+        adminCategoryGrid.appendChild(card);
+      });
+    }
+    
+    if(showAllCatsBtn) {
+      showAllCatsBtn.addEventListener('click', () => {
+        renderAdminCategoryGrid();
+      });
+    }
+
+    function renderItemsForCategory(categoryId) {
+      adminCategoryGrid.style.display = 'none';
+      menuItemsList.style.display = 'grid';
+      menuItemsList.style.gridTemplateColumns = 'repeat(auto-fill, minmax(220px, 1fr))';
+      menuItemsList.style.gap = '1.5rem';
+      showAllCatsBtn.style.display = 'block';
+      menuItemsList.innerHTML = '';
+      
+      const filtered = window.adminAllItems.filter(item => {
+         const cats = item.categories || (item.category ? item.category.split(',').map(c => c.trim()) : []);
+         return cats.includes(categoryId);
+      });
+      
+      if(filtered.length === 0) {
+        menuItemsList.innerHTML = '<p style="grid-column: 1 / -1;">Bu kategoride ürün bulunmuyor.</p>';
+        return;
+      }
+      
+      filtered.sort((a, b) => {
+        const orderA = (a.order !== undefined && a.order !== null && a.order !== '') ? Number(a.order) : 999;
+        const orderB = (b.order !== undefined && b.order !== null && b.order !== '') ? Number(b.order) : 999;
+        return orderA - orderB;
+      });
+      
+      filtered.forEach((item) => {
+        const cats = item.categories ? item.categories.join(', ') : (item.category || '');
+        const orderText = item.order ? ` | Sıra: ${item.order}` : '';
+        const imgSrc = item.imageUrl || '';
+        const imgTag = imgSrc ? `<img src="${imgSrc}" style="width: 100%; height: 160px; object-fit: cover;">` : `<div style="width: 100%; height: 160px; background-color: #f1f5f9; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-weight: bold;">Fotoğraf Yok</div>`;
+        
+        const div = document.createElement('div');
+        div.style.cssText = "display: flex; flex-direction: column; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0;";
+        div.innerHTML = `
+          ${imgTag}
+          <div style="padding: 1rem; display: flex; flex-direction: column; flex: 1;">
+            <strong style="font-size: 1.1rem; color: #1e293b; margin-bottom: 0.5rem;">${item.name}</strong>
+            <span style="color: #0ea5e9; font-weight: 800; font-size: 1.25rem; margin-bottom: 0.5rem;">${item.price} ₺</span>
+            <small style="color: #64748b; margin-bottom: 1rem; flex: 1;">Kategoriler: ${cats}${orderText}</small>
+            
+            <div style="display: flex; gap: 0.5rem; margin-top: auto;">
+              <button class="btn btn-edit" style="flex: 1; padding: 0.5rem; background-color: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}" data-order="${item.order || ''}" data-desc="${item.desc || ''}" data-category="${cats}" data-imageurl="${imgSrc}">Düzenle</button>
+              <button class="btn btn-delete" style="flex: 1; padding: 0.5rem; background-color: #ef4444; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;" data-id="${item.id}">Sil</button>
+            </div>
+          </div>
+        `;
+        menuItemsList.appendChild(div);
+      });
+      
+      // Bind events to new buttons
+        document.querySelectorAll('.btn-edit').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            editIdInput.value = e.target.dataset.id;
+            itemNameInput.value = e.target.dataset.name;
+            itemPriceInput.value = e.target.dataset.price;
+            itemOrderInput.value = e.target.dataset.order;
+            itemDescInput.value = e.target.dataset.desc;
+            window.editingImageUrl = e.target.dataset.imageurl || '';
+            document.getElementById('itemImage').value = '';
+
+            const itemCats = e.target.dataset.category.split(',').map(c => c.trim());
+            const currentCheckboxes = document.querySelectorAll('#categoryCheckboxes input[type="checkbox"]');
+            currentCheckboxes.forEach(cb => {
+              cb.checked = itemCats.includes(cb.value);
+            });
+
+            formTitle.textContent = "Ürünü Düzenle";
+            saveItemBtn.textContent = "Güncelle";
+            cancelEditBtn.style.display = "inline-block";
+            window.scrollTo(0, 0);
+          });
+        });
+
+        document.querySelectorAll('.btn-delete').forEach(btn => {
+          btn.addEventListener('click', async (e) => {
+            if (confirm('Bu ürünü silmek istediğinize emin misiniz?')) {
+              await deleteDoc(doc(db, window.currentCollection, e.target.dataset.id));
+              loadMenuItems();
+            }
+          });
+        });
+    }
+
+    // Save/Update Item
+    saveItemBtn.addEventListener('click', async () => {
+      const name = itemNameInput.value.trim();
+      const price = Number(itemPriceInput.value);
+      const order = Number(itemOrderInput.value) || 99;
+      const desc = itemDescInput.value.trim();
+
+      const selectedCats = [];
+      const currentCheckboxes = document.querySelectorAll('#categoryCheckboxes input[type="checkbox"]');
+      currentCheckboxes.forEach(cb => {
+        if (cb.checked) selectedCats.push(cb.value);
+      });
+      const category = selectedCats.join(',');
+
+      const id = editIdInput.value;
+
+      if (!name || !price) {
+        alert("Lütfen ürün adı ve fiyatını giriniz.");
+        return;
+      }
+      if (selectedCats.length === 0) {
+        alert("Lütfen en az bir kategori seçiniz.");
+        return;
+      }
+
+      saveItemBtn.disabled = true;
+      const originalText = saveItemBtn.textContent;
+      saveItemBtn.textContent = "Fotoğraf yükleniyor, lütfen bekleyin...";
+
+      try {
+        let imageUrl = window.editingImageUrl || '';
+        const fileInput = document.getElementById('itemImage');
+        if (fileInput.files.length > 0) {
+           const file = fileInput.files[0];
+           const storageRef = ref(storage, window.currentCollection + '/' + Date.now() + '_' + file.name);
+           await uploadBytes(storageRef, file);
+           imageUrl = await getDownloadURL(storageRef);
+        }
+
+        const itemData = {
+          name, price, order, desc, categories: selectedCats, category
+        };
+        if (imageUrl) {
+          itemData.imageUrl = imageUrl;
+        }
+
+        saveItemBtn.textContent = "Kaydediliyor...";
+        if (id) {
+          await updateDoc(doc(db, window.currentCollection, id), itemData);
+        } else {
+          await addDoc(collection(db, window.currentCollection), itemData);
+        }
+
+        resetForm();
+        // Return to categories view implicitly by loadMenuItems since it renders the grid first
+        loadMenuItems();
+      } catch (error) {
+        console.error("Hata: ", error);
+        alert("Kaydedilirken hata oluştu!");
+      } finally {
+        saveItemBtn.disabled = false;
+        saveItemBtn.textContent = originalText;
+      }
+    });
+
+    // Cancel Edit
+    cancelEditBtn.addEventListener('click', () => {
+      resetForm();
+    });
+
+    function resetForm() {
+      editIdInput.value = '';
+      itemNameInput.value = '';
+      itemPriceInput.value = '';
+      itemOrderInput.value = '';
+      itemDescInput.value = '';
+      const fileInput = document.getElementById('itemImage');
+      if (fileInput) fileInput.value = '';
+      window.editingImageUrl = '';
+      const currentCheckboxes = document.querySelectorAll('#categoryCheckboxes input[type="checkbox"]');
+      if (currentCheckboxes) currentCheckboxes.forEach(cb => cb.checked = false);
+      formTitle.textContent = "Yeni Ürün Ekle";
+      saveItemBtn.textContent = "Kaydet";
+      cancelEditBtn.style.display = "none";
+    }
+  </script>
+</body>
+
+</html>

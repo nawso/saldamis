@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Dijital Menü - Saldamis Aile Restoranı & Kafe</title>
+  <meta name="description"
+    content="Saldamis Aile Restoranı tüm güncel menüsü. Kahvaltı, ızgara, lavanta ürünleri ve içecek çeşitlerimizi inceleyin.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Stil Dosyası -->
+  <link rel="stylesheet" href="style.css?v=14">
+
+  <!-- Tema Tercihini Erken Uygula -->
+  <script>
+    if (localStorage.getItem('saldamisTheme') === 'dark') {
+      document.documentElement.classList.add('dark-theme');
+      document.addEventListener('DOMContentLoaded', () => document.body.classList.add('dark-theme'));
+    }
+  </script>
+
+  <!-- Sadece bu sayfa için Font Override -->
+  <style>
+    :root {
+      --font-heading: 'Montserrat', sans-serif;
+      --font-sans: 'Playfair Display', serif;
+    }
+  </style>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- SEO & Open Graph Meta Tags -->
+  <meta name="description" content="Salda Gölü'nün eşsiz manzarasında, doğal ürünlerle hazırlanan serpme kahvaltı, yöresel lezzetler ve özel hediyelik eşyalar.">
+  <meta property="og:title" content="Saldamis | Doğal Kahvaltı & Hediyelik">
+  <meta property="og:description" content="Salda Gölü'nün eşsiz manzarasında, doğal ürünlerle hazırlanan serpme kahvaltı, yöresel lezzetler ve özel hediyelik eşyalar.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/username/saldamis/main/images/header-bg.jpg">
+  <meta property="og:url" content="https://saldamis.com">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body>
+  <!-- PRELOADER -->
+  <div id="preloader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ffffff; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s ease;">
+    <div style="width: 60px; height: 60px; border: 5px solid #e2e8f0; border-top: 5px solid #7c3aed; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1rem;"></div>
+    <h2 style="font-family: 'Playfair Display', serif; color: #4c1d95; margin: 0; font-size: 1.5rem; letter-spacing: 1px;">Saldamis</h2>
+    <style>
+      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+  </div>
+  <script>
+    window.addEventListener('load', () => {
+      const preloader = document.getElementById('preloader');
+      if(preloader) {
+        preloader.style.opacity = '0';
+        setTimeout(() => preloader.style.visibility = 'hidden', 600);
+      }
+    });
+  </script>
+
+  <!-- ==========================================================================
+       NAVİGASYON (HEADER)
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container header-container">
+
+      <div class="brand-and-theme" style="display: flex; align-items: center; gap: 1rem;">
+        <div class="left-header-actions">
+          <!-- Tema Değiştirme Butonu -->
+          <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Tema Değiştir">
+            <i data-lucide="moon" class="theme-icon-moon"></i>
+            <i data-lucide="sun" class="theme-icon-sun"></i>
+          </button>
+        </div>
+
+        <!-- Marka Başlığı -->
+        <a href="index.html" class="brand-wrapper" title="Saldamis Cafe & Restoran">
+          <div class="brand-text-block">
+            <span class="brand-title">
+              SALDA<span class="accent-lavender">MIS</span>
+            </span>
+            <span class="brand-subtitle">Aile Restoranı & Hediyelik Eşya</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Masaüstü Navigasyon -->
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html#hakkimizda" class="nav-link">Hakkımızda</a></li>
+          <li><a href="menu.html" class="nav-link">Menü & İmzalar</a></li>
+          <li><a href="index.html#turlar" class="nav-link">Tur & Gruplar (B2B)</a></li>
+          <li><a href="hediyelik.html" class="nav-link">Lavanta Dükkanı</a></li>
+          <li><a href="index.html#rehber" class="nav-link">Salda Rehberi</a></li>
+          <li><a href="index.html#yorumlar" class="nav-link">Yorumlar</a></li>
+          <li><a href="index.html#iletisim" class="nav-link">İletişim & Konum</a></li>
+        </ul>
+      </nav>
+
+      <!-- Sağ Aksiyonlar: Sepet & Rezervasyon & Mobil Menü -->
+      <div class="header-actions">
+
+
+        <!-- Dil Seçeneği (Translate) -->
+        <div class="lang-dropdown" style="position: relative; display: inline-block;">
+          <button class="lang-btn" id="langBtn"
+            style="display: flex; align-items: center; gap: 0.5rem; background: var(--c-white); border: 1px solid var(--c-sand-200); padding: 0.4rem 0.75rem; border-radius: 9999px; cursor: pointer; font-family: var(--font-body); font-weight: 600; color: var(--c-dark-700); transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <img src="https://flagcdn.com/w20/tr.png" alt="TR" style="width: 20px; border-radius: 2px;">
+            <span style="display: none;" class="lang-text-desktop">Türkçe</span>
+            <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+          </button>
+
+          <div class="lang-menu" id="langMenu"
+            style="display: none; position: absolute; top: 120%; right: 0; background: var(--c-white); border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 140px; overflow: hidden; z-index: 1000; border: 1px solid var(--c-sand-100);">
+            <button class="lang-item" data-lang="tr" data-lang-name="Türkçe" data-flag="tr"
+              style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.75rem 1rem; border: none; background: transparent; cursor: pointer; text-align: left; font-family: var(--font-body); font-weight: 500; color: var(--c-dark-700);">
+              <img src="https://flagcdn.com/w20/tr.png" alt="TR" style="width: 20px; border-radius: 2px;"> Türkçe
+            </button>
+            <button class="lang-item" data-lang="en" data-lang-name="English" data-flag="gb"
+              style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.75rem 1rem; border: none; background: transparent; cursor: pointer; text-align: left; font-family: var(--font-body); font-weight: 500; color: var(--c-dark-700);">
+              <img src="https://flagcdn.com/w20/gb.png" alt="EN" style="width: 20px; border-radius: 2px;"> English
+            </button>
+            <button class="lang-item" data-lang="ru" data-lang-name="Русский" data-flag="ru"
+              style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.75rem 1rem; border: none; background: transparent; cursor: pointer; text-align: left; font-family: var(--font-body); font-weight: 500; color: var(--c-dark-700);">
+              <img src="https://flagcdn.com/w20/ru.png" alt="RU" style="width: 20px; border-radius: 2px;"> Русский
+            </button>
+            <button class="lang-item" data-lang="de" data-lang-name="Deutsch" data-flag="de"
+              style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.75rem 1rem; border: none; background: transparent; cursor: pointer; text-align: left; font-family: var(--font-body); font-weight: 500; color: var(--c-dark-700);">
+              <img src="https://flagcdn.com/w20/de.png" alt="DE" style="width: 20px; border-radius: 2px;"> Deutsch
+            </button>
+            <button class="lang-item" data-lang="it" data-lang-name="Italiano" data-flag="it"
+              style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.75rem 1rem; border: none; background: transparent; cursor: pointer; text-align: left; font-family: var(--font-body); font-weight: 500; color: var(--c-dark-700);">
+              <img src="https://flagcdn.com/w20/it.png" alt="IT" style="width: 20px; border-radius: 2px;"> Italiano
+            </button>
+            <button class="lang-item" data-lang="es" data-lang-name="Español" data-flag="es"
+              style="display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 0.75rem 1rem; border: none; background: transparent; cursor: pointer; text-align: left; font-family: var(--font-body); font-weight: 500; color: var(--c-dark-700);">
+              <img src="https://flagcdn.com/w20/es.png" alt="ES" style="width: 20px; border-radius: 2px;"> Español
+            </button>
+          </div>
+        </div>
+
+        <style>
+          .lang-item:hover {
+            background-color: var(--c-sand-50) !important;
+            color: var(--c-salda-600) !important;
+          }
+
+          .lang-btn:hover {
+            background-color: var(--c-sand-50);
+            border-color: var(--c-salda-200);
+          }
+
+          @media(min-width: 768px) {
+            .lang-text-desktop {
+              display: inline-block !important;
+            }
+          }
+
+          /* Google Translate Orijinal Arayüzünü Gizleme */
+          .skiptranslate iframe {
+            display: none !important;
+          }
+
+          body {
+            top: 0px !important;
+          }
+
+          .goog-te-banner-frame {
+            display: none !important;
+          }
+
+          #goog-gt-tt {
+            display: none !important;
+          }
+
+          .goog-text-highlight {
+            background-color: transparent !important;
+            box-shadow: none !important;
+          }
+        </style>
+
+        <!-- Dükkan Sepet Butonu (Aşama 2'de Aktif Olacak) -->
+        <button class="cart-toggle-btn" id="cartToggleBtn" aria-label="Alışveriş Sepeti" style="display:none;">
+          <i data-lucide="shopping-bag" style="width:20px; height:20px;"></i>
+          <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
+        </button>
+
+        <!-- Hızlı Masa / Grup Rezervasyon Butonu -->
+        <a href="index.html#turlar" class="btn btn-primary btn-sm">
+          <i data-lucide="calendar-check" style="width:16px; height:16px;"></i>
+          <span>Rezervasyon</span>
+        </a>
+
+        <!-- Mobil Menü Aç/Kapat Butonu -->
+        <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Menüyü Aç">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       SAYFA BAŞLIĞI (HERO IMAGE)
+       ========================================================================== -->
+  <section class="menu-header-banner"
+    style="height: 30vh; min-height: 250px; max-height: 350px; width: 100%; position: relative; z-index: 0; margin-top: -50px;">
+    <img src="images/menuhero.jpg" alt="Saldamis Menü"
+      style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+  </section>
+
+  <!-- ==========================================================================
+       EN SEVİLENLER
+       ========================================================================== -->
+  <section class="popular-section"
+    style="position: relative; z-index: 10; margin-top: -30px; padding: 2.5rem 0 1rem; background-color: var(--c-white); border-radius: 30px 30px 0 0; box-shadow: 0 -5px 15px rgba(0,0,0,0.05);">
+    <div class="container">
+      <h2
+        style="font-size: 1.4rem; font-family: var(--font-heading); color: var(--c-dark-900); margin-bottom: 1.2rem; font-weight: 800;">
+        EN SEVİLENLER</h2>
+      <div
+        style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scrollbar-width: none; -ms-overflow-style: none;">
+
+        <div class="popular-card"
+          style="min-width: 150px; flex: 0 0 auto; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--c-sand-200);">
+          <div style="height: 150px;">
+            <img src="images/breakfast.jpg" alt="En Sevilen 1" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div style="padding: 0.8rem; text-align: center; background-color: var(--c-white);">
+            <h3 style="font-size: 0.95rem; color: var(--c-dark-800); margin: 0 0 0.2rem 0; font-weight: 700;">Serpme
+              Kahvaltı</h3>
+            <span style="font-size: 0.85rem; color: var(--c-salda-600); font-weight: 700;">350 ₺</span>
+          </div>
+        </div>
+
+        <div class="popular-card"
+          style="min-width: 150px; flex: 0 0 auto; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--c-sand-200);">
+          <div style="height: 150px;">
+            <img src="images/lemonade.jpg" alt="En Sevilen 2" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div style="padding: 0.8rem; text-align: center; background-color: var(--c-white);">
+            <h3 style="font-size: 0.95rem; color: var(--c-dark-800); margin: 0 0 0.2rem 0; font-weight: 700;">Lavantalı
+              Limonata</h3>
+            <span style="font-size: 0.85rem; color: var(--c-salda-600); font-weight: 700;">85 ₺</span>
+          </div>
+        </div>
+
+        <div class="popular-card"
+          style="min-width: 150px; flex: 0 0 auto; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--c-sand-200);">
+          <div style="height: 150px;">
+            <img src="images/dessert.jpg" alt="En Sevilen 3" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div style="padding: 0.8rem; text-align: center; background-color: var(--c-white);">
+            <h3 style="font-size: 0.95rem; color: var(--c-dark-800); margin: 0 0 0.2rem 0; font-weight: 700;">San
+              Sebastian</h3>
+            <span style="font-size: 0.85rem; color: var(--c-salda-600); font-weight: 700;">140 ₺</span>
+          </div>
+        </div>
+
+        <div class="popular-card"
+          style="min-width: 150px; flex: 0 0 auto; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--c-sand-200);">
+          <div style="height: 150px;">
+            <img src="images/mekan-1.jpg" alt="En Sevilen 4" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div style="padding: 0.8rem; text-align: center; background-color: var(--c-white);">
+            <h3 style="font-size: 0.95rem; color: var(--c-dark-800); margin: 0 0 0.2rem 0; font-weight: 700;">Türk
+              Kahvesi</h3>
+            <span style="font-size: 0.85rem; color: var(--c-salda-600); font-weight: 700;">60 ₺</span>
+          </div>
+        </div>
+
+      </div>
+      <style>
+        .popular-section ::-webkit-scrollbar {
+          display: none;
+        }
+      </style>
+    </div>
+  </section>
+
+
+
+  <!-- ==========================================================================
+       TAM MENÜ KATEGORİLERİ
+       ========================================================================== -->
+  <section class="section-spacing" style="padding-top: 2rem;">
+    <div class="container" id="menuContainer">
+      <div style="text-align: center; padding: 4rem;">
+        <i data-lucide="loader"
+          style="width:32px; height:32px; color:var(--c-lavender-600); animation: spin 1s linear infinite;"></i>
+        <p style="font-size: 1.2rem; color: var(--c-muted); margin-top: 1rem;">Saldamis Menüsü Yükleniyor...</p>
+        <style>
+          @keyframes spin {
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+        </style>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       ALT BİLGİ (FOOTER)
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>SALDA<span style="color:#a78bfa;">MİS</span></h3>
+          <p>
+            Doğanın kalbinde, Salda'nın beyaz kumları ve lavantanın büyülü kokusu eşliğinde unutulmaz bir lezzet
+            deneyimi.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <h4>Hızlı Bağlantılar</h4>
+          <a href="index.html">Ana Sayfa</a>
+          <a href="menu.html">Dijital Menü</a>
+          <a href="index.html#iletisim">İletişim & Harita</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Saldamis Aile Restoranı. Tüm hakları saklıdır.</div>
+        <div style="font-size:0.8rem; color:#475569;">Burdur, Yeşilova - Salda Gölü</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       SEPET ÇEKMECESİ (CART DRAWER)
+       ========================================================================== -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+      <h3>Sipariş Sepetim</h3>
+      <button class="cart-close-btn" id="cartCloseBtn">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    <!-- Sepet Boşken -->
+    <div class="cart-empty-message" id="cartEmptyState">
+      <i data-lucide="shopping-bag" style="width:48px; height:48px; color:#cbd5e1;"></i>
+      <p>Sepetiniz şu an boş.</p>
+    </div>
+
+    <!-- Sepet Doluyken -->
+    <div class="cart-drawer-body" id="cartItemsContainer" style="display:none;">
+      <!-- İçerik JS ile buraya eklenecek -->
+    </div>
+
+    <div class="cart-drawer-footer">
+      <div class="cart-total-line">
+        <span>Toplam Tutar:</span>
+        <span id="cartTotalAmount" style="color:#7c3aed;">0 ₺</span>
+      </div>
+      <a href="#" id="cartCheckoutBtn" target="_blank" class="btn btn-whatsapp" style="width:100%;">
+        <i data-lucide="message-circle" style="width:18px; height:18px;"></i>
+        WhatsApp ile Siparişi Tamamla
+      </a>
+      <p style="text-align:center; font-size:0.75rem; color:#64748b; margin-top:0.6rem;">
+        Siparişiniz WhatsApp mesajı olarak yetkilimize iletilecektir.
+      </p>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       YÜZEN HIZLI İLETİŞİM AKSİYONLARI (FLOATING BAR)
+       ========================================================================== -->
+  <div class="floating-actions">
+    <button class="back-to-top" id="backToTopBtn" aria-label="Yukarı Çık">
+      <i data-lucide="arrow-up" style="width:20px; height:20px;"></i>
+    </button>
+    <a href="https://wa.me/905550000000?text=Merhaba,%20Saldamis%20hakkında%20bilgi%20almak%20istiyorum."
+      target="_blank" class="float-wa-btn" title="WhatsApp ile İletişim">
+      <i data-lucide="message-circle" style="width:28px; height:28px;"></i>
+    </a>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- FIREBASE DİNAMİK MENÜ YÜKLEYİCİ -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBY74WvWBN3taHZ2U8s-KLbZ8t3o7mPjlw",
+      authDomain: "saldamis.firebaseapp.com",
+      projectId: "saldamis",
+      storageBucket: "saldamis.firebasestorage.app",
+      messagingSenderId: "960732616510",
+      appId: "1:960732616510:web:78bca06f0063075d3dfe6f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const categoryTitles = {
+      'kahvalti': 'Kahvaltı',
+      'tostlar': 'Tostlar',
+      'yemek': 'Yemek',
+      'gozlemeler': 'Gözlemeler',
+      'corbalar': 'Çorbalar',
+      'salata': 'Salata',
+      'tatli': 'Tatlı',
+      'sicak-icecek': 'Sıcak İçecek',
+      'soguk-icecek': 'Soğuk İçecek'
+    };
+
+    async function loadMenu() {
+      const container = document.getElementById('menuContainer');
+      if (!container) return;
+
+      try {
+        const querySnapshot = await getDocs(collection(db, "menuItems"));
+
+        const grouped = {};
+        querySnapshot.forEach(docSnap => {
+          const item = docSnap.data();
+          // Bütün ürünler listelenecek
+
+          let cats = [];
+          if (Array.isArray(item.categories)) {
+            cats = item.categories;
+          } else if (item.category) {
+            cats = item.category.split(',').map(c => c.trim());
+          } else {
+            cats = ['diger'];
+          }
+
+          cats.forEach(c => {
+            if (!grouped[c]) grouped[c] = [];
+            grouped[c].push({ ...item, id: docSnap.id });
+          });
+        });
+
+        // TEMSİLİ ÜRÜNLER (Firebase'den ürün gelmeyen kategoriler için)
+        const dummyItems = [
+          { id: 'd1', name: 'Serpme Kahvaltı', price: '1.400', category: 'kahvalti', order: 1, image: 'images/breakfast.jpg', desc: 'Taze köy yumurtası, organik reçeller, çeşitli peynirler, zeytinler ve sınırsız çay ile hazırlanan zengin kahvaltı sofrası.' },
+          { id: 'd2', name: 'Kahvaltı Tabağı', price: '510', category: 'kahvalti', order: 2, image: 'images/breakfast.jpg', desc: 'Hızlı ve doyurucu bir başlangıç için özenle seçilmiş peynir, zeytin, domates ve yumurtadan oluşan klasik kahvaltı tabağı.' },
+          { id: 'd3', name: 'Omlet', price: '180', category: 'kahvalti', order: 3, image: 'images/breakfast.jpg', desc: 'Tereyağında tam kıvamında pişirilmiş, içi yumuşacık klasik sade omlet.' },
+          { id: 'd4', name: 'Menemen', price: '200', category: 'kahvalti, yemek', order: 4, image: 'images/breakfast.jpg', desc: 'Mevsim domatesleri, taze yeşil biber ve köy yumurtası ile hazırlanan sıcacık menemen.' },
+          { id: 'd5', name: 'Patates Kızartması', price: '150', category: 'kahvalti, yemek', order: 5, image: 'images/breakfast.jpg', desc: 'Çıtır çıtır, altın renginde kızarmış taze patatesler.' },
+
+          { id: 'd9', name: 'Kıymalı Tost', price: '160', category: 'tostlar', order: 1, image: 'images/breakfast.jpg', desc: 'Özel baharatlarla kavrulmuş bol kıymalı çıtır tost.' },
+          { id: 'd15', name: 'Kıyma Kaşar Tost', price: '170', category: 'tostlar', order: 2, image: 'images/breakfast.jpg', desc: 'Kavrulmuş kıyma ve eriyen sıcak kaşar peyniri.' },
+          { id: 'dt1', name: 'Kıymalı Bomba Tost', price: '210', category: 'tostlar', order: 3, image: 'images/breakfast.jpg', desc: 'İçi bol kıymalı ve zengin malzemeli özel bomba tost.' },
+          { id: 'd14', name: 'Kıyma Yumurta Tost', price: '170', category: 'tostlar', order: 4, image: 'images/breakfast.jpg', desc: 'Kavrulmuş kıyma ve yumurtanın doyurucu uyumu.' },
+          { id: 'd10', name: 'Sucuklu Tost', price: '140', category: 'tostlar', order: 5, image: 'images/breakfast.jpg', desc: 'Kaliteli sucuk dilimleriyle hazırlanan klasik lezzet.' },
+          { id: 'd11', name: 'Kaşarlı Tost', price: '120', category: 'tostlar', order: 6, image: 'images/breakfast.jpg', desc: 'Eriyen taze kaşar peyniriyle sıcacık klasik tost.' },
+          { id: 'd12', name: 'Yumurtalı Tost', price: '130', category: 'tostlar', order: 7, image: 'images/breakfast.jpg', desc: 'Tost ekmeği arasında taze çırpılmış yumurta.' },
+          { id: 'd13', name: 'Sucuk Kaşar Tost', price: '150', category: 'tostlar', order: 8, image: 'images/breakfast.jpg', desc: 'Bol sucuk ve eriyen kaşarın efsanevi buluşması.' },
+          { id: 'd16', name: 'Bomba Tost', price: '200', category: 'tostlar', order: 9, image: 'images/breakfast.jpg', desc: 'İçinde yok yok! Enfes malzemelerle dolu özel bomba tost.' },
+
+          { id: 'dy1', name: 'Saç Kavurma', price: '350', category: 'yemek', image: 'images/mekan-1.jpg', desc: 'Kendi suyunda özel baharatlarla ağır ağır pişmiş enfes saç kavurma.' },
+          { id: 'dy2', name: 'Köfte Porsiyon', price: '280', category: 'yemek', image: 'images/mekan-1.jpg', desc: 'Özel baharatlarla yoğrulmuş ızgara köfte porsiyon.' },
+          { id: 'dy3', name: 'Köfte Ekmek', price: '180', category: 'yemek', image: 'images/mekan-1.jpg', desc: 'Sıcak ekmek arası enfes ızgara köfte.' },
+          { id: 'dy4', name: 'Tavuk Sote', price: '240', category: 'yemek', image: 'images/mekan-1.jpg', desc: 'Mevsim sebzeleri ile sotelenmiş taze tavuk göğsü.' },
+
+          { id: 'dg1', name: 'Patatesli Gözleme', price: '120', category: 'gozlemeler', order: 1, image: 'images/breakfast.jpg', desc: 'Taze yufka içinde özel baharatlı patates harcı.' },
+          { id: 'dg2', name: 'Kaşarlı Gözleme', price: '130', category: 'gozlemeler', order: 2, image: 'images/breakfast.jpg', desc: 'Eriyen taze kaşar peyniriyle sıcacık gözleme.' },
+          { id: 'dg3', name: 'Otlu (Sebzeli) Gözleme', price: '120', category: 'gozlemeler', order: 3, image: 'images/breakfast.jpg', desc: 'Mevsim yeşillikleri ve özel harçla hazırlanmış gözleme.' },
+          { id: 'dg4', name: 'Peynirli Gözleme', price: '125', category: 'gozlemeler', order: 4, image: 'images/breakfast.jpg', desc: 'Klasik beyaz peynirli nefis el açması gözleme.' },
+          { id: 'dg5', name: 'Tahinli Gözleme', price: '140', category: 'gozlemeler', order: 5, image: 'images/breakfast.jpg', desc: 'Tahin ve şekerin eşsiz uyumu.' },
+          { id: 'dg6', name: 'Ballı Gözleme', price: '140', category: 'gozlemeler', order: 6, image: 'images/breakfast.jpg', desc: 'Özel süzme bal ile tatlandırılmış gözleme.' },
+          { id: 'dg7', name: 'Çikolatalı Gözleme', price: '130', category: 'gozlemeler', order: 7, image: 'images/breakfast.jpg', desc: 'Bol akışkan çikolatalı tatlı gözleme.' },
+          { id: 'dg8', name: 'Kıymalı Gözleme', price: '160', category: 'gozlemeler', order: 8, image: 'images/breakfast.jpg', desc: 'Kavrulmuş kıyma harcı ile hazırlanan doyurucu gözleme.' },
+          { id: 'dg9', name: '2 Malzeme Karışık', price: '150', category: 'gozlemeler', order: 9, image: 'images/breakfast.jpg', desc: 'Seçeceğiniz 2 farklı malzeme ile hazırlanan karışık gözleme.' },
+          { id: 'dg10', name: '3 Malzeme Karışık', price: '170', category: 'gozlemeler', order: 10, image: 'images/breakfast.jpg', desc: 'Seçeceğiniz 3 farklı malzeme ile hazırlanan dolu dolu gözleme.' },
+
+          { id: 'dc1', name: 'Süzme Mercimek Çorbası', price: '110', category: 'corbalar', image: 'images/mekan-1.jpg', desc: 'Tereyağlı sos eşliğinde, sıcacık ve şifa dolu geleneksel mercimek çorbası.' },
+
+          { id: 'd6', name: 'Sezar Salata', price: '180', category: 'salata', image: 'images/salda-hero.png', desc: 'Özel Sezar sosu, kruton ve parmesan peyniri ile harmanlanmış taze yeşillikler.' },
+          { id: 'd7', name: 'San Sebastian', price: '140', category: 'tatli', image: 'images/dessert.jpg', desc: 'İçi akışkan, üzeri hafif yanık orijinal tarifiyle enfes cheesecake.' },
+
+          { id: 'dh1', name: 'Lavanta Çayı', price: '60', category: 'sicak-icecek', image: 'images/header-bg.jpg', desc: 'Salda nın meşhur lavanta tarlalarından toplanan taze lavanta çayı.' },
+          { id: 'dh2', name: 'Türk Kahvesi', price: '70', category: 'sicak-icecek', image: 'images/header-bg.jpg', desc: 'Geleneksel yöntemlerle bol köpüklü hazırlanmış Türk kahvesi.' },
+          { id: 'dh3', name: 'Çay', price: '20', category: 'sicak-icecek', image: 'images/header-bg.jpg', desc: 'İnce belli bardakta tavşan kanı taze demlenmiş çay.' },
+          { id: 'dh4', name: 'Ihlamur', price: '50', category: 'sicak-icecek', image: 'images/header-bg.jpg', desc: 'Şifa kaynağı taze yaprak ıhlamur.' },
+          { id: 'dh5', name: 'Kekik Çayı', price: '50', category: 'sicak-icecek', image: 'images/header-bg.jpg', desc: 'Ferahlatıcı dağ kekiğinden demlenmiş sıcak çay.' },
+          { id: 'dh6', name: 'Nane Limon', price: '55', category: 'sicak-icecek', image: 'images/header-bg.jpg', desc: 'Taze nane ve limon ile kaynatılmış sıcacık şifa.' },
+          { id: 'dh7', name: 'Salep', price: '80', category: 'sicak-icecek', image: 'images/header-bg.jpg', desc: 'Tarçın serpilmiş sımsıcak geleneksel kış içeceği.' },
+
+          { id: 'dc1', name: 'Lavanta Gazozu', price: '50', category: 'soguk-icecek', image: 'images/lemonade.jpg', desc: 'Salda nın yöresel lavantasıyla aromalandırılmış serinletici gazoz.' },
+          { id: 'dc2', name: 'Lavantalı Limonata', price: '85', category: 'soguk-icecek', image: 'images/lemonade.jpg', desc: 'Taze sıkım limon suyu ve lavanta özleriyle hazırlanan ferahlatıcı yaz içeceği.' },
+          { id: 'dc3', name: 'Limonata', price: '70', category: 'soguk-icecek', image: 'images/lemonade.jpg', desc: 'Ev yapımı, taze sıkılmış serinletici limonata.' },
+          { id: 'dc4', name: 'Zafer Gazoz', price: '40', category: 'soguk-icecek', image: 'images/lemonade.jpg', desc: 'Yılların eskitemediği efsanevi Zafer gazoz.' },
+          { id: 'dc5', name: 'Kola', price: '45', category: 'soguk-icecek', image: 'images/lemonade.jpg', desc: 'Soğuk servis edilen kutu kola.' },
+          { id: 'dc6', name: 'Fanta', price: '45', category: 'soguk-icecek', image: 'images/lemonade.jpg', desc: 'Soğuk servis edilen kutu fanta.' },
+          { id: 'dc7', name: 'Soda', price: '30', category: 'soguk-icecek', image: 'images/lemonade.jpg', desc: 'Sade mineralli su.' },
+          { id: 'dc8', name: 'Meyveli Soda', price: '35', category: 'soguk-icecek', image: 'images/lemonade.jpg', desc: 'Soğuk meyveli maden suyu.' },
+          { id: 'dc9', name: 'Meyve Suyu', price: '35', category: 'soguk-icecek', image: 'images/lemonade.jpg', desc: 'Karışık veya şeftalili kutu meyve suyu.' },
+          { id: 'dc10', name: 'Su', price: '15', category: 'soguk-icecek', image: 'images/lemonade.jpg', desc: 'Pet şişe doğal kaynak suyu.' },
+          { id: 'dc11', name: 'Ice Tea', price: '45', category: 'soguk-icecek', image: 'images/lemonade.jpg', desc: 'Şeftali veya limon aromalı soğuk çay.' }
+        ];
+
+        dummyItems.forEach(item => {
+          let itemCats = [];
+          if (Array.isArray(item.categories)) {
+            itemCats = item.categories;
+          } else if (item.category) {
+            itemCats = item.category.split(',').map(c => c.trim());
+          } else {
+            itemCats = ['diger'];
+          }
+
+          itemCats.forEach(c => {
+            if (!grouped[c]) {
+              grouped[c] = [];
+            }
+            if (grouped[c].length === 0 || grouped[c][0].id.startsWith('d')) {
+              if (!grouped[c].find(x => x.id === item.id)) {
+                grouped[c].push(item);
+              }
+            }
+          });
+        });
+
+        window.menuGrouped = grouped;
+        window.menuCategoryTitles = categoryTitles;
+        window.menuOrder = ['kahvalti', 'tostlar', 'yemek', 'gozlemeler', 'corbalar', 'salata', 'tatli', 'sicak-icecek', 'soguk-icecek'];
+        window.menuImages = {
+          'kahvalti': 'images/breakfast.jpg',
+          'tostlar': 'images/breakfast.jpg',
+          'yemek': 'images/mekan-1.jpg',
+          'gozlemeler': 'images/breakfast.jpg',
+          'corbalar': 'images/mekan-1.jpg',
+          'salata': 'images/salda-hero.png',
+          'tatli': 'images/dessert.jpg',
+          'sicak-icecek': 'images/header-bg.jpg',
+          'soguk-icecek': 'images/lemonade.jpg'
+        };
+
+        window.showProductDetail = function (catId, itemId) {
+          const item = window.menuGrouped[catId].find(x => x.id === itemId);
+          if (!item) return;
+
+          const imgSrc = item.image || item.imageUrl || window.menuImages[catId] || 'images/menuhero.jpg';
+
+          // Popüler kısmını gizle
+          const popSection = document.querySelector('.popular-section');
+          if (popSection) popSection.style.display = 'none';
+
+          let html = `
+                <div style="margin-bottom: 1rem; display: flex; justify-content: flex-start;">
+                    <button class="btn btn-outline-primary" onclick="window.location.hash='category-${catId}'" style="border-radius: 50px; padding: 0.5rem 1rem; border: none; background: transparent; color: var(--c-dark-900); font-weight: 700; display: flex; align-items: center; gap: 0.3rem;">
+                        <i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i> Kategoriye Dön
+                    </button>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem; max-width: 600px; margin: 0 auto 4rem auto;">
+                    <div style="width: 100%; aspect-ratio: 1 / 1; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+                        <img src="${imgSrc}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="text-align: center; width: 100%;">
+                        <h2 style="font-size: 2rem; font-family: var(--font-heading); color: var(--c-dark-900); font-weight: 800; margin: 0 0 0.5rem 0;">${item.name}</h2>
+                        <div style="font-size: 1.5rem; font-family: var(--font-heading); color: var(--c-dark-900); font-weight: 700; border-bottom: 2px solid var(--c-lavender-200); padding-bottom: 1rem; margin-bottom: 1.5rem;">
+                            ${item.price} ₺
+                        </div>
+                        <p style="font-size: 1.1rem; font-family: var(--font-sans); color: var(--c-dark-700); line-height: 1.6; padding: 0 1rem;">
+                            ${item.desc || 'Bu ürün için henüz bir açıklama eklenmemiştir.'}
+                        </p>
+                    </div>
+                </div>
+            `;
+
+          document.getElementById('menuContainer').innerHTML = html;
+          if (window.lucide) window.lucide.createIcons();
+
+          const topOffset = document.getElementById('menuContainer').getBoundingClientRect().top + window.pageYOffset - 100;
+          window.scrollTo({ top: topOffset, behavior: 'smooth' });
+        };
+
+        window.showCategoriesGrid = function () {
+          let html = `
+                <h2 style="font-size: 2rem; font-family: var(--font-heading); font-weight: 800; text-align: center; color: var(--c-dark-900); margin-bottom: 2rem;">Kategoriler</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 4rem;">
+            `;
+
+          window.menuOrder.forEach(cat => {
+            const title = window.menuCategoryTitles[cat] || 'Diğer';
+            const imgSrc = window.menuImages[cat] || 'images/menuhero.jpg';
+
+            html += `
+                    <div onclick="window.location.hash='category-${cat}'" style="cursor: pointer; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--c-sand-200); background-color: var(--c-white); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'">
+                        <div style="height: 140px; overflow: hidden;">
+                            <img src="${imgSrc}" alt="${title}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="padding: 1rem; text-align: center;">
+                            <h3 style="font-size: 1.1rem; color: var(--c-dark-900); margin: 0; text-transform: uppercase; font-weight: 700;">${title}</h3>
+                        </div>
+                    </div>
+                `;
+          });
+
+          if (window.menuGrouped['diger'] && window.menuGrouped['diger'].length > 0) {
+            html += `
+                    <div onclick="window.location.hash='category-diger'" style="cursor: pointer; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--c-sand-200); background-color: var(--c-white); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'">
+                        <div style="height: 140px; overflow: hidden; background-color: var(--c-sand-100); display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="more-horizontal" style="width: 48px; height: 48px; color: var(--c-muted);"></i>
+                        </div>
+                        <div style="padding: 1rem; text-align: center;">
+                            <h3 style="font-size: 1.1rem; color: var(--c-dark-900); margin: 0; text-transform: uppercase; font-weight: 700;">Diğer Ürünler</h3>
+                        </div>
+                    </div>
+                `;
+          }
+
+          html += `</div>`;
+          document.getElementById('menuContainer').innerHTML = html;
+          if (window.lucide) window.lucide.createIcons();
+
+          // Eğer popüler kısmı gizlendiyse geri getir
+          const popSection = document.querySelector('.popular-section');
+          if (popSection) popSection.style.display = 'block';
+        };
+
+        window.showCategoryItems = function (catId) {
+          const title = window.menuCategoryTitles[catId] || 'Diğer Ürünler';
+
+          // Ürünleri gösterirken popüler kısmını gizle
+          const popSection = document.querySelector('.popular-section');
+          if (popSection) popSection.style.display = 'none';
+
+          let html = `
+                <div style="margin-bottom: 1rem; display: flex; justify-content: flex-start;">
+                    <button class="btn btn-outline-primary" onclick="window.location.hash=''" style="border-radius: 50px; padding: 0.5rem 1rem; border: none; background: transparent; color: var(--c-dark-900); font-weight: 700; display: flex; align-items: center; gap: 0.3rem;">
+                        <i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i> Geri
+                    </button>
+                </div>
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <h2 style="font-size: 1.6rem; font-family: var(--font-heading); color: var(--c-dark-900); font-weight: 800; text-transform: uppercase; margin: 0;">${title}</h2>
+                </div>
+            `;
+
+          if (window.menuGrouped[catId] && window.menuGrouped[catId].length > 0) {
+            const items = window.menuGrouped[catId];
+            // Sıraya göre diz (order değeri olmayanları 999 kabul et)
+            items.sort((a, b) => {
+              const orderA = (a.order !== undefined && a.order !== null && a.order !== '') ? Number(a.order) : 999;
+              const orderB = (b.order !== undefined && b.order !== null && b.order !== '') ? Number(b.order) : 999;
+              return orderA - orderB;
+            });
+
+            html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1.5rem 1rem; margin-bottom: 4rem;">`;
+            items.forEach(item => {
+              const imgSrc = item.image || item.imageUrl || window.menuImages[catId] || 'images/menuhero.jpg';
+              html += `
+                            <div onclick="window.location.hash='product-${catId}-${item.id}'" style="cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; padding: 0.6rem; border: 1px solid var(--c-sand-200); border-radius: 12px; background: var(--c-white); box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.04)'">
+                                <div style="width: 100%; aspect-ratio: 1 / 1; border-radius: 8px; overflow: hidden; background-color: var(--c-sand-100);">
+                                    <img src="${imgSrc}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                </div>
+                                <div style="text-align: center; padding: 0.2rem 0;">
+                                    <h3 style="font-size: 0.95rem; font-family: var(--font-heading); color: var(--c-dark-900); margin: 0 0 0.2rem 0; font-weight: 700; line-height: 1.2;">${item.name}</h3>
+                                    <span style="font-size: 0.9rem; font-family: var(--font-heading); color: var(--c-lavender-500); font-weight: 800;">${item.price} ₺</span>
+                                </div>
+                            </div>
+                        `;
+            });
+            html += `</div>`;
+          } else {
+            html += `<div style="text-align: center; color: var(--c-muted); padding: 3rem;">Bu kategoride henüz ürün bulunmuyor.</div>`;
+          }
+
+          document.getElementById('menuContainer').innerHTML = html;
+          if (window.lucide) window.lucide.createIcons();
+
+          // Yukarı kaydır
+          const topOffset = document.getElementById('menuContainer').getBoundingClientRect().top + window.pageYOffset - 100;
+          window.scrollTo({ top: topOffset, behavior: 'smooth' });
+        };
+
+        // Hash tabanlı yönlendirme (Mobil geri butonu desteği için)
+        window.handleHash = function () {
+          const hash = window.location.hash.replace('#', '');
+          if (!hash) {
+            showCategoriesGrid();
+          } else if (hash.startsWith('category-')) {
+            const catId = hash.replace('category-', '');
+            showCategoryItems(catId);
+          } else if (hash.startsWith('product-')) {
+            const rest = hash.replace('product-', '');
+            let matchedCat = null;
+            for (const c of window.menuOrder) {
+                if (rest.startsWith(c + '-')) {
+                    if (!matchedCat || c.length > matchedCat.length) {
+                        matchedCat = c;
+                    }
+                }
+            }
+            if (matchedCat) {
+                const itemId = rest.substring(matchedCat.length + 1);
+                showProductDetail(matchedCat, itemId);
+            } else {
+                const parts = rest.split('-');
+                const catId = parts[0];
+                const itemId = parts.slice(1).join('-');
+                showProductDetail(catId, itemId);
+            }
+          }
+        };
+
+        window.addEventListener('hashchange', window.handleHash);
+
+        // Sayfa ilk yüklendiğinde mevcut URL'ye göre göster
+        window.handleHash();
+
+      } catch (error) {
+        console.error("Menü çekme hatası:", error);
+        container.innerHTML = '<div style="text-align:center; padding:3rem; color:red;">Menü yüklenirken bir hata oluştu. Lütfen sayfayı yenileyin.</div>';
+      }
+    }
+
+    // Sayfa açılınca menüyü yükle
+    loadMenu();
+  </script>
+
+  <!-- Özel Dil Çeviri Altyapısı (Google Translate API) -->
+  <div id="google_translate_element" style="display:none;"></div>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({ pageLanguage: 'tr', autoDisplay: false }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript"
+    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const langBtn = document.getElementById('langBtn');
+      const langMenu = document.getElementById('langMenu');
+      const langItems = document.querySelectorAll('.lang-item');
+
+      if (langBtn && langMenu) {
+        langBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          langMenu.style.display = langMenu.style.display === 'none' ? 'block' : 'none';
+        });
+
+        document.addEventListener('click', () => {
+          langMenu.style.display = 'none';
+        });
+
+        langItems.forEach(item => {
+          item.addEventListener('click', () => {
+            const langCode = item.getAttribute('data-lang');
+            const langName = item.getAttribute('data-lang-name');
+            const flagCode = item.getAttribute('data-flag');
+
+            // Butonun görüntüsünü seçilen dile göre güncelle
+            const textSpan = langBtn.querySelector('.lang-text-desktop');
+            if (textSpan) textSpan.textContent = langName;
+            langBtn.querySelector('img').src = `https://flagcdn.com/w20/${flagCode}.png`;
+
+            // Google Çeviriyi Tetikle
+            const select = document.querySelector('.goog-te-combo');
+            if (select) {
+              select.value = langCode;
+              select.dispatchEvent(new Event('change'));
+            } else {
+              document.cookie = `googtrans=/tr/${langCode}; path=/; domain=${window.location.hostname}`;
+              document.cookie = `googtrans=/tr/${langCode}; path=/`;
+              window.location.reload();
+            }
+          });
+        });
+      }
+    });
+  </script>
+
+  <script src="app.js?v=3"></script>
+</body>
+
+</html>
