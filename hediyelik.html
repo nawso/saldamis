@@ -382,7 +382,7 @@
 
     const CACHE_KEY = 'saldamis_market_cache_v2';
     const CACHE_TIME_KEY = 'saldamis_market_time_v2';
-    const CACHE_TTL = 15 * 60 * 1000; // 15 dakika boyunca 0 okuma (tarayıcı önbelleği)
+    const CACHE_TTL = 30 * 60 * 1000; // 30 dakika boyunca 0 okuma (tarayıcı önbelleği)
 
     async function fetchMarketItems() {
       const urlParams = new URLSearchParams(window.location.search);

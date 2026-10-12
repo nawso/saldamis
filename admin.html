@@ -31,61 +31,61 @@
         radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.12) 0px, transparent 50%),
         radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.08) 0px, transparent 50%);
       background-attachment: fixed;
-      padding: 2rem 1.5rem;
+      padding: 1.5rem 1rem;
       font-family: 'Plus Jakarta Sans', sans-serif;
       color: var(--text-main);
       min-height: 100vh;
       margin: 0;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       overflow-x: hidden;
       width: 100%;
     }
 
-    /* Professional Executive Login Card */
+    /* Professional Executive Login Card - Compact & Balanced */
     #loginSection {
       width: 100%;
-      max-width: 440px;
+      max-width: 380px;
       margin: auto;
       background: var(--card-bg);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 2.75rem 2.25rem;
+      border-radius: 16px;
+      padding: 2rem 1.75rem;
       box-shadow: 
         0 25px 50px -12px rgba(0, 0, 0, 0.6),
         0 0 0 1px rgba(255, 255, 255, 0.04),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
       box-sizing: border-box;
-      animation: fadeInLogin 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: fadeInLogin 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @keyframes fadeInLogin {
-      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      from { opacity: 0; transform: translateY(10px) scale(0.98); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .brand-header {
       text-align: center;
-      margin-bottom: 2.25rem;
+      margin-bottom: 1.5rem;
     }
 
     .brand-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      padding: 0.35rem 0.85rem;
+      gap: 0.4rem;
+      padding: 0.25rem 0.65rem;
       background: rgba(79, 70, 229, 0.1);
       border: 1px solid rgba(79, 70, 229, 0.25);
       border-radius: 9999px;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       color: #a5b4fc;
-      letter-spacing: 0.04em;
-      margin-bottom: 1rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.65rem;
       text-transform: uppercase;
     }
 
@@ -98,30 +98,30 @@
     }
 
     .brand-title {
-      font-size: 1.65rem;
+      font-size: 1.35rem;
       font-weight: 800;
       color: #ffffff;
-      margin: 0 0 0.35rem 0;
+      margin: 0 0 0.25rem 0;
       letter-spacing: -0.025em;
     }
 
     .brand-subtitle {
-      font-size: 0.88rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
       margin: 0;
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
     .auth-field {
-      margin-bottom: 1.35rem;
+      margin-bottom: 0.95rem;
     }
 
     .auth-label {
       display: block;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 600;
       color: #cbd5e1;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.35rem;
       letter-spacing: 0.01em;
     }
 
@@ -133,9 +133,9 @@
 
     .auth-input-icon {
       position: absolute;
-      left: 1rem;
+      left: 0.85rem;
       color: #64748b;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       pointer-events: none;
       transition: color 0.2s;
     }
@@ -146,9 +146,9 @@
       border: 1px solid rgba(255, 255, 255, 0.1) !important;
       color: #ffffff !important;
       font-family: inherit !important;
-      font-size: 0.92rem !important;
-      padding: 0.85rem 1rem 0.85rem 2.75rem !important;
-      border-radius: 12px !important;
+      font-size: 0.86rem !important;
+      padding: 0.65rem 0.85rem 0.65rem 2.4rem !important;
+      border-radius: 10px !important;
       box-sizing: border-box;
       outline: none !important;
       transition: all 0.2s ease;
@@ -167,20 +167,20 @@
 
     .auth-submit-btn {
       width: 100%;
-      padding: 0.9rem 1.5rem;
-      margin-top: 1rem;
+      padding: 0.7rem 1.25rem;
+      margin-top: 0.75rem;
       background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
       border: 1px solid rgba(255, 255, 255, 0.15);
       color: #ffffff;
       font-family: inherit;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
+      gap: 0.45rem;
       transition: all 0.2s ease;
       box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
     }
@@ -197,40 +197,40 @@
     }
 
     .auth-error-banner {
-      margin-top: 1.25rem;
-      padding: 0.85rem 1rem;
+      margin-top: 1rem;
+      padding: 0.65rem 0.85rem;
       background: rgba(239, 68, 68, 0.12);
       border: 1px solid rgba(239, 68, 68, 0.25);
-      border-radius: 10px;
+      border-radius: 8px;
       color: #fca5a5;
-      font-size: 0.84rem;
+      font-size: 0.8rem;
       display: none;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
       animation: fadeInLogin 0.3s ease;
     }
 
     .auth-footer {
-      margin-top: 2rem;
-      padding-top: 1.5rem;
+      margin-top: 1.35rem;
+      padding-top: 1rem;
       border-top: 1px solid rgba(255, 255, 255, 0.06);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: #64748b;
     }
 
-    /* Admin Container after login */
+    /* Admin Container after login - Desktop Full Width & Balanced Scale */
     .admin-container {
       width: 100%;
-      max-width: 600px;
-      margin: 2rem auto;
+      max-width: 1440px;
+      margin: 1rem auto;
       background: var(--card-bg);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      padding: 2.5rem 2.25rem;
-      border-radius: 24px;
+      padding: 1.4rem 1.6rem;
+      border-radius: 16px;
       box-shadow: 
         0 25px 50px -12px rgba(0, 0, 0, 0.7),
         0 0 0 1px rgba(255, 255, 255, 0.05),
@@ -241,37 +241,37 @@
     }
 
     .admin-container.expanded-editor {
-      max-width: 1000px;
+      max-width: 1540px;
     }
 
     /* Global Top Navigation Bar */
     .top-navbar {
       width: 100%;
-      max-width: 600px;
-      margin: 0 auto 1.25rem auto;
+      max-width: 1440px;
+      margin: 0 auto 0.75rem auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      gap: 0.75rem;
       transition: max-width 0.3s ease;
       box-sizing: border-box;
     }
 
     .top-navbar.expanded-editor {
-      max-width: 1000px;
+      max-width: 1540px;
     }
 
     .user-profile-card {
       flex: 1;
       display: flex;
       align-items: center;
-      gap: 0.85rem;
-      padding: 0.65rem 1rem;
+      gap: 0.75rem;
+      padding: 0.4rem 0.8rem;
       background: var(--card-bg);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
+      border-radius: 12px;
       box-shadow: 
         0 10px 25px -5px rgba(0, 0, 0, 0.4),
         0 0 0 1px rgba(255, 255, 255, 0.04),
@@ -280,35 +280,35 @@
     }
 
     .user-avatar-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
       background: linear-gradient(135deg, rgba(79, 70, 229, 0.25), rgba(99, 102, 241, 0.35));
       border: 1px solid rgba(99, 102, 241, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-size: 0.95rem;
       flex-shrink: 0;
     }
 
     .user-card-details {
       display: flex;
       flex-direction: column;
-      gap: 0.15rem;
+      gap: 0.1rem;
       min-width: 0;
     }
 
     .user-card-top-line {
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.4rem;
       flex-wrap: wrap;
     }
 
     #userRoleBadge {
-      font-size: 0.72rem;
-      padding: 0.15rem 0.5rem;
+      font-size: 0.68rem;
+      padding: 0.1rem 0.45rem;
       border-radius: 9999px;
       font-weight: 700;
       border: 1px solid transparent;
@@ -316,7 +316,7 @@
     }
 
     .user-card-email {
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       color: #94a3b8;
       font-weight: 500;
       white-space: nowrap;
@@ -325,20 +325,20 @@
     }
 
     .top-logout-btn {
-      height: 52px;
-      padding: 0 1.25rem;
+      height: 38px;
+      padding: 0 0.9rem;
       background: var(--card-bg);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
+      border-radius: 12px;
       color: #cbd5e1;
-      font-size: 0.84rem;
+      font-size: 0.78rem;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.35rem;
       white-space: nowrap;
       transition: all 0.2s ease;
       box-shadow: 
@@ -359,41 +359,51 @@
     /* Centered Dashboard Header */
     .dash-header {
       text-align: center;
-      padding-bottom: 1.5rem;
-      margin-bottom: 1.75rem;
+      padding-bottom: 0.85rem;
+      margin-bottom: 1.1rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .dash-title-group h2 {
       margin: 0;
-      font-size: 1.65rem;
+      font-size: 1.25rem;
       font-weight: 800;
       color: #ffffff;
-      letter-spacing: -0.025em;
+      letter-spacing: -0.02em;
       text-align: center;
     }
 
-    /* Modern Navigation Action Cards */
+    /* Modern Navigation Action Cards - 2x2 Grid Layout */
     .action-cards-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.1rem;
+      max-width: 1040px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+      .action-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+      }
     }
 
     .nav-card-btn {
       position: relative;
       width: 100%;
-      padding: 1.35rem 1.6rem;
+      padding: 1.1rem 1.35rem;
       background: rgba(15, 23, 42, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 16px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       text-decoration: none;
       cursor: pointer;
       color: #ffffff;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       box-sizing: border-box;
       overflow: hidden;
@@ -404,13 +414,13 @@
       position: absolute;
       inset: 0;
       opacity: 0;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.2s ease;
       pointer-events: none;
     }
 
     .nav-card-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 10px 22px -4px rgba(0, 0, 0, 0.35);
     }
 
     .nav-card-btn:active {
@@ -420,20 +430,21 @@
     .nav-card-left {
       display: flex;
       align-items: center;
-      gap: 1.1rem;
+      gap: 0.95rem;
       text-align: left;
+      min-width: 0;
     }
 
     .nav-card-icon-box {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       flex-shrink: 0;
-      transition: transform 0.25s ease;
+      transition: transform 0.2s ease;
     }
 
     .nav-card-btn:hover .nav-card-icon-box {
@@ -444,10 +455,11 @@
       display: flex;
       flex-direction: column;
       gap: 0.2rem;
+      min-width: 0;
     }
 
     .nav-card-title {
-      font-size: 1.05rem;
+      font-size: 0.98rem;
       font-weight: 700;
       letter-spacing: -0.01em;
       color: #ffffff;
@@ -456,16 +468,19 @@
     .nav-card-desc {
       font-size: 0.78rem;
       color: #94a3b8;
+      line-height: 1.4;
     }
 
     .nav-card-arrow {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       color: #64748b;
       transition: transform 0.2s ease, color 0.2s ease;
+      flex-shrink: 0;
+      margin-left: 0.75rem;
     }
 
     .nav-card-btn:hover .nav-card-arrow {
-      transform: translateX(4px);
+      transform: translateX(3px);
       color: #ffffff;
     }
 
@@ -482,7 +497,7 @@
     .nav-card-waiter:hover {
       border-color: rgba(139, 92, 246, 0.5);
       background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(15, 23, 42, 0.8));
-      box-shadow: 0 12px 28px -5px rgba(139, 92, 246, 0.25);
+      box-shadow: 0 10px 24px -4px rgba(139, 92, 246, 0.25);
     }
 
     /* Menü Yönetimi - Executive Blue / Cyan */
@@ -497,7 +512,7 @@
     .nav-card-menu:hover {
       border-color: rgba(14, 165, 233, 0.5);
       background: linear-gradient(135deg, rgba(14, 165, 233, 0.12), rgba(15, 23, 42, 0.8));
-      box-shadow: 0 12px 28px -5px rgba(14, 165, 233, 0.25);
+      box-shadow: 0 10px 24px -4px rgba(14, 165, 233, 0.25);
     }
 
     /* Hediyelik Dükkan - Amber / Rose */
@@ -512,22 +527,264 @@
     .nav-card-market:hover {
       border-color: rgba(245, 158, 11, 0.5);
       background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(15, 23, 42, 0.8));
-      box-shadow: 0 12px 28px -5px rgba(245, 158, 11, 0.25);
+      box-shadow: 0 10px 24px -4px rgba(245, 158, 11, 0.25);
+    }
+
+    /* Garson Hareketleri - Emerald / Teal */
+    .nav-card-logs {
+      border-color: rgba(16, 185, 129, 0.2);
+    }
+    .nav-card-logs .nav-card-icon-box {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+    }
+    .nav-card-logs:hover {
+      border-color: rgba(16, 185, 129, 0.5);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(15, 23, 42, 0.8));
+      box-shadow: 0 10px 24px -4px rgba(16, 185, 129, 0.25);
+    }
+
+    /* Logs View Styles */
+    .logs-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.15rem;
+    }
+    @media (min-width: 900px) {
+      .logs-kpi-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+      }
+    }
+    .logs-kpi-card {
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 11px;
+      padding: 0.8rem 1rem;
+      box-shadow: 0 6px 18px -4px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease;
+    }
+    .logs-kpi-card:hover {
+      transform: translateY(-2px);
+    }
+    .logs-kpi-title {
+      font-size: 0.7rem;
+      color: #94a3b8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+    }
+    .logs-kpi-val {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #f8fafc;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.15rem;
+    }
+    .logs-kpi-sub {
+      font-size: 0.72rem;
+      color: #64748b;
+    }
+
+    .logs-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      background: rgba(17, 24, 39, 0.6);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.15rem;
+    }
+    .logs-tabs-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .logs-tab {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+    .logs-tab:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+    .logs-tab.active {
+      background: rgba(99, 102, 241, 0.25);
+      border-color: rgba(99, 102, 241, 0.5);
+      color: #c7d2fe;
+    }
+    .logs-tab.tab-danger.active {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.5);
+      color: #fca5a5;
+    }
+    .logs-tab.tab-success.active {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: rgba(16, 185, 129, 0.5);
+      color: #6ee7b7;
+    }
+    .logs-tab.tab-purple.active {
+      background: rgba(168, 85, 247, 0.2);
+      border-color: rgba(168, 85, 247, 0.5);
+      color: #d8b4fe;
+    }
+    .logs-tab.tab-blue.active {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: rgba(56, 189, 248, 0.5);
+      color: #7dd3fc;
+    }
+
+    .logs-filter-inputs {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      flex: 1;
+      justify-content: flex-end;
+    }
+    .logs-select, .logs-search {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f8fafc;
+      padding: 0.42rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .logs-select:focus, .logs-search:focus {
+      border-color: #6366f1;
+    }
+
+    .logs-table-container {
+      background: rgba(17, 24, 39, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .log-item-card {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 0.85rem 1.1rem;
+      margin-bottom: 0.65rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .log-item-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-1px);
+    }
+    .log-item-card.is-cancel {
+      border-left: 4px solid #ef4444;
+      background: rgba(239, 68, 68, 0.04);
+    }
+    .log-item-card.is-order {
+      border-left: 4px solid #10b981;
+    }
+    .log-item-card.is-checkout {
+      border-left: 4px solid #a855f7;
+    }
+    .log-item-card.is-move {
+      border-left: 4px solid #38bdf8;
+      background: rgba(56, 189, 248, 0.04);
+    }
+
+    .log-type-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .log-type-tag.cancel {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .log-type-tag.order {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .log-type-tag.checkout {
+      background: rgba(168, 85, 247, 0.15);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+    .log-type-tag.move {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .log-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.74rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .log-badge-waiter {
+      background: rgba(139, 92, 246, 0.15);
+      color: #ddd6fe;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+    .log-badge-table {
+      background: rgba(99, 102, 241, 0.15);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+    .log-badge-time {
+      background: rgba(255, 255, 255, 0.06);
+      color: #cbd5e1;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     /* Form Fields for internal Admin Panel */
     .form-group {
-      margin-bottom: 1.15rem;
+      margin-bottom: 0.95rem;
       min-width: 0;
       width: 100%;
     }
 
     .form-group label {
       display: block;
-      margin-bottom: 0.45rem;
+      margin-bottom: 0.35rem;
       font-weight: 600;
       color: #cbd5e1;
-      font-size: 0.88rem;
+      font-size: 0.82rem;
     }
 
     .form-group input,
@@ -535,15 +792,15 @@
     .form-group select {
       width: 100%;
       max-width: 100%;
-      padding: 0.85rem 1rem;
+      padding: 0.6rem 0.8rem;
       border: 1px solid rgba(255, 255, 255, 0.1);
       background: rgba(15, 23, 42, 0.6);
       color: #f1f5f9;
-      border-radius: 10px;
+      border-radius: 8px;
       box-sizing: border-box;
       outline: none;
       font-family: inherit;
-      font-size: 0.92rem;
+      font-size: 0.86rem;
       transition: border-color 0.2s;
     }
 
@@ -560,13 +817,13 @@
 
     .form-group textarea {
       resize: vertical;
-      min-height: 80px;
+      min-height: 65px;
     }
 
     .admin-form-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.85rem;
       width: 100%;
       box-sizing: border-box;
     }
@@ -575,16 +832,18 @@
     .btn {
       font-family: inherit;
       font-weight: 700;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
+      gap: 0.45rem;
       border: none;
       box-sizing: border-box;
       text-decoration: none;
+      padding: 0.55rem 1.05rem;
+      font-size: 0.84rem;
     }
 
     .btn-primary {
@@ -625,42 +884,42 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1.25rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.95rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.75rem;
     }
 
     .editor-header-left {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
+      gap: 0.75rem;
     }
 
     .editor-header-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
       background: rgba(99, 102, 241, 0.15);
       border: 1px solid rgba(99, 102, 241, 0.3);
       color: #a5b4fc;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.35rem;
+      font-size: 1.15rem;
     }
 
     .editor-header-titles h2 {
       margin: 0;
-      font-size: 1.45rem;
+      font-size: 1.25rem;
       font-weight: 800;
       color: #ffffff;
       letter-spacing: -0.02em;
     }
 
     .editor-header-titles span {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: #94a3b8;
     }
 
@@ -668,16 +927,16 @@
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.1);
       color: #cbd5e1;
-      padding: 0.65rem 1.15rem;
-      border-radius: 12px;
+      padding: 0.45rem 0.95rem;
+      border-radius: 10px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       transition: all 0.2s;
       font-family: inherit;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .btn-back-dashboard:hover {
@@ -688,15 +947,15 @@
 
     .editor-action-pills {
       display: flex;
-      gap: 0.75rem;
+      gap: 0.55rem;
       flex-wrap: wrap;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.25rem;
     }
 
     .pill-tool-btn {
-      padding: 0.65rem 1.2rem;
-      border-radius: 12px;
-      font-size: 0.85rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 9px;
+      font-size: 0.8rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -704,7 +963,7 @@
       font-family: inherit;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .pill-tool-sync {
@@ -746,9 +1005,9 @@
     .admin-glass-box {
       background: rgba(15, 23, 42, 0.65);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      padding: 1.6rem;
-      margin-bottom: 1.75rem;
+      border-radius: 14px;
+      padding: 1.25rem 1.4rem;
+      margin-bottom: 1.25rem;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
@@ -757,42 +1016,42 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
+      gap: 0.65rem;
+      margin-bottom: 1rem;
     }
 
     .admin-glass-box-header h3 {
       margin: 0;
-      font-size: 1.2rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: #ffffff;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.45rem;
     }
 
     .admin-glass-box-header small {
       color: #94a3b8;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       display: block;
-      margin-top: 3px;
+      margin-top: 2px;
     }
 
     #newCategoryForm {
       display: none;
-      margin-top: 1.25rem;
-      padding: 1.25rem;
+      margin-top: 1rem;
+      padding: 1rem;
       background: rgba(11, 15, 25, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
+      border-radius: 12px;
     }
 
     .custom-details-picker {
       width: 100%;
       box-sizing: border-box;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      padding: 0.65rem 0.85rem;
       background: rgba(15, 23, 42, 0.6);
       color: #f1f5f9;
       cursor: pointer;
@@ -809,6 +1068,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.5rem;
+      font-size: 0.84rem;
     }
 
     .custom-details-picker summary::-webkit-details-marker {
@@ -817,7 +1077,7 @@
 
     .custom-details-picker summary::after {
       content: '▾';
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: #94a3b8;
       transition: transform 0.2s ease;
       line-height: 1;
@@ -835,9 +1095,9 @@
     .custom-details-content {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 0.55rem;
-      margin-top: 1rem;
-      padding-top: 1rem;
+      gap: 0.5rem;
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       box-sizing: border-box;
     }
@@ -845,12 +1105,12 @@
     .custom-checkbox-label {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.88rem;
+      gap: 0.45rem;
+      font-size: 0.82rem;
       color: #cbd5e1;
       background: rgba(255, 255, 255, 0.04);
-      padding: 0.45rem 0.8rem;
-      border-radius: 8px;
+      padding: 0.35rem 0.65rem;
+      border-radius: 7px;
       border: 1px solid rgba(255, 255, 255, 0.06);
       cursor: pointer;
       transition: background 0.15s, border-color 0.15s;
@@ -863,14 +1123,15 @@
 
     .custom-file-input {
       width: 100%;
-      padding: 0.75rem 1rem;
+      padding: 0.65rem 0.85rem;
       border: 1px dashed rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
+      border-radius: 8px;
       background: rgba(15, 23, 42, 0.4);
       color: #94a3b8;
       cursor: pointer;
       box-sizing: border-box;
       transition: border-color 0.2s;
+      font-size: 0.82rem;
     }
 
     .custom-file-input:hover {
@@ -886,12 +1147,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.1rem;
+      padding: 0.75rem 1rem;
       background: rgba(15, 23, 42, 0.4);
       border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      margin-bottom: 0.65rem;
+      border-radius: 10px;
+      margin-bottom: 0.5rem;
       transition: background 0.2s;
+      font-size: 0.88rem;
     }
 
     .menu-item-row:hover {
@@ -904,25 +1166,25 @@
     }
 
     .menu-item-actions button {
-      margin-left: 0.5rem;
-      padding: 0.5rem 1rem;
+      margin-left: 0.4rem;
+      padding: 0.38rem 0.75rem;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       color: white;
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
 
     /* Responsive Media Queries */
     @media (max-width: 768px) {
       body {
-        padding: 1rem 0.65rem;
+        padding: 0.85rem 0.5rem;
       }
 
       .top-navbar {
         width: 100%;
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.65rem;
         flex-direction: column;
         align-items: stretch;
         gap: 0.5rem;
@@ -933,22 +1195,22 @@
       }
 
       .user-profile-card {
-        padding: 0.6rem 0.85rem;
-        gap: 0.65rem;
+        padding: 0.5rem 0.75rem;
+        gap: 0.6rem;
       }
 
       .top-logout-btn {
-        height: 44px;
-        padding: 0 1rem;
-        font-size: 0.82rem;
-        border-radius: 12px;
+        height: 38px;
+        padding: 0 0.85rem;
+        font-size: 0.8rem;
+        border-radius: 10px;
         justify-content: center;
       }
 
       .admin-container {
-        padding: 1.25rem 0.85rem;
-        border-radius: 18px;
-        margin: 0.5rem auto;
+        padding: 1.15rem 0.85rem;
+        border-radius: 14px;
+        margin: 0.4rem auto;
         width: 100% !important;
         max-width: 100% !important;
       }
@@ -957,28 +1219,33 @@
         max-width: 100% !important;
       }
 
+      .action-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+
       .admin-glass-box {
-        padding: 1.1rem 0.85rem;
-        border-radius: 14px;
-        margin-bottom: 1.25rem;
+        padding: 1rem 0.85rem;
+        border-radius: 12px;
+        margin-bottom: 1rem;
         width: 100%;
       }
 
       .admin-form-grid {
         grid-template-columns: 1fr;
-        gap: 0.75rem;
+        gap: 0.65rem;
       }
 
       .editor-header-bar {
-        margin-bottom: 1rem;
-        padding-bottom: 1rem;
+        margin-bottom: 0.85rem;
+        padding-bottom: 0.75rem;
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.75rem;
+        gap: 0.65rem;
       }
 
       .editor-header-titles h2 {
-        font-size: 1.25rem;
+        font-size: 1.15rem;
       }
 
       .btn-back-dashboard {
@@ -987,44 +1254,44 @@
       }
 
       .editor-action-pills {
-        gap: 0.5rem;
-        margin-bottom: 1.25rem;
+        gap: 0.45rem;
+        margin-bottom: 1rem;
       }
 
       .pill-tool-btn {
         width: 100%;
         justify-content: center;
-        padding: 0.65rem 1rem;
+        padding: 0.55rem 0.85rem;
       }
 
       .custom-details-content {
         grid-template-columns: 1fr;
-        gap: 0.5rem;
+        gap: 0.45rem;
       }
 
       #adminCategoryGrid {
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
-        gap: 0.75rem !important;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)) !important;
+        gap: 0.65rem !important;
       }
     }
 
     @media (max-width: 480px) {
       body {
-        padding: 0.75rem 0.4rem;
+        padding: 0.65rem 0.35rem;
       }
 
       .admin-container {
-        padding: 1rem 0.65rem;
-        border-radius: 14px;
-      }
-
-      .admin-glass-box {
-        padding: 0.9rem 0.65rem;
+        padding: 0.95rem 0.65rem;
         border-radius: 12px;
       }
 
+      .admin-glass-box {
+        padding: 0.85rem 0.65rem;
+        border-radius: 10px;
+      }
+
       .brand-title {
-        font-size: 1.4rem;
+        font-size: 1.25rem;
       }
     }
   </style>
@@ -1043,10 +1310,10 @@
     </div>
 
     <div class="auth-field">
-      <label class="auth-label" for="emailInput">Yönetici E-Postası</label>
+      <label class="auth-label" for="emailInput">Kullanıcı Adı veya E-Posta</label>
       <div class="auth-input-wrapper">
-        <span class="auth-input-icon">✉</span>
-        <input type="email" id="emailInput" class="auth-input" placeholder="admin@saldamis.com" autocomplete="email">
+        <span class="auth-input-icon">👤</span>
+        <input type="text" id="emailInput" class="auth-input" placeholder="Örn: admin veya admin@saldamis.com" autocomplete="username">
       </div>
     </div>
 
@@ -1150,6 +1417,18 @@
               <div class="nav-card-texts">
                 <span class="nav-card-title">Hediyelik Dükkanı</span>
                 <span class="nav-card-desc">Doğal lavanta ürünleri, magnetler ve hediyelikler</span>
+              </div>
+            </div>
+            <span class="nav-card-arrow">→</span>
+          </button>
+
+          <!-- 4. Garson Hareketleri -->
+          <button type="button" class="nav-card-btn nav-card-logs" id="openLogsBtn">
+            <div class="nav-card-left">
+              <div class="nav-card-icon-box">📊</div>
+              <div class="nav-card-texts">
+                <span class="nav-card-title">Garson Hareketleri</span>
+                <span class="nav-card-desc">Sipariş girişleri, iptal edilen ürünler ve personel hareketleri</span>
               </div>
             </div>
             <span class="nav-card-arrow">→</span>
@@ -1294,12 +1573,79 @@
         </div>
 
       </div>
+
+      <!-- GARSON HAREKETLERİ & SİPARİŞ GEÇMİŞİ EKRANI -->
+      <div id="logsView" style="display: none;">
+        <!-- Üst Başlık Barı -->
+        <div class="editor-header-bar">
+          <div class="editor-header-left">
+            <div class="editor-header-icon" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7;">📊</div>
+            <div class="editor-header-titles">
+              <h2>Garson Hareketleri & Sipariş Geçmişi</h2>
+              <span>Personel sipariş girişleri, adisyon iptalleri ve servis akışı</span>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <button class="nav-action-pill pill-refresh" id="refreshLogsBtn" style="padding: 0.55rem 1rem; border-radius: 12px; font-weight: 600; cursor: pointer; border: 1px solid rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.15); color: #6ee7b7; font-family: inherit;">🔄 Yenile</button>
+            <button class="btn-back-dashboard" id="backToDashboardFromLogsBtn">← Yönetim Konsolu</button>
+          </div>
+        </div>
+
+        <!-- Özet KPI Kartları -->
+        <div class="logs-kpi-grid">
+          <div class="logs-kpi-card">
+            <div class="logs-kpi-title">Toplam İşlem</div>
+            <div class="logs-kpi-val" id="kpiTotalActions">0</div>
+            <div class="logs-kpi-sub">Kayıtlı hareket</div>
+          </div>
+          <div class="logs-kpi-card">
+            <div class="logs-kpi-title" style="color: #f87171;">İptal Edilen Siparişler</div>
+            <div class="logs-kpi-val" id="kpiTotalCancellations" style="color: #f87171;">0</div>
+            <div class="logs-kpi-sub">Ürün veya masa iptali</div>
+          </div>
+          <div class="logs-kpi-card">
+            <div class="logs-kpi-title" style="color: #fbbf24;">İptal Edilen Tutar</div>
+            <div class="logs-kpi-val" id="kpiTotalCanceledAmount" style="color: #fbbf24;">0 ₺</div>
+            <div class="logs-kpi-sub">İptal edilen sipariş tutarı</div>
+          </div>
+          <div class="logs-kpi-card">
+            <div class="logs-kpi-title" style="color: #34d399;">Giriş Yapılan Sipariş</div>
+            <div class="logs-kpi-val" id="kpiTotalOrdersAdded" style="color: #34d399;">0</div>
+            <div class="logs-kpi-sub">Mutfak/Bar'a iletilen sipariş</div>
+          </div>
+        </div>
+
+        <!-- Filtreleme & Arama Çubuğu -->
+        <div class="logs-filter-bar">
+          <div class="logs-tabs-group" id="logsTypeFilterTabs">
+            <button type="button" class="logs-tab active" data-filter="all">Tümü</button>
+            <button type="button" class="logs-tab tab-danger" data-filter="cancelled">⚠️ Sadece İptaller</button>
+            <button type="button" class="logs-tab tab-success" data-filter="order_added">✅ Sipariş Girişleri</button>
+            <button type="button" class="logs-tab tab-blue" data-filter="moved">🔄 Taşımalar</button>
+            <button type="button" class="logs-tab tab-purple" data-filter="checkout">💳 Hesap Kapatmalar</button>
+          </div>
+
+          <div class="logs-filter-inputs">
+            <select id="logsWaiterFilter" class="logs-select">
+              <option value="all">Tüm Garsonlar</option>
+            </select>
+            <input type="text" id="logsSearchInput" placeholder="Masa veya ürün ara (Örn: Masa 3, Tost)..." class="logs-search">
+          </div>
+        </div>
+
+        <!-- Hareket Listesi / Akış Tablosu -->
+        <div class="logs-table-container">
+          <div id="logsListContainer">
+            <p style="color: #94a3b8; text-align: center; padding: 2rem;">Hareketler yükleniyor...</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-    import { getFirestore, collection, getDocs, getDoc, addDoc, updateDoc, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, getDoc, addDoc, updateDoc, deleteDoc, doc, setDoc, query, orderBy, limit, where } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
     import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js";
 
@@ -1361,23 +1707,37 @@
     const activeCategoriesChips = document.getElementById('activeCategoriesChips');
     const quickAddCatBtn = document.getElementById('quickAddCatBtn');
 
-    // Role & Waiter Elements
+    // Role, Waiter & Logs Elements
     const userEmailDisplay = document.getElementById('userEmailDisplay');
     const userRoleBadge = document.getElementById('userRoleBadge');
     const waiterNotice = document.getElementById('waiterNotice');
     const openGarsonBtn = document.getElementById('openGarsonBtn');
+    const openLogsBtn = document.getElementById('openLogsBtn');
+    const logsView = document.getElementById('logsView');
+    const backToDashboardFromLogsBtn = document.getElementById('backToDashboardFromLogsBtn');
+    const refreshLogsBtn = document.getElementById('refreshLogsBtn');
+    const logsListContainer = document.getElementById('logsListContainer');
+    const logsWaiterFilter = document.getElementById('logsWaiterFilter');
+    const logsSearchInput = document.getElementById('logsSearchInput');
+    const logsTypeFilterTabs = document.getElementById('logsTypeFilterTabs');
+    const kpiTotalActions = document.getElementById('kpiTotalActions');
+    const kpiTotalCancellations = document.getElementById('kpiTotalCancellations');
+    const kpiTotalCanceledAmount = document.getElementById('kpiTotalCanceledAmount');
+    const kpiTotalOrdersAdded = document.getElementById('kpiTotalOrdersAdded');
     window.currentUserRole = 'garson';
+    window.allWaiterLogs = [];
+    window.currentLogTypeFilter = 'all';
 
     const defaultMenuCatDefs = [
-      { value: 'kahvalti', label: 'Kahvaltı', order: 1, image: 'images/breakfast.jpg', type: 'menu' },
-      { value: 'tostlar', label: 'Tostlar', order: 2, image: 'images/breakfast.jpg', type: 'menu' },
-      { value: 'yemek', label: 'Yemek', order: 3, image: 'images/mekan-1.jpg', type: 'menu' },
-      { value: 'gozlemeler', label: 'Gözlemeler', order: 4, image: 'images/breakfast.jpg', type: 'menu' },
-      { value: 'corbalar', label: 'Çorbalar', order: 5, image: 'images/mekan-1.jpg', type: 'menu' },
-      { value: 'salata', label: 'Salata', order: 6, image: 'images/salda-hero.png', type: 'menu' },
-      { value: 'tatli', label: 'Tatlı', order: 7, image: 'images/dessert.jpg', type: 'menu' },
-      { value: 'sicak-icecek', label: 'Sıcak İçecek', order: 8, image: 'images/header-bg.jpg', type: 'menu' },
-      { value: 'soguk-icecek', label: 'Soğuk İçecek', order: 9, image: 'images/lemonade.jpg', type: 'menu' }
+      { value: 'kahvalti', label: 'Kahvaltı', order: 1, image: 'images/foodcats/catkahvalti.jpg', type: 'menu' },
+      { value: 'tostlar', label: 'Tostlar', order: 2, image: 'images/foodcats/cattost.jpg', type: 'menu' },
+      { value: 'yemek', label: 'Yemek', order: 3, image: 'images/foodcats/catyemek.jpg', type: 'menu' },
+      { value: 'gozlemeler', label: 'Gözlemeler', order: 4, image: 'images/foodcats/catgozleme.jpg', type: 'menu' },
+      { value: 'corbalar', label: 'Çorbalar', order: 5, image: 'images/foodcats/catcorba.jpg', type: 'menu' },
+      { value: 'salata', label: 'Salata', order: 6, image: 'images/foodcats/catsalata.jfif', type: 'menu' },
+      { value: 'tatli', label: 'Tatlı', order: 7, image: 'images/foodcats/cattatli.jfif', type: 'menu' },
+      { value: 'sicak-icecek', label: 'Sıcak İçecek', order: 8, image: 'images/foodcats/catsicakicecek.jpg', type: 'menu' },
+      { value: 'soguk-icecek', label: 'Soğuk İçecek', order: 9, image: 'images/foodcats/catsogukicecek.jfif', type: 'menu' }
     ];
 
     const defaultMarketCatDefs = [
@@ -1426,7 +1786,14 @@
 
       const map = new Map();
       defaults.forEach(d => map.set(d.value, { ...d, isDefault: true }));
-      custom.forEach(c => map.set(c.value, { ...c, isDefault: false }));
+      custom.forEach(c => {
+        const existingDefault = map.get(c.value);
+        let img = c.image;
+        if (existingDefault && (!img || img === 'images/breakfast.jpg' || img === 'images/mekan-1.jpg' || img === 'images/salda-hero.png' || img === 'images/dessert.jpg' || img === 'images/header-bg.jpg' || img === 'images/lemonade.jpg')) {
+          img = existingDefault.image;
+        }
+        map.set(c.value, { ...c, image: img || existingDefault?.image, isDefault: false });
+      });
 
       const list = Array.from(map.values());
       list.sort((a, b) => {
@@ -1437,15 +1804,20 @@
       return list;
     }
 
-    async function loadCategories() {
+    async function loadCategories(force = false) {
+      if (!force && window.customCategories && window.customCategories.length > 0) {
+        return window.customCategories;
+      }
       try {
         const snap = await getDocs(collection(db, "categories"));
         const list = [];
         snap.forEach(d => list.push({ id: d.id, ...d.data() }));
         window.customCategories = list;
+        return list;
       } catch (e) {
         console.error("Kategoriler okunamadı:", e);
-        window.customCategories = [];
+        window.customCategories = window.customCategories || [];
+        return window.customCategories;
       }
     }
 
@@ -1484,7 +1856,9 @@
       if (!confirm(`"${label}" kategorisini silmek istediğinize emin misiniz?`)) return;
       try {
         await deleteDoc(doc(db, "categories", slug));
-        await loadCategories();
+        if (window.customCategories) {
+          window.customCategories = window.customCategories.filter(c => c.value !== slug && c.id !== slug);
+        }
         await syncPublicCategories();
         await syncPublicSnapshot(window.currentCollection);
         refreshAllCategoryViews();
@@ -1503,9 +1877,13 @@
 
     async function syncPublicCategories() {
       try {
-        const snap = await getDocs(collection(db, "categories"));
-        const customList = [];
-        snap.forEach(d => customList.push({ id: d.id, ...d.data() }));
+        let customList = window.customCategories;
+        if (!customList || customList.length === 0) {
+          const snap = await getDocs(collection(db, "categories"));
+          customList = [];
+          snap.forEach(d => customList.push({ id: d.id, ...d.data() }));
+          window.customCategories = customList;
+        }
 
         const menuCats = getActiveCategories('menu');
         const marketCats = getActiveCategories('market');
@@ -1523,22 +1901,31 @@
     }
 
     // --- TEK DOKÜMANLIK OPTİMİZE SENKRONİZASYON ---
-    async function syncPublicSnapshot(collectionName) {
+    async function syncPublicSnapshot(collectionName, itemsToSync = null) {
       if (!collectionName) collectionName = window.currentCollection || 'menuItems';
       const targetDoc = collectionName === 'menuItems' ? 'menu' : 'market';
       try {
-        const snapshot = await getDocs(collection(db, collectionName));
-        const items = [];
-        snapshot.forEach(docSnap => {
-          items.push({ id: docSnap.id, ...docSnap.data() });
-        });
+        let items = itemsToSync;
+        if (!items) {
+          if (window.adminAllItems && window.adminAllItems.length > 0 && window.currentCollection === collectionName) {
+            items = window.adminAllItems;
+          } else {
+            const snapshot = await getDocs(collection(db, collectionName));
+            items = [];
+            snapshot.forEach(docSnap => {
+              items.push({ id: docSnap.id, ...docSnap.data() });
+            });
+            if (window.currentCollection === collectionName) {
+              window.adminAllItems = items;
+            }
+          }
+        }
         const activeCats = getActiveCategories(targetDoc === 'menu' ? 'menu' : 'market');
         await setDoc(doc(db, "publicData", targetDoc), {
           items: items,
           categories: activeCats,
           updatedAt: Date.now()
         });
-        await syncPublicCategories();
         console.log(`publicData/${targetDoc} senkronize edildi (${items.length} ürün, ${activeCats.length} kategori).`);
         return items.length;
       } catch (err) {
@@ -1553,9 +1940,22 @@
         const oldText = syncPublicBtn.textContent;
         syncPublicBtn.textContent = "Senkronize Ediliyor...";
         try {
-          const mCount = await syncPublicSnapshot('menuItems');
-          const kCount = await syncPublicSnapshot('marketItems');
-          alert(`Harika! Menü (${mCount} ürün) ve Hediyelik (${kCount} ürün) tek dokümana derlendi. Müşteriler artık minimum okuma maliyetiyle anında menüyü görecek.`);
+          const snapMenu = await getDocs(collection(db, 'menuItems'));
+          const menuItems = [];
+          snapMenu.forEach(d => menuItems.push({ id: d.id, ...d.data() }));
+
+          const snapMarket = await getDocs(collection(db, 'marketItems'));
+          const marketItems = [];
+          snapMarket.forEach(d => marketItems.push({ id: d.id, ...d.data() }));
+
+          if (window.currentCollection === 'menuItems') window.adminAllItems = menuItems;
+          if (window.currentCollection === 'marketItems') window.adminAllItems = marketItems;
+
+          await syncPublicSnapshot('menuItems', menuItems);
+          await syncPublicSnapshot('marketItems', marketItems);
+          await syncPublicCategories();
+
+          alert(`Harika! Menü (${menuItems.length} ürün) ve Hediyelik (${marketItems.length} ürün) tek dokümana derlendi. Müşteriler artık minimum okuma maliyetiyle anında menüyü görecek.`);
         } catch (e) {
           alert("Hata oluştu: " + e.message);
         } finally {
@@ -1592,6 +1992,7 @@
         if (waiterNotice) waiterNotice.style.display = 'block';
         if (openMenuBtn) openMenuBtn.style.display = 'none';
         if (openMarketBtn) openMarketBtn.style.display = 'none';
+        if (openLogsBtn) openLogsBtn.style.display = 'none';
 
         if (openGarsonBtn) {
           openGarsonBtn.style.display = 'flex';
@@ -1610,6 +2011,7 @@
         if (waiterNotice) waiterNotice.style.display = 'none';
         if (openMenuBtn) openMenuBtn.style.display = 'flex';
         if (openMarketBtn) openMarketBtn.style.display = 'flex';
+        if (openLogsBtn) openLogsBtn.style.display = 'flex';
 
         if (openGarsonBtn) {
           openGarsonBtn.style.display = 'flex';
@@ -1637,11 +2039,8 @@
         if (window.lucide) window.lucide.createIcons();
         await applyUserRoleUI(user);
         await loadCategories();
-        // Giriş yapıldığında admin ise publicData'yı otomatik derle
-        if (window.currentUserRole === 'admin') {
-          syncPublicSnapshot('menuItems');
-          syncPublicSnapshot('marketItems');
-        }
+        // NOT: Gereksiz okuma/yazmaları önlemek için sayfa açılışında otomatik derleme kaldırıldı.
+        // Snapshot'lar ürün/kategori eklendiğinde/silindiğinde veya 'Siteyi Senkronize Et' butonuyla derlenir.
       } else {
         if (loginSection) loginSection.style.display = 'block';
         if (topNavbar) topNavbar.style.display = 'none';
@@ -1690,6 +2089,281 @@
         if (adminMainContainer) adminMainContainer.classList.remove('expanded-editor');
         editorView.style.display = 'none';
         mainDashboardView.style.display = 'block';
+      });
+    }
+
+    // --- GARSON HAREKETLERİ (LOG) ETKİLEŞİMLERİ ---
+    if (openLogsBtn) {
+      openLogsBtn.addEventListener('click', async () => {
+        if (window.currentUserRole === 'garson') {
+          alert('Yetkisiz Erişim: Garson hareketleri yalnızca site yöneticilerine açıktır!');
+          return;
+        }
+        if (topNavbar) topNavbar.classList.add('expanded-editor');
+        if (adminMainContainer) adminMainContainer.classList.add('expanded-editor');
+        mainDashboardView.style.display = 'none';
+        editorView.style.display = 'none';
+        logsView.style.display = 'block';
+        await loadWaiterActivities();
+      });
+    }
+
+    if (backToDashboardFromLogsBtn) {
+      backToDashboardFromLogsBtn.addEventListener('click', () => {
+        if (topNavbar) topNavbar.classList.remove('expanded-editor');
+        if (adminMainContainer) adminMainContainer.classList.remove('expanded-editor');
+        logsView.style.display = 'none';
+        mainDashboardView.style.display = 'block';
+      });
+    }
+
+    if (refreshLogsBtn) {
+      refreshLogsBtn.addEventListener('click', async () => {
+        refreshLogsBtn.disabled = true;
+        const oldText = refreshLogsBtn.textContent;
+        refreshLogsBtn.textContent = 'Yenileniyor...';
+        await loadWaiterActivities();
+        refreshLogsBtn.textContent = 'Güncellendi ✓';
+        setTimeout(() => {
+          refreshLogsBtn.textContent = oldText;
+          refreshLogsBtn.disabled = false;
+        }, 1200);
+      });
+    }
+
+    if (logsTypeFilterTabs) {
+      logsTypeFilterTabs.querySelectorAll('.logs-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          logsTypeFilterTabs.querySelectorAll('.logs-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          window.currentLogTypeFilter = tab.dataset.filter || 'all';
+          renderWaiterActivitiesList();
+        });
+      });
+    }
+
+    if (logsWaiterFilter) {
+      logsWaiterFilter.addEventListener('change', () => {
+        renderWaiterActivitiesList();
+      });
+    }
+
+    if (logsSearchInput) {
+      logsSearchInput.addEventListener('input', () => {
+        renderWaiterActivitiesList();
+      });
+    }
+
+    async function loadWaiterActivities() {
+      if (!logsListContainer) return;
+      logsListContainer.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 2.5rem;">Garson hareketleri yükleniyor...</p>';
+      
+      try {
+        let snap;
+        try {
+          const q = query(collection(db, "waiterActivities"), orderBy("timestamp", "desc"), limit(100));
+          snap = await getDocs(q);
+        } catch (queryErr) {
+          console.warn("İndeks veya query sıralama hatası, limit(100) ile çekiliyor:", queryErr);
+          const fallbackQ = query(collection(db, "waiterActivities"), limit(100));
+          snap = await getDocs(fallbackQ);
+        }
+
+        const logs = [];
+        snap.forEach(d => {
+          logs.push({ id: d.id, ...d.data() });
+        });
+
+        // Garantili azalan kronolojik sıralama (en yeni en üstte)
+        logs.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+        window.allWaiterLogs = logs;
+
+        // KPI Metrikleri
+        const totalActions = logs.length;
+        const cancellations = logs.filter(l => l.type === 'item_cancelled' || l.type === 'table_cancelled');
+        const totalCancellations = cancellations.length;
+        const totalCanceledAmount = cancellations.reduce((sum, l) => sum + (Number(l.total) || 0), 0);
+        const totalOrdersAdded = logs.filter(l => l.type === 'order_added').length;
+
+        if (kpiTotalActions) kpiTotalActions.textContent = totalActions;
+        if (kpiTotalCancellations) kpiTotalCancellations.textContent = totalCancellations;
+        if (kpiTotalCanceledAmount) kpiTotalCanceledAmount.textContent = `${totalCanceledAmount.toLocaleString('tr-TR')} ₺`;
+        if (kpiTotalOrdersAdded) kpiTotalOrdersAdded.textContent = totalOrdersAdded;
+
+        const getLogWaiter = (l) => {
+          if (l.waiterEmail && l.waiterEmail.toLowerCase().includes('admin') && (!l.waiter || l.waiter.toLowerCase() === 'garson')) {
+            return 'Admin';
+          }
+          return l.waiter ? l.waiter.trim() : 'Garson';
+        };
+
+        // Garson Filtresini Doldur
+        if (logsWaiterFilter) {
+          const selectedBefore = logsWaiterFilter.value;
+          const waitersSet = new Set();
+          logs.forEach(l => {
+            const wName = getLogWaiter(l);
+            if (wName) waitersSet.add(wName);
+          });
+          const sortedWaiters = Array.from(waitersSet).sort();
+
+          let opts = '<option value="all">Tüm Garsonlar</option>';
+          sortedWaiters.forEach(w => {
+            opts += `<option value="${w}">${w}</option>`;
+          });
+          logsWaiterFilter.innerHTML = opts;
+          if (sortedWaiters.includes(selectedBefore)) {
+            logsWaiterFilter.value = selectedBefore;
+          }
+        }
+
+        renderWaiterActivitiesList();
+      } catch (err) {
+        console.error("Garson hareketleri yükleme hatası:", err);
+        logsListContainer.innerHTML = `<p style="color: #ef4444; text-align: center; padding: 2rem;">Hareketler yüklenirken hata oluştu: ${err.message}</p>`;
+      }
+    }
+
+    function renderWaiterActivitiesList() {
+      if (!logsListContainer) return;
+      const all = window.allWaiterLogs || [];
+      const typeFilter = window.currentLogTypeFilter || 'all';
+      const waiterFilter = logsWaiterFilter ? logsWaiterFilter.value : 'all';
+      const searchQuery = logsSearchInput ? logsSearchInput.value.toLowerCase().trim() : '';
+
+      const getLogWaiter = (l) => {
+        if (l.waiterEmail && l.waiterEmail.toLowerCase().includes('admin') && (!l.waiter || l.waiter.toLowerCase() === 'garson')) {
+          return 'Admin';
+        }
+        return l.waiter ? l.waiter.trim() : 'Garson';
+      };
+
+      const filtered = all.filter(item => {
+        if (typeFilter === 'cancelled') {
+          if (item.type !== 'item_cancelled' && item.type !== 'table_cancelled') return false;
+        } else if (typeFilter === 'order_added') {
+          if (item.type !== 'order_added') return false;
+        } else if (typeFilter === 'checkout') {
+          if (item.type !== 'table_checkout') return false;
+        } else if (typeFilter === 'moved') {
+          if (item.type !== 'order_moved' && item.type !== 'table_moved') return false;
+        }
+
+        const currentWaiter = getLogWaiter(item);
+        if (waiterFilter !== 'all') {
+          if (currentWaiter !== waiterFilter) return false;
+        }
+
+        if (searchQuery) {
+          const tableStr = String(item.tableNumber || '').toLowerCase();
+          const itemsStr = (item.items || []).map(i => i.name || '').join(' ').toLowerCase();
+          const waiterStr = currentWaiter.toLowerCase();
+          const origWaiterStr = String(item.originalWaiter || '').toLowerCase();
+          const match = tableStr.includes(searchQuery) || itemsStr.includes(searchQuery) || waiterStr.includes(searchQuery) || origWaiterStr.includes(searchQuery);
+          if (!match) return false;
+        }
+
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        logsListContainer.innerHTML = `
+          <div style="text-align: center; padding: 3rem 1.5rem; color: #94a3b8;">
+            <div style="font-size: 2.2rem; margin-bottom: 0.6rem;">🔍</div>
+            <h4 style="margin: 0 0 6px 0; color: #f8fafc; font-size: 1.15rem;">Kayıt Bulunamadı</h4>
+            <p style="margin: 0; font-size: 0.88rem;">Seçilen kriterlere uygun herhangi bir garson hareketi bulunmuyor.</p>
+          </div>
+        `;
+        return;
+      }
+
+      logsListContainer.innerHTML = '';
+      filtered.forEach(log => {
+        const isCancel = log.type === 'item_cancelled' || log.type === 'table_cancelled';
+        const isCheckout = log.type === 'table_checkout';
+        const isMove = log.type === 'order_moved' || log.type === 'table_moved';
+        const isOrder = log.type === 'order_added';
+
+        let cardClass = 'log-item-card';
+        let tagClass = 'order';
+        let tagText = 'Sipariş Girildi';
+        let tagIcon = '✅';
+
+        if (isCancel) {
+          cardClass += ' is-cancel';
+          tagClass = 'cancel';
+          tagText = log.type === 'table_cancelled' ? 'Masa İptal Edildi' : 'Ürün İptal Edildi';
+          tagIcon = '⚠️';
+        } else if (isCheckout) {
+          cardClass += ' is-checkout';
+          tagClass = 'checkout';
+          tagText = 'Hesap Kapatıldı';
+          tagIcon = '💳';
+        } else if (isMove) {
+          cardClass += ' is-move';
+          tagClass = 'move';
+          tagText = log.type === 'table_moved' ? 'Masa Taşındı' : 'Sipariş Taşındı';
+          tagIcon = '🔄';
+        } else {
+          cardClass += ' is-order';
+          tagClass = 'order';
+          tagText = 'Sipariş Girildi';
+          tagIcon = '✅';
+        }
+
+        const tableNum = String(log.tableNumber || '');
+        const tableLabel = tableNum.includes('➔') ? `Transfer: Masa ${tableNum}` : (tableNum ? (isNaN(Number(tableNum)) ? tableNum : `Masa ${tableNum}`) : 'Masa Bilinmiyor');
+        const waiterName = getLogWaiter(log);
+        const timeDisplay = log.timeStr || (log.timestamp ? new Date(log.timestamp).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }) : '-');
+        const dateDisplay = log.dateStr || (log.timestamp ? new Date(log.timestamp).toLocaleDateString('tr-TR') : '');
+
+        let itemsSummary = '';
+        if (log.items && Array.isArray(log.items) && log.items.length > 0) {
+          itemsSummary = log.items.map(it => {
+            const statusLabel = it.status === 'teslim_edildi' ? ' <span style="font-size:0.75rem; color:#34d399;">(Teslim Edilmiş)</span>' : (it.status === 'bekliyor' ? ' <span style="font-size:0.75rem; color:#f59e0b;">(Hazırlanıyor)</span>' : '');
+            return `<strong>${it.qty || 1}x</strong> ${it.name || 'Ürün'}${statusLabel}`;
+          }).join(', ');
+        } else {
+          itemsSummary = 'Ürün bilgisi belirtilmedi';
+        }
+
+        const amountColor = isCancel ? '#f87171' : (isCheckout ? '#c084fc' : (isMove ? '#38bdf8' : '#34d399'));
+        const amountSign = isCancel ? '-' : (isMove ? '↔ ' : '+');
+        const amountLabel = isCancel ? 'İptal Tutarı' : (isCheckout ? 'Hesap Tutarı' : (isMove ? 'Taşınan Tutar' : 'Sipariş Tutarı'));
+
+        const div = document.createElement('div');
+        div.className = cardClass;
+        div.innerHTML = `
+          <div style="flex: 1; min-width: 0;">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 0.5rem;">
+              <span class="log-type-tag ${tagClass}">${tagIcon} ${tagText}</span>
+              <span class="log-badge-pill log-badge-table">🍽️ ${tableLabel}</span>
+              <span class="log-badge-pill log-badge-waiter">👤 Garson: <strong>${waiterName}</strong></span>
+              <span class="log-badge-pill log-badge-time">🕒 ${timeDisplay}${dateDisplay ? ' • ' + dateDisplay : ''}</span>
+            </div>
+
+            <div style="font-size: 0.95rem; color: #f1f5f9; line-height: 1.5;">
+              ${itemsSummary}
+            </div>
+
+            ${isCancel && log.originalWaiter && log.originalWaiter !== waiterName ? `
+              <div style="margin-top: 6px; font-size: 0.8rem; color: #fca5a5; display: flex; align-items: center; gap: 4px;">
+                <span>ℹ️</span> <span>Siparişi asıl giren garson: <strong>${log.originalWaiter}</strong></span>
+              </div>
+            ` : ''}
+          </div>
+
+          <div style="text-align: right; flex: none;">
+            <div style="font-size: 1.15rem; font-weight: 800; color: ${amountColor};">
+              ${amountSign}${log.total || 0} ₺
+            </div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">
+              ${amountLabel}
+            </div>
+          </div>
+        `;
+
+        logsListContainer.appendChild(div);
       });
     }
 
@@ -1773,7 +2447,16 @@
           };
 
           await setDoc(doc(db, "categories", slug), catData);
-          await loadCategories();
+          if (window.customCategories) {
+            const existingIdx = window.customCategories.findIndex(c => c.value === slug || c.id === slug);
+            if (existingIdx !== -1) {
+              window.customCategories[existingIdx] = { id: slug, ...catData };
+            } else {
+              window.customCategories.push({ id: slug, ...catData });
+            }
+          } else {
+            window.customCategories = [{ id: slug, ...catData }];
+          }
           await syncPublicCategories();
           await syncPublicSnapshot(window.currentCollection);
 
@@ -1799,15 +2482,19 @@
 
     // Professional Login Handler
     async function handleLogin() {
-      const email = emailInput.value.trim();
+      let email = emailInput.value.trim();
       const password = passwordInput.value;
 
       if (!email || !password) {
         if (loginError) {
-          loginErrorText.textContent = "Lütfen e-posta adresinizi ve şifrenizi giriniz.";
+          loginErrorText.textContent = "Lütfen kullanıcı adınızı ve şifrenizi giriniz.";
           loginError.style.display = 'flex';
         }
         return;
+      }
+
+      if (!email.includes('@')) {
+        email = `${email}@saldamis.com`;
       }
 
       loginBtn.disabled = true;
@@ -2163,9 +2850,13 @@
       document.querySelectorAll('.btn-delete').forEach(btn => {
         btn.addEventListener('click', async () => {
           if (confirm('Bu ürünü silmek istediğinize emin misiniz?')) {
-            await deleteDoc(doc(db, window.currentCollection, btn.dataset.id));
-            await syncPublicSnapshot(window.currentCollection);
-            loadMenuItems();
+            const delId = btn.dataset.id;
+            await deleteDoc(doc(db, window.currentCollection, delId));
+            if (window.adminAllItems) {
+              window.adminAllItems = window.adminAllItems.filter(item => item.id !== delId);
+            }
+            await syncPublicSnapshot(window.currentCollection, window.adminAllItems);
+            renderAdminCategoryGrid();
           }
         });
       });
@@ -2220,15 +2911,23 @@
         saveItemBtn.textContent = "Kaydediliyor...";
         if (id) {
           await updateDoc(doc(db, window.currentCollection, id), itemData);
+          if (window.adminAllItems) {
+            const idx = window.adminAllItems.findIndex(it => it.id === id);
+            if (idx !== -1) {
+              window.adminAllItems[idx] = { id, ...itemData };
+            }
+          }
         } else {
-          await addDoc(collection(db, window.currentCollection), itemData);
+          const docRef = await addDoc(collection(db, window.currentCollection), itemData);
+          if (window.adminAllItems) {
+            window.adminAllItems.push({ id: docRef.id, ...itemData });
+          }
         }
 
-        await syncPublicSnapshot(window.currentCollection);
+        await syncPublicSnapshot(window.currentCollection, window.adminAllItems);
 
         resetForm();
-        // Return to categories view implicitly by loadMenuItems since it renders the grid first
-        loadMenuItems();
+        renderAdminCategoryGrid();
       } catch (error) {
         console.error("Hata: ", error);
         alert("Kaydedilirken hata oluştu!");

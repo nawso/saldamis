@@ -432,7 +432,7 @@
 
     const CACHE_KEY = 'saldamis_menu_cache_v2';
     const CACHE_TIME_KEY = 'saldamis_menu_time_v2';
-    const CACHE_TTL = 15 * 60 * 1000; // 15 dakika boyunca 0 okuma (tarayıcı önbelleği)
+    const CACHE_TTL = 30 * 60 * 1000; // 30 dakika boyunca 0 okuma (tarayıcı önbelleği)
 
     async function fetchMenuItems() {
       const urlParams = new URLSearchParams(window.location.search);
@@ -518,41 +518,41 @@
 
         // TEMSİLİ ÜRÜNLER (Firebase'den ürün gelmeyen kategoriler için)
         const dummyItems = [
-          { id: 'd1', name: 'Serpme Kahvaltı', price: '1.400', category: 'kahvalti', order: 1, image: 'images/breakfast.jpg', desc: 'Taze köy yumurtası, organik reçeller, çeşitli peynirler, zeytinler ve sınırsız çay ile hazırlanan zengin kahvaltı sofrası.' },
-          { id: 'd2', name: 'Kahvaltı Tabağı', price: '510', category: 'kahvalti', order: 2, image: 'images/breakfast.jpg', desc: 'Hızlı ve doyurucu bir başlangıç için özenle seçilmiş peynir, zeytin, domates ve yumurtadan oluşan klasik kahvaltı tabağı.' },
-          { id: 'd3', name: 'Omlet', price: '180', category: 'kahvalti', order: 3, image: 'images/breakfast.jpg', desc: 'Tereyağında tam kıvamında pişirilmiş, içi yumuşacık klasik sade omlet.' },
-          { id: 'd4', name: 'Menemen', price: '200', category: 'kahvalti, yemek', order: 4, image: 'images/breakfast.jpg', desc: 'Mevsim domatesleri, taze yeşil biber ve köy yumurtası ile hazırlanan sıcacık menemen.' },
-          { id: 'd5', name: 'Patates Kızartması', price: '150', category: 'kahvalti, yemek', order: 5, image: 'images/breakfast.jpg', desc: 'Çıtır çıtır, altın renginde kızarmış taze patatesler.' },
+          { id: 'd1', name: 'Serpme Kahvaltı', price: '1.400', category: 'kahvalti', order: 1, image: 'images/foodcats/catkahvalti.jpg', desc: 'Taze köy yumurtası, organik reçeller, çeşitli peynirler, zeytinler ve sınırsız çay ile hazırlanan zengin kahvaltı sofrası.' },
+          { id: 'd2', name: 'Kahvaltı Tabağı', price: '510', category: 'kahvalti', order: 2, image: 'images/foodcats/catkahvalti.jpg', desc: 'Hızlı ve doyurucu bir başlangıç için özenle seçilmiş peynir, zeytin, domates ve yumurtadan oluşan klasik kahvaltı tabağı.' },
+          { id: 'd3', name: 'Omlet', price: '180', category: 'kahvalti', order: 3, image: 'images/foodcats/catkahvalti.jpg', desc: 'Tereyağında tam kıvamında pişirilmiş, içi yumuşacık klasik sade omlet.' },
+          { id: 'd4', name: 'Menemen', price: '200', category: 'kahvalti, yemek', order: 4, image: 'images/foodcats/catkahvalti.jpg', desc: 'Mevsim domatesleri, taze yeşil biber ve köy yumurtası ile hazırlanan sıcacık menemen.' },
+          { id: 'd5', name: 'Patates Kızartması', price: '150', category: 'kahvalti, yemek', order: 5, image: 'images/foodcats/catyemek.jpg', desc: 'Çıtır çıtır, altın renginde kızarmış taze patatesler.' },
 
-          { id: 'd9', name: 'Kıymalı Tost', price: '160', category: 'tostlar', order: 1, image: 'images/breakfast.jpg', desc: 'Özel baharatlarla kavrulmuş bol kıymalı çıtır tost.' },
-          { id: 'd15', name: 'Kıyma Kaşar Tost', price: '170', category: 'tostlar', order: 2, image: 'images/breakfast.jpg', desc: 'Kavrulmuş kıyma ve eriyen sıcak kaşar peyniri.' },
-          { id: 'dt1', name: 'Kıymalı Bomba Tost', price: '210', category: 'tostlar', order: 3, image: 'images/breakfast.jpg', desc: 'İçi bol kıymalı ve zengin malzemeli özel bomba tost.' },
-          { id: 'd14', name: 'Kıyma Yumurta Tost', price: '170', category: 'tostlar', order: 4, image: 'images/breakfast.jpg', desc: 'Kavrulmuş kıyma ve yumurtanın doyurucu uyumu.' },
-          { id: 'd10', name: 'Sucuklu Tost', price: '140', category: 'tostlar', order: 5, image: 'images/breakfast.jpg', desc: 'Kaliteli sucuk dilimleriyle hazırlanan klasik lezzet.' },
-          { id: 'd11', name: 'Kaşarlı Tost', price: '120', category: 'tostlar', order: 6, image: 'images/breakfast.jpg', desc: 'Eriyen taze kaşar peyniriyle sıcacık klasik tost.' },
-          { id: 'd12', name: 'Yumurtalı Tost', price: '130', category: 'tostlar', order: 7, image: 'images/breakfast.jpg', desc: 'Tost ekmeği arasında taze çırpılmış yumurta.' },
-          { id: 'd13', name: 'Sucuk Kaşar Tost', price: '150', category: 'tostlar', order: 8, image: 'images/breakfast.jpg', desc: 'Bol sucuk ve eriyen kaşarın efsanevi buluşması.' },
-          { id: 'd16', name: 'Bomba Tost', price: '200', category: 'tostlar', order: 9, image: 'images/breakfast.jpg', desc: 'İçinde yok yok! Enfes malzemelerle dolu özel bomba tost.' },
+          { id: 'd9', name: 'Kıymalı Tost', price: '160', category: 'tostlar', order: 1, image: 'images/foodcats/cattost.jpg', desc: 'Özel baharatlarla kavrulmuş bol kıymalı çıtır tost.' },
+          { id: 'd15', name: 'Kıyma Kaşar Tost', price: '170', category: 'tostlar', order: 2, image: 'images/foodcats/cattost.jpg', desc: 'Kavrulmuş kıyma ve eriyen sıcak kaşar peyniri.' },
+          { id: 'dt1', name: 'Kıymalı Bomba Tost', price: '210', category: 'tostlar', order: 3, image: 'images/foodcats/cattost.jpg', desc: 'İçi bol kıymalı ve zengin malzemeli özel bomba tost.' },
+          { id: 'd14', name: 'Kıyma Yumurta Tost', price: '170', category: 'tostlar', order: 4, image: 'images/foodcats/cattost.jpg', desc: 'Kavrulmuş kıyma ve yumurtanın doyurucu uyumu.' },
+          { id: 'd10', name: 'Sucuklu Tost', price: '140', category: 'tostlar', order: 5, image: 'images/foodcats/cattost.jpg', desc: 'Kaliteli sucuk dilimleriyle hazırlanan klasik lezzet.' },
+          { id: 'd11', name: 'Kaşarlı Tost', price: '120', category: 'tostlar', order: 6, image: 'images/foodcats/cattost.jpg', desc: 'Eriyen taze kaşar peyniriyle sıcacık klasik tost.' },
+          { id: 'd12', name: 'Yumurtalı Tost', price: '130', category: 'tostlar', order: 7, image: 'images/foodcats/cattost.jpg', desc: 'Tost ekmeği arasında taze çırpılmış yumurta.' },
+          { id: 'd13', name: 'Sucuk Kaşar Tost', price: '150', category: 'tostlar', order: 8, image: 'images/foodcats/cattost.jpg', desc: 'Bol sucuk ve eriyen kaşarın efsanevi buluşması.' },
+          { id: 'd16', name: 'Bomba Tost', price: '200', category: 'tostlar', order: 9, image: 'images/foodcats/cattost.jpg', desc: 'İçinde yok yok! Enfes malzemelerle dolu özel bomba tost.' },
 
-          { id: 'dy1', name: 'Saç Kavurma', price: '350', category: 'yemek', image: 'images/mekan-1.jpg', desc: 'Kendi suyunda özel baharatlarla ağır ağır pişmiş enfes saç kavurma.' },
-          { id: 'dy2', name: 'Köfte Porsiyon', price: '280', category: 'yemek', image: 'images/mekan-1.jpg', desc: 'Özel baharatlarla yoğrulmuş ızgara köfte porsiyon.' },
-          { id: 'dy3', name: 'Köfte Ekmek', price: '180', category: 'yemek', image: 'images/mekan-1.jpg', desc: 'Sıcak ekmek arası enfes ızgara köfte.' },
-          { id: 'dy4', name: 'Tavuk Sote', price: '240', category: 'yemek', image: 'images/mekan-1.jpg', desc: 'Mevsim sebzeleri ile sotelenmiş taze tavuk göğsü.' },
+          { id: 'dy1', name: 'Saç Kavurma', price: '350', category: 'yemek', image: 'images/foodcats/catyemek.jpg', desc: 'Kendi suyunda özel baharatlarla ağır ağır pişmiş enfes saç kavurma.' },
+          { id: 'dy2', name: 'Köfte Porsiyon', price: '280', category: 'yemek', image: 'images/foodcats/catyemek.jpg', desc: 'Özel baharatlarla yoğrulmuş ızgara köfte porsiyon.' },
+          { id: 'dy3', name: 'Köfte Ekmek', price: '180', category: 'yemek', image: 'images/foodcats/catyemek.jpg', desc: 'Sıcak ekmek arası enfes ızgara köfte.' },
+          { id: 'dy4', name: 'Tavuk Sote', price: '240', category: 'yemek', image: 'images/foodcats/catyemek.jpg', desc: 'Mevsim sebzeleri ile sotelenmiş taze tavuk göğsü.' },
 
-          { id: 'dg1', name: 'Patatesli Gözleme', price: '120', category: 'gozlemeler', order: 1, image: 'images/breakfast.jpg', desc: 'Taze yufka içinde özel baharatlı patates harcı.' },
-          { id: 'dg2', name: 'Kaşarlı Gözleme', price: '130', category: 'gozlemeler', order: 2, image: 'images/breakfast.jpg', desc: 'Eriyen taze kaşar peyniriyle sıcacık gözleme.' },
-          { id: 'dg3', name: 'Otlu (Sebzeli) Gözleme', price: '120', category: 'gozlemeler', order: 3, image: 'images/breakfast.jpg', desc: 'Mevsim yeşillikleri ve özel harçla hazırlanmış gözleme.' },
-          { id: 'dg4', name: 'Peynirli Gözleme', price: '125', category: 'gozlemeler', order: 4, image: 'images/breakfast.jpg', desc: 'Klasik beyaz peynirli nefis el açması gözleme.' },
-          { id: 'dg5', name: 'Tahinli Gözleme', price: '140', category: 'gozlemeler', order: 5, image: 'images/breakfast.jpg', desc: 'Tahin ve şekerin eşsiz uyumu.' },
-          { id: 'dg6', name: 'Ballı Gözleme', price: '140', category: 'gozlemeler', order: 6, image: 'images/breakfast.jpg', desc: 'Özel süzme bal ile tatlandırılmış gözleme.' },
-          { id: 'dg7', name: 'Çikolatalı Gözleme', price: '130', category: 'gozlemeler', order: 7, image: 'images/breakfast.jpg', desc: 'Bol akışkan çikolatalı tatlı gözleme.' },
-          { id: 'dg8', name: 'Kıymalı Gözleme', price: '160', category: 'gozlemeler', order: 8, image: 'images/breakfast.jpg', desc: 'Kavrulmuş kıyma harcı ile hazırlanan doyurucu gözleme.' },
-          { id: 'dg9', name: '2 Malzeme Karışık', price: '150', category: 'gozlemeler', order: 9, image: 'images/breakfast.jpg', desc: 'Seçeceğiniz 2 farklı malzeme ile hazırlanan karışık gözleme.' },
-          { id: 'dg10', name: '3 Malzeme Karışık', price: '170', category: 'gozlemeler', order: 10, image: 'images/breakfast.jpg', desc: 'Seçeceğiniz 3 farklı malzeme ile hazırlanan dolu dolu gözleme.' },
+          { id: 'dg1', name: 'Patatesli Gözleme', price: '120', category: 'gozlemeler', order: 1, image: 'images/foodcats/catgozleme.jpg', desc: 'Taze yufka içinde özel baharatlı patates harcı.' },
+          { id: 'dg2', name: 'Kaşarlı Gözleme', price: '130', category: 'gozlemeler', order: 2, image: 'images/foodcats/catgozleme.jpg', desc: 'Eriyen taze kaşar peyniriyle sıcacık gözleme.' },
+          { id: 'dg3', name: 'Otlu (Sebzeli) Gözleme', price: '120', category: 'gozlemeler', order: 3, image: 'images/foodcats/catgozleme.jpg', desc: 'Mevsim yeşillikleri ve özel harçla hazırlanmış gözleme.' },
+          { id: 'dg4', name: 'Peynirli Gözleme', price: '125', category: 'gozlemeler', order: 4, image: 'images/foodcats/catgozleme.jpg', desc: 'Klasik beyaz peynirli nefis el açması gözleme.' },
+          { id: 'dg5', name: 'Tahinli Gözleme', price: '140', category: 'gozlemeler', order: 5, image: 'images/foodcats/catgozleme.jpg', desc: 'Tahin ve şekerin eşsiz uyumu.' },
+          { id: 'dg6', name: 'Ballı Gözleme', price: '140', category: 'gozlemeler', order: 6, image: 'images/foodcats/catgozleme.jpg', desc: 'Özel süzme bal ile tatlandırılmış gözleme.' },
+          { id: 'dg7', name: 'Çikolatalı Gözleme', price: '130', category: 'gozlemeler', order: 7, image: 'images/foodcats/catgozleme.jpg', desc: 'Bol akışkan çikolatalı tatlı gözleme.' },
+          { id: 'dg8', name: 'Kıymalı Gözleme', price: '160', category: 'gozlemeler', order: 8, image: 'images/foodcats/catgozleme.jpg', desc: 'Kavrulmuş kıyma harcı ile hazırlanan doyurucu gözleme.' },
+          { id: 'dg9', name: '2 Malzeme Karışık', price: '150', category: 'gozlemeler', order: 9, image: 'images/foodcats/catgozleme.jpg', desc: 'Seçeceğiniz 2 farklı malzeme ile hazırlanan karışık gözleme.' },
+          { id: 'dg10', name: '3 Malzeme Karışık', price: '170', category: 'gozlemeler', order: 10, image: 'images/foodcats/catgozleme.jpg', desc: 'Seçeceğiniz 3 farklı malzeme ile hazırlanan dolu dolu gözleme.' },
 
-          { id: 'dc1', name: 'Süzme Mercimek Çorbası', price: '110', category: 'corbalar', image: 'images/mekan-1.jpg', desc: 'Tereyağlı sos eşliğinde, sıcacık ve şifa dolu geleneksel mercimek çorbası.' },
+          { id: 'dc1', name: 'Süzme Mercimek Çorbası', price: '110', category: 'corbalar', image: 'images/foodcats/catcorba.jpg', desc: 'Tereyağlı sos eşliğinde, sıcacık ve şifa dolu geleneksel mercimek çorbası.' },
 
-          { id: 'd6', name: 'Sezar Salata', price: '180', category: 'salata', image: 'images/salda-hero.png', desc: 'Özel Sezar sosu, kruton ve parmesan peyniri ile harmanlanmış taze yeşillikler.' },
+          { id: 'd6', name: 'Sezar Salata', price: '180', category: 'salata', image: 'images/foodcats/catsalata.jfif', desc: 'Özel Sezar sosu, kruton ve parmesan peyniri ile harmanlanmış taze yeşillikler.' },
           { id: 'd7', name: 'San Sebastian', price: '140', category: 'tatli', image: 'images/dessert.jpg', desc: 'İçi akışkan, üzeri hafif yanık orijinal tarifiyle enfes cheesecake.' },
 
           { id: 'dh1', name: 'Lavanta Çayı', price: '60', category: 'sicak-icecek', image: 'images/header-bg.jpg', desc: 'Salda nın meşhur lavanta tarlalarından toplanan taze lavanta çayı.' },
@@ -602,15 +602,25 @@
         window.menuCategoryTitles = { ...categoryTitles };
         window.menuOrder = ['kahvalti', 'tostlar', 'yemek', 'gozlemeler', 'corbalar', 'salata', 'tatli', 'sicak-icecek', 'soguk-icecek'];
         window.menuImages = {
-          'kahvalti': 'images/breakfast.jpg',
-          'tostlar': 'images/breakfast.jpg',
-          'yemek': 'images/mekan-1.jpg',
-          'gozlemeler': 'images/breakfast.jpg',
-          'corbalar': 'images/mekan-1.jpg',
-          'salata': 'images/salda-hero.png',
-          'tatli': 'images/dessert.jpg',
-          'sicak-icecek': 'images/header-bg.jpg',
-          'soguk-icecek': 'images/lemonade.jpg'
+          'kahvalti': 'images/foodcats/catkahvalti.jpg',
+          'tostlar': 'images/foodcats/cattost.jpg',
+          'tost': 'images/foodcats/cattost.jpg',
+          'yemek': 'images/foodcats/catyemek.jpg',
+          'yemekler': 'images/foodcats/catyemek.jpg',
+          'gozlemeler': 'images/foodcats/catgozleme.jpg',
+          'gozleme': 'images/foodcats/catgozleme.jpg',
+          'corbalar': 'images/foodcats/catcorba.jpg',
+          'corba': 'images/foodcats/catcorba.jpg',
+          'salata': 'images/foodcats/catsalata.jfif',
+          'salatalar': 'images/foodcats/catsalata.jfif',
+          'tatli': 'images/foodcats/cattatli.jfif',
+          'tatlilar': 'images/foodcats/cattatli.jfif',
+          'sicak-icecek': 'images/foodcats/catsicakicecek.jpg',
+          'sicak-icecekler': 'images/foodcats/catsicakicecek.jpg',
+          'sicakicecek': 'images/foodcats/catsicakicecek.jpg',
+          'soguk-icecek': 'images/foodcats/catsogukicecek.jfif',
+          'soguk-icecekler': 'images/foodcats/catsogukicecek.jfif',
+          'sogukicecek': 'images/foodcats/catsogukicecek.jfif'
         };
 
         // Dinamik / Firebase Kategorilerini Entegre Et
@@ -618,7 +628,10 @@
           window.serverCategories.forEach(c => {
             if (!c.value) return;
             window.menuCategoryTitles[c.value] = c.label || c.value;
-            if (c.image) window.menuImages[c.value] = c.image;
+            // Eğer kategori için foodcats klasöründe özel görsel varsa öncelikli olarak onu kullan:
+            if (!window.menuImages[c.value] && c.image) {
+              window.menuImages[c.value] = c.image;
+            }
             if (!window.menuOrder.includes(c.value)) {
               window.menuOrder.push(c.value);
             }
@@ -696,7 +709,7 @@
             html += `
                     <div onclick="window.location.hash='category-${cat}'" style="cursor: pointer; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--c-sand-200); background-color: var(--c-white); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'">
                         <div style="height: 140px; overflow: hidden;">
-                            <img src="${imgSrc}" alt="${title}" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="${imgSrc}" alt="${title}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='images/menuhero.jpg';">
                         </div>
                         <div style="padding: 1rem; text-align: center;">
                             <h3 style="font-size: 1.1rem; color: var(--c-dark-900); margin: 0; text-transform: uppercase; font-weight: 700;">${title}</h3>
