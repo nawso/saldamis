@@ -6,7 +6,11 @@
       "**/.*",
       "**/node_modules/**",
       "_eski_betikler/**",
-      "**/*.log"
+      "**/*.log",
+      "SCRATCHPAD.md"
     ]
+  },
+  "firestore": {
+    "rules": "firestore.rules"
   }
 }

@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Stil Dosyası -->
-  <link rel="stylesheet" href="style.css?v=14">
+  <link rel="stylesheet" href="style.css?v=23">
 
   <!-- Tema Tercihini Erken Uygula -->
   <script>
@@ -79,12 +79,12 @@
         </div>
 
         <!-- Marka Başlığı -->
-        <a href="index.html" class="brand-wrapper" title="Saldamis Cafe & Restoran">
-          <div class="brand-text-block">
-            <span class="brand-title">
-              SALDA<span class="accent-lavender">MIS</span>
+        <a href="index.html" class="brand-wrapper notranslate" translate="no" title="Saldamis Cafe & Restoran">
+          <div class="brand-text-block notranslate" translate="no">
+            <span class="brand-title notranslate" translate="no">
+              SALDA<span class="accent-lavender notranslate" translate="no">MIS</span>
             </span>
-            <span class="brand-subtitle">Aile Restoranı & Hediyelik Eşya</span>
+            <span class="brand-subtitle notranslate" translate="no">Aile Restoranı & Hediyelik Eşya</span>
           </div>
         </a>
       </div>
@@ -107,7 +107,7 @@
         
 
         <!-- Dil Seçeneği (Translate) -->
-        <div class="lang-dropdown" style="position: relative; display: inline-block;">
+        <div class="lang-dropdown notranslate" translate="no" style="position: relative; display: inline-block;">
           <button class="lang-btn" id="langBtn" style="display: flex; align-items: center; gap: 0.5rem; background: var(--c-white); border: 1px solid var(--c-sand-200); padding: 0.4rem 0.75rem; border-radius: 9999px; cursor: pointer; font-family: var(--font-body); font-weight: 600; color: var(--c-dark-700); transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
             <img src="https://flagcdn.com/w20/tr.png" alt="TR" style="width: 20px; border-radius: 2px;">
             <span style="display: none;" class="lang-text-desktop">Türkçe</span>
@@ -173,7 +173,7 @@
   <!-- ==========================================================================
        SAYFA BAŞLIĞI (HERO IMAGE)
        ========================================================================== -->
-  <section class="menu-header-banner" style="height: 30vh; min-height: 250px; max-height: 350px; width: 100%; position: relative; z-index: 0; margin-top: -50px;">
+  <section class="menu-header-banner" style="height: 30vh; min-height: 250px; max-height: 350px; width: 100%; position: relative; z-index: 0; margin-top: -68px;">
     <img src="images/menuhero.jpg" alt="Saldamis Menü" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
   </section>
 
@@ -257,28 +257,40 @@
   <!-- ==========================================================================
        ALT BİLGİ (FOOTER)
        ========================================================================== -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <h3>SALDA<span style="color:#a78bfa;">MİS</span></h3>
-          <p>
-            Doğanın kalbinde, Salda'nın beyaz kumları ve lavantanın büyülü kokusu eşliğinde unutulmaz bir lezzet
-            deneyimi.
-          </p>
-        </div>
-
-        <div class="footer-links">
-          <h4>Hızlı Bağlantılar</h4>
-          <a href="index.html">Ana Sayfa</a>
-          <a href="menu.html">Dijital Menü</a>
-          <a href="index.html#iletisim">İletişim & Harita</a>
-        </div>
+  <!-- ==========================================================================
+       ALT BİLGİ (FOOTER) - Minimalist & Sade
+       ========================================================================== -->
+  <footer class="site-footer" id="iletisim">
+    <div class="container footer-simple-container">
+      <div class="footer-simple-brand">
+        <h3 class="brand-title">SALDA<span>MIS</span></h3>
+        <span class="footer-tagline">Aile Restoranı &amp; Hediyelik</span>
       </div>
 
-      <div class="footer-bottom">
-        <div>&copy; 2026 Saldamis Aile Restoranı. Tüm hakları saklıdır.</div>
-        <div style="font-size:0.8rem; color:#475569;">Burdur, Yeşilova - Salda Gölü</div>
+      <p class="footer-simple-text">
+        Doğanın kalbinde, Salda Gölü'nün eşsiz manzarası ve lavantanın büyülü kokusu eşliğinde unutulmaz lezzetler.
+      </p>
+
+      <div class="footer-social-links">
+        <a href="https://wa.me/905550000000?text=Merhaba,%20Saldamis%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="footer-social-btn" title="WhatsApp" aria-label="WhatsApp">
+          <i data-lucide="message-circle"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" class="footer-social-btn" title="Instagram" aria-label="Instagram">
+          <i data-lucide="instagram"></i>
+        </a>
+        <a href="https://maps.google.com" target="_blank" class="footer-social-btn" title="Harita &amp; Konum" aria-label="Konum">
+          <i data-lucide="map-pin"></i>
+        </a>
+        <a href="tel:+905550000000" class="footer-social-btn" title="Bizi Arayın" aria-label="Telefon">
+          <i data-lucide="phone"></i>
+        </a>
+      </div>
+
+      <div class="footer-simple-bottom">
+        <div class="footer-copyright">&copy; 2026 Saldamis. Tüm hakları saklıdır.</div>
+        <div class="footer-signature">
+          <span>Bu sitenin yapımı <strong class="odse-badge">ODSE Bilişim</strong> tarafından gerçekleştirilmiştir.</span>
+        </div>
       </div>
     </div>
   </footer>
@@ -343,7 +355,7 @@
   <!-- FIREBASE DİNAMİK MENÜ YÜKLEYİCİ -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBY74WvWBN3taHZ2U8s-KLbZ8t3o7mPjlw",
@@ -368,16 +380,69 @@
       'oda-susleri': 'Oda Süsleri'
     };
 
+    const CACHE_KEY = 'saldamis_market_cache_v2';
+    const CACHE_TIME_KEY = 'saldamis_market_time_v2';
+    const CACHE_TTL = 15 * 60 * 1000; // 15 dakika boyunca 0 okuma (tarayıcı önbelleği)
+
+    async function fetchMarketItems() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const forceRefresh = urlParams.get('refresh') === '1';
+
+      if (!forceRefresh) {
+        try {
+          const cached = localStorage.getItem(CACHE_KEY);
+          const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
+          if (cached && cachedTime && (Date.now() - Number(cachedTime) < CACHE_TTL)) {
+            return JSON.parse(cached);
+          }
+        } catch (e) {}
+      }
+
+      // 1. Önce optimize edilmiş tek dokümanı oku (Sadece 1 Okuma!)
+      try {
+        const singleSnap = await getDoc(doc(db, "publicData", "market"));
+        if (singleSnap.exists()) {
+          const sData = singleSnap.data();
+          if (sData.categories && Array.isArray(sData.categories)) {
+            window.serverCategories = sData.categories;
+          }
+          if (sData.items && sData.items.length > 0) {
+            const items = sData.items;
+            try {
+              localStorage.setItem(CACHE_KEY, JSON.stringify(items));
+              localStorage.setItem(CACHE_TIME_KEY, String(Date.now()));
+            } catch (e) {}
+            return items;
+          }
+        }
+      } catch (err) {
+        console.warn("Tek market dokümanı okunamadı, koleksiyona geçiliyor:", err);
+      }
+
+      // 2. Yedek fallback: Koleksiyondan oku
+      const querySnapshot = await getDocs(collection(db, "marketItems"));
+      const items = [];
+      querySnapshot.forEach(docSnap => {
+        items.push({ id: docSnap.id, ...docSnap.data() });
+      });
+
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify(items));
+        localStorage.setItem(CACHE_TIME_KEY, String(Date.now()));
+      } catch (e) {}
+
+      return items;
+    }
+
     async function loadMenu() {
       const container = document.getElementById('menuContainer');
       if (!container) return;
 
       try {
-        const querySnapshot = await getDocs(collection(db, "marketItems"));
+        const allItems = await fetchMarketItems();
         const grouped = {};
         
-        querySnapshot.forEach(docSnap => {
-          const item = docSnap.data();
+        allItems.forEach(item => {
           let cats = [];
           if (Array.isArray(item.categories)) {
             cats = item.categories;
@@ -389,12 +454,12 @@
 
           cats.forEach(c => {
             if (!grouped[c]) grouped[c] = [];
-            grouped[c].push({ ...item, id: docSnap.id });
+            grouped[c].push(item);
           });
         });
 
         window.menuGrouped = grouped;
-        window.menuCategoryTitles = categoryTitles;
+        window.menuCategoryTitles = { ...categoryTitles };
         window.menuOrder = ['paketler', 'sabunlar', 'dogal-yaglar', 'kolonya-kozmetik', 'dogal-urunler', 'magnet-acacak', 'oda-susleri', 'diger'];
         window.menuImages = {
           'paketler': 'images/header-bg.jpg',
@@ -405,6 +470,35 @@
           'magnet-acacak': 'images/header-bg.jpg',
           'oda-susleri': 'images/header-bg.jpg'
         };
+
+        if (window.serverCategories && Array.isArray(window.serverCategories)) {
+          window.serverCategories.forEach(c => {
+            if (!c.value) return;
+            window.menuCategoryTitles[c.value] = c.label || c.value;
+            if (c.image) window.menuImages[c.value] = c.image;
+            if (!window.menuOrder.includes(c.value)) {
+              window.menuOrder.push(c.value);
+            }
+          });
+          const catOrderMap = {};
+          window.serverCategories.forEach(c => {
+            if (c.value) catOrderMap[c.value] = (c.order !== undefined && c.order !== null) ? Number(c.order) : 99;
+          });
+          window.menuOrder.sort((a, b) => {
+            const oA = catOrderMap[a] !== undefined ? catOrderMap[a] : 99;
+            const oB = catOrderMap[b] !== undefined ? catOrderMap[b] : 99;
+            return oA - oB;
+          });
+        }
+
+        Object.keys(grouped).forEach(cat => {
+          if (cat !== 'diger' && !window.menuOrder.includes(cat)) {
+            window.menuOrder.push(cat);
+            if (!window.menuCategoryTitles[cat]) {
+              window.menuCategoryTitles[cat] = cat.charAt(0).toUpperCase() + cat.slice(1);
+            }
+          }
+        });
 
         window.showProductDetail = function(catId, itemId) {
             const item = window.menuGrouped[catId].find(x => x.id === itemId);
@@ -606,50 +700,9 @@
   </script>
   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const langBtn = document.getElementById('langBtn');
-      const langMenu = document.getElementById('langMenu');
-      const langItems = document.querySelectorAll('.lang-item');
 
-      if(langBtn && langMenu) {
-        langBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          langMenu.style.display = langMenu.style.display === 'none' ? 'block' : 'none';
-        });
 
-        document.addEventListener('click', () => {
-          langMenu.style.display = 'none';
-        });
-
-        langItems.forEach(item => {
-          item.addEventListener('click', () => {
-            const langCode = item.getAttribute('data-lang');
-            const langName = item.getAttribute('data-lang-name');
-            const flagCode = item.getAttribute('data-flag');
-
-            // Butonun görüntüsünü seçilen dile göre güncelle
-            const textSpan = langBtn.querySelector('.lang-text-desktop');
-            if(textSpan) textSpan.textContent = langName;
-            langBtn.querySelector('img').src = `https://flagcdn.com/w20/${flagCode}.png`;
-
-            // Google Çeviriyi Tetikle
-            const select = document.querySelector('.goog-te-combo');
-            if (select) {
-              select.value = langCode;
-              select.dispatchEvent(new Event('change'));
-            } else {
-              document.cookie = `googtrans=/tr/${langCode}; path=/; domain=${window.location.hostname}`;
-              document.cookie = `googtrans=/tr/${langCode}; path=/`;
-              window.location.reload();
-            }
-          });
-        });
-      }
-    });
-  </script>
-
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 
 </html>

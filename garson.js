@@ -1,4 +1,4 @@
-import { db, auth, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, signInWithEmailAndPassword, onAuthStateChanged, signOut, onSnapshot } from './firebase-config.js';
+import { db, auth, collection, getDocs, getDoc, addDoc, updateDoc, deleteDoc, doc, signInWithEmailAndPassword, onAuthStateChanged, signOut, onSnapshot } from './firebase-config.js';
 
 // DOM Elements
 const loginSection = document.getElementById('loginSection');
@@ -8,6 +8,7 @@ const emailInput = document.getElementById('emailInput');
 const passwordInput = document.getElementById('passwordInput');
 const loginError = document.getElementById('loginError');
 const logoutBtn = document.getElementById('logoutBtn');
+const refreshMenuBtn = document.getElementById('refreshMenuBtn');
 const tablesGrid = document.getElementById('tablesGrid');
 const pendingOrdersGrid = document.getElementById('pendingOrdersGrid');
 const addTableBtn = document.getElementById('addTableBtn');
@@ -51,15 +52,31 @@ let currentTableId = null;
 let currentTableData = null; 
 let newOrdersArray = []; 
 let allTablesData = [];
+let unsubscribeTables = null;
 
 // Auth State Observer
 onAuthStateChanged(auth, (user) => {
   if (user) {
     loginSection.style.display = 'none';
     dashboardSection.style.display = 'block';
+
+    const backToAdminBtn = document.getElementById('backToAdminBtn');
+    if (backToAdminBtn) {
+      const email = (user.email || '').toLowerCase().trim();
+      if (!email.includes('garson')) {
+        backToAdminBtn.style.display = 'inline-flex';
+      } else {
+        backToAdminBtn.style.display = 'none';
+      }
+    }
+
     loadMenu();
     listenToTables();
   } else {
+    if (unsubscribeTables) {
+      unsubscribeTables();
+      unsubscribeTables = null;
+    }
     loginSection.style.display = 'block';
     dashboardSection.style.display = 'none';
   }
@@ -75,7 +92,27 @@ loginBtn.addEventListener('click', async () => {
     loginError.style.display = 'block';
   }
 });
-logoutBtn.addEventListener('click', () => signOut(auth));
+logoutBtn.addEventListener('click', () => {
+  if (unsubscribeTables) {
+    unsubscribeTables();
+    unsubscribeTables = null;
+  }
+  signOut(auth);
+});
+
+if (refreshMenuBtn) {
+  refreshMenuBtn.addEventListener('click', async () => {
+    refreshMenuBtn.disabled = true;
+    const oldText = refreshMenuBtn.textContent;
+    refreshMenuBtn.textContent = 'Yenileniyor...';
+    await loadMenu(true);
+    refreshMenuBtn.textContent = 'Güncellendi ✓';
+    setTimeout(() => {
+      refreshMenuBtn.textContent = oldText;
+      refreshMenuBtn.disabled = false;
+    }, 1500);
+  });
+}
 
 
 // --- MENÜ YÜKLEME ---
@@ -92,17 +129,62 @@ const categoryTitles = {
 };
 const menuOrder = ['kahvalti', 'tostlar', 'yemek', 'gozlemeler', 'corbalar', 'salata', 'tatli', 'sicak-icecek', 'soguk-icecek'];
 
-async function loadMenu() {
-  try {
-    const querySnapshot = await getDocs(collection(db, "menuItems"));
-    const categoriesSet = new Set();
-    menuItems = [];
+const GARSON_CACHE_KEY = 'saldamis_garson_menu_v2';
+const GARSON_CACHE_TIME = 'saldamis_garson_menu_time_v2';
+const GARSON_CACHE_TTL = 30 * 60 * 1000; // 30 dakika önbellek
 
-    querySnapshot.forEach((doc) => {
-      const item = doc.data();
-      item.id = doc.id;
-      menuItems.push(item);
-      
+async function loadMenu(forceRefresh = false) {
+  try {
+    let items = null;
+    if (!forceRefresh) {
+      try {
+        const cached = localStorage.getItem(GARSON_CACHE_KEY);
+        const cachedTime = localStorage.getItem(GARSON_CACHE_TIME);
+        if (cached && cachedTime && (Date.now() - Number(cachedTime) < GARSON_CACHE_TTL)) {
+          items = JSON.parse(cached);
+        }
+      } catch (e) {}
+    }
+
+    if (!items) {
+      // 1. Önce optimize edilmiş tek dokümanı oku (1 okuma)
+      try {
+        const singleSnap = await getDoc(doc(db, "publicData", "menu"));
+        if (singleSnap.exists()) {
+          const sData = singleSnap.data();
+          if (sData.categories && Array.isArray(sData.categories)) {
+            sData.categories.forEach(c => {
+              if (c.value) {
+                categoryTitles[c.value] = c.label || c.value;
+                if (!menuOrder.includes(c.value)) menuOrder.push(c.value);
+              }
+            });
+          }
+          if (sData.items && sData.items.length > 0) {
+            items = sData.items;
+          }
+        }
+      } catch (e) {}
+
+      // 2. Yoksa koleksiyondan oku
+      if (!items) {
+        const querySnapshot = await getDocs(collection(db, "menuItems"));
+        items = [];
+        querySnapshot.forEach((docSnap) => {
+          items.push({ id: docSnap.id, ...docSnap.data() });
+        });
+      }
+
+      try {
+        localStorage.setItem(GARSON_CACHE_KEY, JSON.stringify(items));
+        localStorage.setItem(GARSON_CACHE_TIME, String(Date.now()));
+      } catch (e) {}
+    }
+
+    const categoriesSet = new Set();
+    menuItems = items || [];
+
+    menuItems.forEach((item) => {
       let cats = [];
       if (Array.isArray(item.categories)) cats = item.categories;
       else if (item.category) cats = item.category.split(',').map(c => c.trim());
@@ -188,7 +270,11 @@ function renderMenu(items) {
 
 // --- MASALAR ---
 function listenToTables() {
-  onSnapshot(collection(db, "tables"), (snapshot) => {
+  if (unsubscribeTables) {
+    unsubscribeTables();
+    unsubscribeTables = null;
+  }
+  unsubscribeTables = onSnapshot(collection(db, "tables"), (snapshot) => {
     allTablesData = [];
     snapshot.forEach((doc) => {
       allTablesData.push({ id: doc.id, ...doc.data() });
@@ -256,61 +342,146 @@ addTableBtn.addEventListener('click', async () => {
 // --- BEKLEYEN SİPARİŞLER (ANA EKRAN) ---
 function renderPendingOrders() {
   pendingOrdersGrid.innerHTML = '';
-  let hasPending = false;
   const now = Date.now();
+  const allPendingItems = [];
 
   allTablesData.forEach(table => {
-    if (!table.orders) return;
+    if (!table.orders || !Array.isArray(table.orders)) return;
     
-    const pendingItems = table.orders.filter(o => o.status === 'bekliyor');
-    if (pendingItems.length > 0) {
-      hasPending = true;
-      
-      const groups = {};
-      pendingItems.forEach(item => {
-        const timeKey = item.timestamp || 0;
-        if (!groups[timeKey]) groups[timeKey] = [];
-        groups[timeKey].push(item);
-      });
-
-      Object.keys(groups).sort((a,b) => a - b).forEach(timeKey => {
-        const items = groups[timeKey];
-        const orderTime = parseInt(timeKey);
-        const diffMinutes = Math.floor((now - orderTime) / 60000);
-        const isUrgent = diffMinutes >= 15;
-        
-        let timeText = diffMinutes === 0 ? "Az önce" : `${diffMinutes} dk önce`;
-        if(isNaN(diffMinutes)) timeText = "Bilinmiyor";
-
-        const div = document.createElement('div');
-        div.className = 'pending-order-card';
-        const itemsHtml = items.map(i => `• ${i.qty}x ${i.name}`).join('<br>');
-
-        div.innerHTML = `
-          <div class="pending-order-header">
-            <span>${table.number}</span>
-            <span class="time-badge ${isUrgent ? 'urgent' : ''}">${timeText}</span>
-          </div>
-          <div class="pending-order-items">
-            ${itemsHtml}
-          </div>
-          <button class="btn-mark-delivered" onclick="window.markAsDelivered('${table.id}', ${timeKey})">
-            Teslim Edildi İşaretle
-          </button>
-        `;
-        pendingOrdersGrid.appendChild(div);
-      });
-    }
+    table.orders.forEach((orderItem, index) => {
+      if (orderItem.status === 'bekliyor') {
+        allPendingItems.push({
+          tableId: table.id,
+          tableNumber: table.number,
+          orderIndex: index,
+          orderUid: orderItem.uid || null,
+          item: orderItem,
+          timestamp: orderItem.timestamp || 0
+        });
+      }
+    });
   });
 
-  if (!hasPending) {
-    pendingOrdersGrid.innerHTML = '<p style="color: #64748b;">Şu an bekleyen sipariş yok.</p>';
+  if (allPendingItems.length === 0) {
+    pendingOrdersGrid.innerHTML = '<p style="color: #94a3b8; padding: 10px;">Şu an bekleyen sipariş yok.</p>';
+    return;
   }
+
+  // Siparişleri kronolojik (en eskiden en yeniye) sırala: İlk sipariş edilen en üstte
+  allPendingItems.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+
+  allPendingItems.forEach(entry => {
+    const { tableId, tableNumber, orderIndex, orderUid, item, timestamp } = entry;
+    const diffMinutes = Math.floor((now - timestamp) / 60000);
+    const isUrgent = diffMinutes >= 15;
+    
+    let timeText = diffMinutes === 0 ? "Az önce" : `${diffMinutes} dk önce`;
+    if (isNaN(diffMinutes) || timestamp === 0) timeText = "Az önce";
+
+    const div = document.createElement('div');
+    div.className = 'pending-order-card';
+
+    const safeUid = orderUid ? `'${orderUid}'` : 'null';
+    const itemTotal = (item.price && item.qty) ? `${item.price * item.qty} ₺` : '';
+
+    div.innerHTML = `
+      <div class="pending-order-header">
+        <div class="pending-table-tag">
+          <span class="pending-table-tag-dot"></span>
+          <span>${tableNumber}</span>
+        </div>
+        <span class="time-badge ${isUrgent ? 'urgent' : ''}">${timeText}</span>
+      </div>
+      <div class="pending-item-body">
+        <div class="pending-item-name">
+          <span class="pending-item-qty">${item.qty}x</span>
+          <span>${item.name}</span>
+        </div>
+        ${itemTotal ? `<span class="pending-item-price">${itemTotal}</span>` : ''}
+      </div>
+      <div class="pending-order-actions">
+        <button class="btn-mark-delivered" onclick="window.markItemDelivered('${tableId}', ${safeUid}, ${orderIndex})">
+          ✓ Teslim Edildi
+        </button>
+        <button class="btn-cancel-pending" onclick="window.cancelPendingItem('${tableId}', ${safeUid}, ${orderIndex})">
+          ✕ İptal
+        </button>
+      </div>
+    `;
+    pendingOrdersGrid.appendChild(div);
+  });
 }
 
+window.markItemDelivered = async (tableId, orderUid, orderIndex) => {
+  const table = allTablesData.find(t => t.id === tableId);
+  if (!table || !table.orders) return;
+
+  const updatedOrders = [...table.orders];
+  let targetIndex = -1;
+
+  if (orderUid) {
+    targetIndex = updatedOrders.findIndex(o => o.uid === orderUid && o.status === 'bekliyor');
+  }
+  if (targetIndex === -1 && typeof orderIndex === 'number' && updatedOrders[orderIndex] && updatedOrders[orderIndex].status === 'bekliyor') {
+    targetIndex = orderIndex;
+  }
+
+  if (targetIndex !== -1) {
+    updatedOrders[targetIndex] = {
+      ...updatedOrders[targetIndex],
+      status: 'teslim_edildi'
+    };
+
+    try {
+      await updateDoc(doc(db, "tables", tableId), { orders: updatedOrders });
+    } catch (error) {
+      console.error("Hata:", error);
+      alert("Sipariş güncellenirken hata oluştu.");
+    }
+  }
+};
+
+window.cancelPendingItem = async (tableId, orderUid, orderIndex) => {
+  const table = allTablesData.find(t => t.id === tableId);
+  if (!table || !table.orders) return;
+
+  const updatedOrders = [...table.orders];
+  let targetIndex = -1;
+
+  if (orderUid) {
+    targetIndex = updatedOrders.findIndex(o => o.uid === orderUid);
+  }
+  if (targetIndex === -1 && typeof orderIndex === 'number' && updatedOrders[orderIndex]) {
+    targetIndex = orderIndex;
+  }
+
+  if (targetIndex === -1) return;
+  const item = updatedOrders[targetIndex];
+
+  if (!confirm(`'${table.number}' masasındaki '${item.qty}x ${item.name}' siparişini iptal etmek istediğinize emin misiniz?`)) {
+    return;
+  }
+
+  updatedOrders.splice(targetIndex, 1);
+  const newTotal = updatedOrders.reduce((sum, it) => sum + (it.price * it.qty), 0);
+  const newStatus = updatedOrders.length === 0 ? 'empty' : table.status;
+
+  try {
+    await updateDoc(doc(db, "tables", tableId), {
+      orders: updatedOrders,
+      total: newTotal,
+      status: newStatus
+    });
+  } catch (error) {
+    console.error("Hata:", error);
+    alert("Sipariş iptal edilirken hata oluştu.");
+  }
+};
+
+// Eski fonksiyon çağrıları için geriye dönük uyumluluk
 window.markAsDelivered = async (tableId, timeKey) => {
   const table = allTablesData.find(t => t.id === tableId);
-  if (!table) return;
+  if (!table || !table.orders) return;
 
   const updatedOrders = table.orders.map(o => {
     if (o.status === 'bekliyor' && o.timestamp == timeKey) {
@@ -497,15 +668,15 @@ function renderNewOrderList() {
     div.innerHTML = `
       <div class="order-item-main">
         <div class="order-item-info">
-          <div style="font-weight: 600; color: #1e293b;">${item.name}</div>
-          <div style="color: #64748b; font-size: 0.9rem;">${item.price} ₺</div>
+          <div style="font-weight: 600; color: #f8fafc;">${item.name}</div>
+          <div style="color: #94a3b8; font-size: 0.85rem;">${item.price} ₺</div>
         </div>
         <div class="order-item-qty">
           <button class="qty-btn" onclick="window.updateQtyNew(${item.tempId}, -1)">-</button>
-          <span style="font-weight: 600; width: 20px; text-align: center;">${item.qty}</span>
+          <span style="font-weight: 600; width: 20px; text-align: center; color: #ffffff;">${item.qty}</span>
           <button class="qty-btn" onclick="window.updateQtyNew(${item.tempId}, 1)">+</button>
         </div>
-        <div style="font-weight: bold; margin-left: 20px;">${itemTotal} ₺</div>
+        <div style="font-weight: 700; margin-left: 15px; color: #34d399;">${itemTotal} ₺</div>
       </div>
     `;
     newOrderList.appendChild(div);
@@ -522,7 +693,8 @@ saveOrderBtn.addEventListener('click', async () => {
   saveOrderBtn.disabled = true;
 
   const now = Date.now();
-  const newItemsFormatted = newOrdersArray.map(o => ({
+  const newItemsFormatted = newOrdersArray.map((o, idx) => ({
+    uid: `${now}_${idx}_${Math.random().toString(36).substr(2, 6)}`,
     id: o.id,
     name: o.name,
     price: o.price,
@@ -568,7 +740,7 @@ function renderDetailsScreen() {
     detailsOrderList.innerHTML = '<p style="color: #64748b; text-align: center;">Bu masada henüz sipariş yok.</p>';
   }
 
-  orders.forEach(item => {
+  orders.forEach((item, index) => {
     let statusClass = item.status === 'bekliyor' ? 'bekliyor' : 'teslim_edildi';
     let statusText = item.status === 'bekliyor' ? 'Hazırlanıyor' : 'Teslim Edildi';
 
@@ -578,8 +750,11 @@ function renderDetailsScreen() {
       <div class="detail-info">
         <h4>${item.qty}x ${item.name}</h4>
         <p>${item.price} ₺ / Adet</p>
-        <div style="margin-top: 8px;">
+        <div style="margin-top: 8px; display: flex; align-items: center; gap: 10px;">
            <span class="status-badge ${statusClass}">${statusText}</span>
+           ${item.status === 'bekliyor' ? `
+             <button class="btn-cancel-pending" style="padding: 4px 10px; font-size: 0.75rem; flex: none;" onclick="window.cancelPendingItem('${currentTableId}', ${item.uid ? `'${item.uid}'` : 'null'}, ${index})">İptal Et ✕</button>
+           ` : ''}
         </div>
       </div>
       <div class="detail-price">

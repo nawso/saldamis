@@ -1,190 +1,634 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Garson & Masa Takip Sistemi - Saldamış Şelalesi</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* Garson Paneli Özel Stiller */
-    .dashboard-container {
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 20px;
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --bg-base: #0b0f19;
+      --card-bg: rgba(17, 24, 39, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
     }
-    .header-bar {
+
+    body.admin-body {
+      background-color: var(--bg-base);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.08) 0px, transparent 50%);
+      background-attachment: fixed;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-main);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    /* Executive Login Card (Garson) */
+    .admin-login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+      box-sizing: border-box;
+    }
+
+    .admin-login-box {
+      width: 100%;
+      max-width: 440px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2.75rem 2.25rem;
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .login-brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.85rem;
+      background: rgba(139, 92, 246, 0.12);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #c4b5fd;
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .login-brand-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #a855f7;
+      box-shadow: 0 0 8px rgba(168, 85, 247, 0.8);
+    }
+
+    .admin-login-box h2 {
+      margin: 0 0 0.4rem 0;
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+
+    .admin-login-box p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 0.5rem;
+    }
+
+    .admin-input {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.6) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      color: #ffffff !important;
+      font-family: inherit !important;
+      font-size: 0.92rem !important;
+      padding: 0.85rem 1rem !important;
+      border-radius: 12px !important;
+      box-sizing: border-box;
+      outline: none !important;
+      transition: all 0.2s ease;
+    }
+
+    .admin-input:focus {
+      border-color: #6366f1 !important;
+      background: rgba(15, 23, 42, 0.85) !important;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
+    }
+
+    .admin-btn {
+      width: 100%;
+      padding: 0.9rem 1.5rem;
+      background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+
+    .admin-btn:hover {
+      background: linear-gradient(135deg, #4338ca 0%, #312e81 100%);
+      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+      transform: translateY(-1px);
+    }
+
+    /* Top Global Navbar in Garson */
+    .garson-top-bar {
+      width: 100%;
+      max-width: 1300px;
+      margin: 1.5rem auto 1.5rem auto;
+      padding: 0 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 30px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid rgba(0,0,0,0.1);
-    }
-    
-    .section-title {
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: #1e293b;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      box-sizing: border-box;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
 
+    .garson-brand-left {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .garson-brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(79, 70, 229, 0.35));
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      box-shadow: 0 4px 14px rgba(139, 92, 246, 0.2);
+    }
+
+    .garson-brand-titles h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+
+    .garson-brand-titles span {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    .garson-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-action-pill {
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(12px);
+      color: #cbd5e1;
+      font-family: inherit;
+    }
+
+    .nav-action-pill:hover {
+      transform: translateY(-1px);
+    }
+
+    .pill-admin {
+      background: rgba(139, 92, 246, 0.15);
+      border-color: rgba(139, 92, 246, 0.3);
+      color: #c4b5fd;
+    }
+    .pill-admin:hover {
+      background: rgba(139, 92, 246, 0.25);
+    }
+
+    .pill-refresh {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+    }
+    .pill-refresh:hover {
+      background: rgba(16, 185, 129, 0.25);
+    }
+
+    .pill-add {
+      background: rgba(14, 165, 233, 0.15);
+      border-color: rgba(14, 165, 233, 0.3);
+      color: #7dd3fc;
+    }
+    .pill-add:hover {
+      background: rgba(14, 165, 233, 0.25);
+    }
+
+    .pill-logout {
+      background: rgba(239, 68, 68, 0.12);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+    }
+    .pill-logout:hover {
+      background: rgba(239, 68, 68, 0.22);
+    }
+
+    /* Main Dashboard Container */
+    .dashboard-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem 1.5rem;
+      box-sizing: border-box;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      letter-spacing: -0.015em;
+    }
+
+    /* Modern Table Grid & Cards */
     .tables-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 15px;
-      margin-bottom: 40px;
+      grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
     }
 
     .table-card {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 12px;
-      padding: 15px;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.2rem 1rem;
       text-align: center;
       cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-      border: 3px solid transparent;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 120px;
+      min-height: 125px;
+      position: relative;
+      overflow: hidden;
     }
 
     .table-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.5);
     }
-
-    .table-card.empty { border-color: #10b981; }
-    .table-card.empty .table-status { color: #10b981; }
-    .table-card.occupied { border-color: #f59e0b; background: #fffbeb; }
-    .table-card.occupied .table-status { color: #f59e0b; }
-    .table-card.waiting { border-color: #ef4444; background: #fef2f2; }
-    .table-card.waiting .table-status { color: #ef4444; font-weight: bold; }
 
     .table-card h3 {
-      margin: 0 0 5px 0;
-      font-size: 1.4rem;
-      color: #1e293b;
-    }
-    .table-status {
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-bottom: 8px;
-    }
-    .table-total {
-      font-weight: 700;
-      color: #1e293b;
-      font-size: 1.1rem;
+      margin: 0 0 6px 0;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
     }
 
-    /* Aktif Siparişler Bölümü (Tümü) */
-    .active-orders-container {
-      background: white;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      margin-bottom: 40px;
+    .table-status {
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 9999px;
     }
+
+    .table-total {
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: #ffffff;
+    }
+
+    /* Table Status Variants */
+    .table-card.empty {
+      border-color: rgba(16, 185, 129, 0.3);
+      background: rgba(16, 185, 129, 0.04);
+    }
+    .table-card.empty:hover {
+      border-color: #10b981;
+      box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3);
+    }
+    .table-card.empty .table-status {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .table-card.occupied {
+      border-color: rgba(245, 158, 11, 0.35);
+      background: rgba(245, 158, 11, 0.05);
+    }
+    .table-card.occupied:hover {
+      border-color: #f59e0b;
+      box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.3);
+    }
+    .table-card.occupied .table-status {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .table-card.waiting {
+      border-color: rgba(239, 68, 68, 0.4);
+      background: rgba(239, 68, 68, 0.06);
+      animation: alertPulse 2s infinite;
+    }
+    @keyframes alertPulse {
+      0%, 100% { border-color: rgba(239, 68, 68, 0.4); }
+      50% { border-color: rgba(239, 68, 68, 0.9); box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
+    }
+    .table-card.waiting .table-status {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      font-weight: 800;
+    }
+
+    /* Active Orders Container */
+    .active-orders-container {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.75rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      margin-bottom: 2.5rem;
+    }
+
     .active-orders-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 15px;
+      gap: 1rem;
     }
+
     .pending-order-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 15px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1.1rem 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 0.75rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
+
+    .pending-order-card:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-2px);
+    }
+
     .pending-order-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-weight: bold;
-      color: #1e293b;
-      border-bottom: 1px solid #cbd5e1;
-      padding-bottom: 8px;
+      font-weight: 700;
+      color: #ffffff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      padding-bottom: 0.65rem;
+      font-size: 1rem;
     }
-    .time-badge {
-      font-size: 0.8rem;
+
+    .pending-table-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(99, 102, 241, 0.15);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.3);
       padding: 3px 8px;
-      border-radius: 10px;
-      background: #e2e8f0;
-      color: #475569;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
     }
+
+    .pending-table-tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #818cf8;
+      box-shadow: 0 0 6px #818cf8;
+    }
+
+    .time-badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+
     .time-badge.urgent {
-      background: #fee2e2;
-      color: #ef4444;
-      font-weight: bold;
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      animation: alertPulse 2s infinite;
     }
-    .pending-order-items {
+
+    .pending-item-body {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.3rem 0;
+    }
+
+    .pending-item-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pending-item-qty {
+      background: rgba(255, 255, 255, 0.1);
+      color: #34d399;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
       font-size: 0.95rem;
-      color: #334155;
-      line-height: 1.5;
-      flex: 1;
     }
+
+    .pending-item-price {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    .pending-order-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 0.25rem;
+    }
+
     .btn-mark-delivered {
-      background: #10b981;
+      flex: 1.4;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: white;
       border: none;
-      padding: 10px;
-      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      border-radius: 10px;
       cursor: pointer;
-      font-weight: 600;
-      width: 100%;
-      transition: background 0.2s;
+      font-weight: 700;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
     }
-    .btn-mark-delivered:hover { background: #059669; }
 
-    /* Modal Stilleri */
+    .btn-mark-delivered:hover {
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-cancel-pending {
+      flex: 1;
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 0.65rem 0.85rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .btn-cancel-pending:hover {
+      background: rgba(239, 68, 68, 0.28);
+      border-color: rgba(239, 68, 68, 0.5);
+      transform: translateY(-1px);
+    }
+
+    /* Modal Stilleri (Dark Glassmorphic) */
     .modal-overlay {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
       display: none;
       justify-content: center;
       align-items: center;
       z-index: 1000;
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
-    .modal-overlay.active { display: flex; }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
     .modal-content {
-      background: white;
-      border-radius: 20px;
+      background: #0f1422;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
       width: 95%;
       max-width: 1200px;
       height: 90vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+      color: #f8fafc;
     }
+
     .modal-header {
-      padding: 20px 30px;
-      border-bottom: 1px solid #e2e8f0;
+      padding: 1.25rem 1.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #f8fafc;
+      background: rgba(17, 24, 39, 0.6);
     }
-    .modal-header h2 { margin: 0; color: #1e293b; font-size: 1.8rem; }
+
+    .modal-header h2 {
+      margin: 0;
+      color: #ffffff;
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
     .close-modal {
-      background: none;
-      border: none;
-      font-size: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      width: 36px;
+      height: 36px;
+      font-size: 1.4rem;
       cursor: pointer;
-      color: #64748b;
-      line-height: 1;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
     }
+
+    .close-modal:hover {
+      color: #ffffff;
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+
     .modal-body {
       display: flex;
       flex: 1;
@@ -192,258 +636,474 @@
       position: relative;
     }
 
-    /* Modal İlk Seçim Ekranı */
+    /* Modal Seçim Ekranı */
     .modal-selection-screen {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 1.25rem;
       width: 100%;
       height: 100%;
       justify-content: center;
       align-items: center;
-      background: #f8fafc;
-      padding: 20px;
+      background: transparent;
+      padding: 1.5rem;
     }
+
     .big-action-btn {
       width: 90%;
-      max-width: 400px;
-      padding: 30px;
-      border-radius: 15px;
-      border: 2px solid #e2e8f0;
-      background: white;
-      font-size: 1.5rem;
+      max-width: 440px;
+      padding: 1.75rem 2rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(12px);
+      font-size: 1.4rem;
       font-weight: 700;
-      color: #1e293b;
+      color: #ffffff;
       cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 0.4rem;
+      font-family: inherit;
     }
+
     .big-action-btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      border-color: #3b82f6;
-      color: #3b82f6;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(79, 70, 229, 0.3);
+      border-color: rgba(99, 102, 241, 0.5);
+      background: rgba(30, 41, 59, 0.85);
     }
-    
+
+    .big-action-btn span {
+      font-size: 0.88rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
     #modalAddOrderScreen {
       display: none;
       width: 100%;
       height: 100%;
       flex-direction: row;
     }
-    
+
     #modalMoveTableScreen {
       display: none;
       width: 100%;
       height: 100%;
       flex-direction: column;
-      background: #f8fafc;
+      background: transparent;
       overflow-y: auto;
       padding: 25px;
     }
+
     .move-table-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
       gap: 15px;
     }
-    
+
     .menu-section {
       flex: 2;
-      border-right: 1px solid #e2e8f0;
-      padding: 25px;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1.5rem;
       overflow-y: auto;
-      background: #f1f5f9;
+      background: rgba(11, 15, 25, 0.4);
     }
+
     .category-filter {
       display: flex;
-      gap: 12px;
-      margin-bottom: 25px;
+      gap: 0.65rem;
+      margin-bottom: 1.5rem;
       overflow-x: auto;
-      padding-bottom: 10px;
+      padding-bottom: 0.5rem;
     }
+
     .category-btn {
-      padding: 10px 20px;
-      border-radius: 25px;
-      border: 1px solid #cbd5e1;
-      background: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(17, 24, 39, 0.7);
+      color: #cbd5e1;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.2s;
-      font-weight: 500;
-      font-size: 1rem;
+      transition: all 0.2s ease;
+      font-weight: 600;
+      font-size: 0.88rem;
+      font-family: inherit;
     }
+
     .category-btn.active {
-      background: #3b82f6;
+      background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
       color: white;
-      border-color: #3b82f6;
-      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
     }
+
     .menu-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
     }
+
     .menu-item-card {
-      background: white;
-      padding: 20px 15px;
-      border-radius: 12px;
+      background: rgba(17, 24, 39, 0.7);
+      padding: 1.25rem 1rem;
+      border-radius: 14px;
       text-align: center;
       cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      transition: all 0.2s;
-      border: 2px solid transparent;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.06);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      min-height: 110px;
+      min-height: 100px;
     }
+
     .menu-item-card:hover {
-      border-color: #3b82f6;
+      border-color: #6366f1;
       transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
     }
-    .menu-item-name { font-weight: 600; margin-bottom: 8px; font-size: 1.05rem; color: #1e293b; }
-    .menu-item-price { color: #10b981; font-weight: 700; font-size: 1.1rem; }
+
+    .menu-item-name {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 0.98rem;
+      color: #ffffff;
+    }
+
+    .menu-item-price {
+      color: #34d399;
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
 
     /* Sipariş Sepeti (Sağ) */
     .order-section {
       flex: 1.2;
-      padding: 25px;
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
-      background: white;
-      min-width: 350px;
+      background: rgba(15, 23, 42, 0.75);
+      min-width: 340px;
     }
-    .order-list { flex: 1; overflow-y: auto; margin-bottom: 20px; padding-right: 5px; }
-    
+
+    .order-list {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 1.25rem;
+      padding-right: 5px;
+    }
+
     .order-item {
       display: flex;
       flex-direction: column;
-      padding: 12px 15px;
-      border-radius: 10px;
-      background: #eff6ff;
-      margin-bottom: 10px;
-      border: 1px solid #3b82f6;
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      background: rgba(17, 24, 39, 0.8);
+      margin-bottom: 0.65rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .order-item-main { display: flex; justify-content: space-between; align-items: center; }
-    .order-item-info { flex: 1; }
-    .order-item-qty { display: flex; align-items: center; gap: 12px; background: white; padding: 5px; border-radius: 8px; border: 1px solid #cbd5e1; }
-    .qty-btn { width: 30px; height: 30px; border-radius: 6px; border: none; background: #f1f5f9; cursor: pointer; font-weight: bold; font-size: 1.1rem; }
-    
-    .order-footer { background: white; padding-top: 15px; border-top: 2px solid #e2e8f0; }
-    .order-total { display: flex; justify-content: space-between; font-size: 1.4rem; font-weight: bold; margin-bottom: 15px; }
-    .btn-save-order { background: #3b82f6; color: white; padding: 16px; border: none; border-radius: 12px; font-weight: 700; font-size: 1.1rem; cursor: pointer; width: 100%; transition: background 0.2s;}
-    .btn-back { margin-bottom: 10px; background: #e2e8f0; color: #1e293b; padding: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer;}
-    
+
+    .order-item-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .order-item-info {
+      flex: 1;
+    }
+
+    .order-item-qty {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(15, 23, 42, 0.8);
+      padding: 4px 8px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .order-footer {
+      background: transparent;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .order-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    .btn-save-order {
+      background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+      color: white;
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+      font-family: inherit;
+    }
+
+    .btn-save-order:hover {
+      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-back {
+      margin-bottom: 1rem;
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .btn-back:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+    }
+
     /* Adisyon / Aktif Siparişler Ekranı */
     #modalDetailsScreen {
       display: none;
       width: 100%;
       height: 100%;
       flex-direction: column;
-      background: #f8fafc;
+      background: transparent;
       overflow-y: auto;
-      padding: 25px;
+      padding: 1.75rem;
+      box-sizing: border-box;
     }
 
     .detail-list-item {
-      background: white;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 15px;
-      border: 1px solid #e2e8f0;
+      background: rgba(17, 24, 39, 0.7);
+      border-radius: 14px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
-    .detail-list-item.bekliyor { border-left: 5px solid #f59e0b; }
-    .detail-list-item.teslim_edildi { border-left: 5px solid #10b981; }
-    
-    .detail-info h4 { margin: 0 0 5px 0; font-size: 1.1rem; color: #1e293b; }
-    .detail-info p { margin: 0; color: #64748b; font-size: 0.9rem; }
-    .detail-price { font-weight: bold; font-size: 1.2rem; color: #1e293b; }
 
-    .status-badge { padding: 4px 10px; border-radius: 12px; font-weight: 500; font-size: 0.85rem; }
-    .status-badge.bekliyor { background: #fef08a; color: #854d0e; }
-    .status-badge.teslim_edildi { background: #dcfce7; color: #166534; }
+    .detail-list-item.bekliyor {
+      border-left: 4px solid #f59e0b;
+    }
+
+    .detail-list-item.teslim_edildi {
+      border-left: 4px solid #10b981;
+    }
+
+    .detail-info h4 {
+      margin: 0 0 4px 0;
+      font-size: 1.05rem;
+      color: #ffffff;
+    }
+
+    .detail-info p {
+      margin: 0;
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+
+    .detail-price {
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: #34d399;
+    }
+
+    .status-badge {
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .status-badge.bekliyor {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .status-badge.teslim_edildi {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
 
     .details-footer {
       margin-top: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      border: 1px solid #cbd5e1;
+      background: rgba(15, 23, 42, 0.8);
+      padding: 1.5rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 1rem;
     }
-    .details-total {
-      display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: bold; color: #1e293b;
-    }
-    .details-actions {
-      display: flex; gap: 15px;
-    }
-    .btn-checkout { flex: 1; background: #10b981; color: white; padding: 15px; border: none; border-radius: 10px; font-weight: bold; font-size: 1.1rem; cursor: pointer; }
-    .btn-clear { flex: 1; background: #ef4444; color: white; padding: 15px; border: none; border-radius: 10px; font-weight: bold; font-size: 1.1rem; cursor: pointer; }
 
-    /* Mobil Uyumluluk (Bottom Sheet Sepet) */
+    .details-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .details-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn-checkout {
+      flex: 1;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 1rem;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+      font-family: inherit;
+    }
+
+    .btn-clear {
+      flex: 1;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      padding: 1rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .btn-clear:hover {
+      background: rgba(239, 68, 68, 0.25);
+    }
+
+    /* Mobil Uyumluluk */
     @media (max-width: 768px) {
-      .modal-content { height: 95vh; width: 100%; border-radius: 10px; }
-      #modalAddOrderScreen { flex-direction: column; position: relative; }
-      
-      .menu-section { flex: 1; height: 100%; border-right: none; padding: 15px; padding-bottom: 90px; }
-      
+      .modal-content {
+        height: 95vh;
+        width: 100%;
+        border-radius: 16px;
+      }
+
+      #modalAddOrderScreen {
+        flex-direction: column;
+        position: relative;
+      }
+
+      .menu-section {
+        flex: 1;
+        height: 100%;
+        border-right: none;
+        padding: 15px;
+        padding-bottom: 90px;
+      }
+
       .order-section {
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
-        background: white;
+        background: #0f1422;
         min-width: 100%;
         padding: 0;
         border-radius: 20px 20px 0 0;
-        box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
+        box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.6);
         height: 75vh;
         transform: translateY(calc(100% - 75px));
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 100;
         display: flex;
         flex-direction: column;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
       }
+
       .order-section.expanded {
         transform: translateY(0);
       }
-      
+
       .cart-drag-handle {
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 12px 20px;
-        background: #f8fafc;
+        background: rgba(17, 24, 39, 0.9);
         border-radius: 20px 20px 0 0;
-        border-bottom: 1px solid #e2e8f0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         cursor: pointer;
       }
+
       .drag-bar {
         width: 40px;
-        height: 5px;
-        background: #cbd5e1;
+        height: 4px;
+        background: #475569;
         border-radius: 5px;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
       }
+
       .cart-header-info {
         width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
-      .cart-header-info h3 { margin: 0; font-size: 1.2rem; color: #1e293b; }
-      .cart-header-info span { font-weight: bold; color: #3b82f6; font-size: 1.1rem; }
-      
+
+      .cart-header-info h3 {
+        margin: 0;
+        font-size: 1.1rem;
+        color: #ffffff;
+      }
+
+      .cart-header-info span {
+        font-weight: 800;
+        color: #34d399;
+        font-size: 1.1rem;
+      }
+
       .cart-content-wrapper {
         padding: 15px;
         height: calc(100% - 70px);
@@ -451,56 +1111,83 @@
         flex-direction: column;
         overflow: hidden;
       }
-      
-      .desktop-cart-header { display: none; }
-      .details-actions { flex-direction: column; }
+
+      .desktop-cart-header {
+        display: none;
+      }
+
+      .details-actions {
+        flex-direction: column;
+      }
     }
+
     @media (min-width: 769px) {
-      .cart-drag-handle { display: none; }
-      .cart-content-wrapper { display: contents; }
+      .cart-drag-handle {
+        display: none;
+      }
+
+      .cart-content-wrapper {
+        display: contents;
+      }
     }
   </style>
 </head>
+
 <body class="admin-body">
 
   <div id="loginSection" class="admin-login-container">
     <div class="admin-login-box">
-      <h2>Garson Girişi</h2>
-      <p style="color: #64748b; margin-bottom: 20px; text-align: center;">Sisteme giriş yapmak için bilgilerinizi girin.</p>
-      <div id="loginError" style="color: #ef4444; margin-bottom: 15px; display: none; text-align: center; font-size: 0.9rem;"></div>
+      <div class="login-brand-badge">
+        <span class="login-brand-badge-dot"></span>
+        <span>Saldamis İşletme Portalı</span>
+      </div>
+      <h2>Garson Portalı</h2>
+      <p style="color: #94a3b8; margin-bottom: 24px; text-align: center; font-size: 0.95rem;">
+        Masa ve servis takibi için oturum açın.
+      </p>
+      <div id="loginError"
+        style="color: #ef4444; margin-bottom: 15px; display: none; text-align: center; font-size: 0.9rem; background: rgba(239, 68, 68, 0.1); padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(239, 68, 68, 0.2);"></div>
       <div class="form-group">
-        <label>E-posta</label>
-        <input type="email" id="emailInput" placeholder="ornek@saldamis.com" class="admin-input">
+        <label>Garson E-postası</label>
+        <input type="email" id="emailInput" placeholder="garson@saldamis.com" class="admin-input">
       </div>
       <div class="form-group">
         <label>Şifre</label>
         <input type="password" id="passwordInput" placeholder="••••••••" class="admin-input">
       </div>
-      <button id="loginBtn" class="admin-btn">Giriş Yap</button>
+      <button id="loginBtn" class="admin-btn">Giriş Yap →</button>
       <br><br>
-      <a href="index.html" style="display: block; text-align: center; color: #26a575; text-decoration: none;">&larr; Ana Sayfaya Dön</a>
+      <a href="index.html" style="display: block; text-align: center; color: #94a3b8; font-size: 0.85rem; text-decoration: none; transition: color 0.2s;">&larr; Müşteri Menüsüne Dön</a>
     </div>
   </div>
 
   <div id="dashboardSection" style="display: none;">
     <div class="dashboard-container">
-      <div class="header-bar">
-        <h2>Saldamış - Masa Takip</h2>
-        <div>
-          <button id="addTableBtn" class="admin-btn" style="background: #3b82f6; margin-right: 10px;">+ Yeni Masa Ekle</button>
-          <button id="logoutBtn" class="admin-btn" style="background: #ef4444;">Çıkış Yap</button>
+      <div class="garson-top-bar">
+        <div class="garson-brand-left">
+          <div class="garson-brand-icon">🍽️</div>
+          <div class="garson-brand-titles">
+            <h2>Masa &amp; Servis Takibi</h2>
+            <span>Saldamis Canlı Restoran Yönetimi</span>
+          </div>
+        </div>
+        <div class="garson-top-actions">
+          <a href="admin.html" id="backToAdminBtn" class="nav-action-pill pill-admin" style="display: none;">← Admin Paneli</a>
+          <button id="refreshMenuBtn" class="nav-action-pill pill-refresh" title="Menüyü Yenile">🔄 Menüyü Yenile</button>
+          <button id="addTableBtn" class="nav-action-pill pill-add">+ Yeni Masa</button>
+          <button id="logoutBtn" class="nav-action-pill pill-logout">Çıkış Yap ⎋</button>
         </div>
       </div>
 
       <div class="section-title">🍽️ Masalar</div>
       <div id="tablesGrid" class="tables-grid">
-        <p>Masalar yükleniyor...</p>
+        <p style="color: #94a3b8;">Masalar yükleniyor...</p>
       </div>
 
       <div class="active-orders-container">
         <div class="section-title">🔔 Teslim Edilmeyi Bekleyen Siparişler</div>
         <div id="pendingOrdersGrid" class="active-orders-grid">
-          <p style="color: #64748b;">Şu an bekleyen sipariş yok.</p>
+          <p style="color: #94a3b8;">Şu an bekleyen sipariş yok.</p>
         </div>
       </div>
     </div>
@@ -513,21 +1200,21 @@
         <h2 id="modalTableTitle">Masa Detayı</h2>
         <button class="close-modal" id="closeModalBtn">&times;</button>
       </div>
-      
+
       <div class="modal-body">
         <!-- 1. Ekran: Seçim -->
         <div id="modalSelectionScreen" class="modal-selection-screen">
           <button class="big-action-btn" id="btnGoAddOrder">
-             📝 Sipariş Gir
-             <span style="font-size: 1rem; color: #64748b; font-weight: normal;">Masaya yeni ürünler ekle</span>
+            📝 Sipariş Gir
+            <span style="font-size: 0.95rem; color: #94a3b8; font-weight: normal; margin-top: 4px;">Masaya yeni ürünler ekle</span>
           </button>
           <button class="big-action-btn" id="btnGoDetails">
-             📄 Siparişler (Adisyon)
-             <span style="font-size: 1rem; color: #64748b; font-weight: normal;">Mevcut hesabı ve sipariş durumlarını gör</span>
+            📄 Siparişler (Adisyon)
+            <span style="font-size: 0.95rem; color: #94a3b8; font-weight: normal; margin-top: 4px;">Mevcut hesabı ve sipariş durumlarını gör</span>
           </button>
-          <button class="big-action-btn" id="btnMoveTable" style="padding: 20px; font-size: 1.2rem;">
-             🔄 Masayı Taşı
-             <span style="font-size: 0.9rem; color: #64748b; font-weight: normal;">Bu masayı başka masaya aktar</span>
+          <button class="big-action-btn" id="btnMoveTable">
+            🔄 Masayı Taşı
+            <span style="font-size: 0.95rem; color: #94a3b8; font-weight: normal; margin-top: 4px;">Bu masayı başka masaya aktar</span>
           </button>
         </div>
 
@@ -549,7 +1236,7 @@
               </div>
             </div>
             <div class="cart-content-wrapper">
-              <h3 class="desktop-cart-header" style="margin-top: 0; color: #1e293b; font-size: 1.4rem;">Yeni Sipariş Sepeti</h3>
+              <h3 class="desktop-cart-header" style="margin-top: 0; color: #ffffff; font-size: 1.3rem;">Yeni Sipariş Sepeti</h3>
               <div class="order-list" id="newOrderList"></div>
               <div class="order-footer">
                 <div class="order-total">
@@ -565,9 +1252,9 @@
         <!-- 3. Ekran: Adisyon Detayı -->
         <div id="modalDetailsScreen">
           <button class="btn-back" id="btnBackFromDetails" style="align-self: flex-start;">&larr; Geri Dön</button>
-          
-          <h3 style="color: #1e293b; margin: 10px 0 20px 0; font-size: 1.5rem;">Mevcut Siparişler</h3>
-          
+
+          <h3 style="color: #ffffff; margin: 10px 0 20px 0; font-size: 1.4rem; font-weight: 700;">Mevcut Siparişler</h3>
+
           <div id="detailsOrderList" style="flex: 1; overflow-y: auto; margin-bottom: 20px;">
             <!-- Adisyon elemanları -->
           </div>
@@ -587,7 +1274,7 @@
         <!-- 4. Ekran: Masa Taşıma Seçimi -->
         <div id="modalMoveTableScreen">
           <button class="btn-back" id="btnBackFromMove" style="align-self: flex-start;">&larr; Geri Dön</button>
-          <h3 style="color: #1e293b; margin: 10px 0 20px 0; font-size: 1.5rem;">Hedef Masayı Seçin</h3>
+          <h3 style="color: #ffffff; margin: 10px 0 20px 0; font-size: 1.4rem; font-weight: 700;">Hedef Masayı Seçin</h3>
           <div id="moveTableList" class="move-table-grid">
             <!-- Masalar buraya JS ile eklenecek -->
           </div>
@@ -599,4 +1286,5 @@
 
   <script type="module" src="garson.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,54 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Yardımcı Yetki Fonksiyonları
+    // Sadece garson olmayan (örn. yonetim@saldamis.com, admin@saldamis.com) hesaplar admin sayılır
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isWaiter() {
+      return isAuthenticated() && 
+        request.auth.token.email.matches('.*garson.*');
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && !isWaiter();
+    }
+
+    // 1. Optimize edilmiş tek dokümanlık genel veri (Müşteriler okur, sadece admin yazar)
+    match /publicData/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // 2. Menü ve Hediyelik ürün koleksiyonları (Müşteriler okur, sadece admin yazar)
+    match /menuItems/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /marketItems/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Kategoriler koleksiyonu (Müşteriler ve garsonlar okur, sadece admin yazar)
+    match /categories/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // 3. Masalar ve Siparişler (Giriş yapmış garson ve admin sipariş alabilir/güncelleyebilir)
+    match /tables/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // 4. Varsayılan koruma: Diğer dokümanlar sadece admin hesaplara açıktır
+    match /{document=**} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

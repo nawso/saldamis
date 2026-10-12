@@ -454,7 +454,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 
-// Carousel Otomatik Kaydirma (Auto-scroll) Sistemi
+// Carousel Otomatik Kaydırma (Auto-scroll) Sistemi
 document.addEventListener('DOMContentLoaded', () => {
   const track = document.querySelector('.carousel-track');
   if (!track) return;
@@ -465,27 +465,213 @@ document.addEventListener('DOMContentLoaded', () => {
     track.appendChild(child.cloneNode(true));
   });
 
-  let isDown = false;
-  let isHovered = false;
+  let isInteracting = false;
+  let resumeTimer = null;
   let autoScrollId;
   const scrollSpeed = 0.8; // px/frame
 
+  // Kullanıcı dokunmayı/tıklamayı bıraktığında kaydırmayı kesinlikle devam ettir
+  const resumeScroll = () => {
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => {
+      isInteracting = false;
+    }, 1200); // 1.2 saniye sonra otomatik kaymaya devam eder
+  };
+
   const startAutoScroll = () => {
-    if (!isDown && !isHovered) {
+    if (!isInteracting) {
       track.scrollLeft += scrollSpeed;
-      if (track.scrollLeft >= track.scrollWidth / 2) {
-        track.scrollLeft -= track.scrollWidth / 2;
+      const halfWidth = track.scrollWidth / 2;
+      if (track.scrollLeft >= halfWidth) {
+        track.scrollLeft -= halfWidth;
+      } else if (track.scrollLeft <= 0) {
+        track.scrollLeft += halfWidth;
       }
     }
     autoScrollId = requestAnimationFrame(startAutoScroll);
   };
 
-  track.addEventListener('mouseenter', () => isHovered = true);
-  track.addEventListener('mouseleave', () => isHovered = false);
-  track.addEventListener('touchstart', () => isDown = true, {passive: true});
-  track.addEventListener('touchend', () => isDown = false);
-  
+  // Dokunmatik telefon kontrolü (Mobil cihazlarda mouseenter kilidini önler)
+  const isTouchDevice = () => window.matchMedia('(pointer: coarse)').matches;
+
+  track.addEventListener('mouseenter', () => {
+    if (!isTouchDevice()) isInteracting = true;
+  });
+
+  track.addEventListener('mouseleave', () => {
+    if (!isTouchDevice()) isInteracting = false;
+  });
+
+  // Dokunmatik / Mobil Olayları (Telefonlarda donmayı önleyen tam güvence)
+  track.addEventListener('touchstart', () => {
+    clearTimeout(resumeTimer);
+    isInteracting = true;
+  }, { passive: true });
+
+  track.addEventListener('touchend', () => {
+    resumeScroll();
+  }, { passive: true });
+
+  track.addEventListener('touchcancel', () => {
+    resumeScroll();
+  }, { passive: true });
+
+  // Tıklamada durup kalmasını önleme
+  track.addEventListener('click', () => {
+    resumeScroll();
+  });
+
+  // Elle kaydırma (swipe/momentum) bittiğinde otomatik devam etsin
+  let scrollDebounce;
+  track.addEventListener('scroll', () => {
+    if (isInteracting) {
+      clearTimeout(scrollDebounce);
+      scrollDebounce = setTimeout(() => {
+        resumeScroll();
+      }, 800);
+    }
+  }, { passive: true });
+
   autoScrollId = requestAnimationFrame(startAutoScroll);
 });
+
+// ==========================================================================
+// DİL SEÇİMİ & GOOGLE TRANSLATE ENTEGRASYONU (SALDAMIS)
+// ==========================================================================
+const SALDAMIS_LANGS = {
+  'tr': { name: 'Türkçe', flag: 'tr' },
+  'en': { name: 'English', flag: 'gb' },
+  'ru': { name: 'Русский', flag: 'ru' },
+  'de': { name: 'Deutsch', flag: 'de' },
+  'it': { name: 'Italiano', flag: 'it' },
+  'es': { name: 'Español', flag: 'es' }
+};
+
+function getActiveLanguage() {
+  // 1. googtrans çerezine bak (/tr/en veya /tr/ru gibi)
+  const cookieMatch = document.cookie.match(/(?:^|;\s*)googtrans=\/tr\/([a-z]{2})/i);
+  if (cookieMatch && cookieMatch[1] && SALDAMIS_LANGS[cookieMatch[1].toLowerCase()]) {
+    return cookieMatch[1].toLowerCase();
+  }
+  // 2. localStorage kontrolü
+  const saved = localStorage.getItem('saldamis_selected_lang');
+  if (saved && SALDAMIS_LANGS[saved]) {
+    return saved;
+  }
+  return 'tr';
+}
+
+function updateLangButtonUI(langCode) {
+  const info = SALDAMIS_LANGS[langCode] || SALDAMIS_LANGS['tr'];
+  const langBtn = document.getElementById('langBtn');
+  if (!langBtn) return;
+
+  const flagImg = langBtn.querySelector('img');
+  if (flagImg) flagImg.src = `https://flagcdn.com/w20/${info.flag}.png`;
+
+  const textSpan = langBtn.querySelector('.lang-text-desktop');
+  if (textSpan) textSpan.textContent = info.name;
+
+  document.querySelectorAll('.lang-item').forEach(item => {
+    if (item.getAttribute('data-lang') === langCode) {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+  });
+}
+
+function clearGoogleTranslateCookies() {
+  const host = window.location.hostname;
+  const hostParts = host.split('.');
+  const domains = ['', host, '.' + host];
+  if (hostParts.length > 2) {
+    domains.push('.' + hostParts.slice(-2).join('.'));
+  }
+  const paths = ['/', ''];
+
+  domains.forEach(d => {
+    paths.forEach(p => {
+      const dStr = d ? `; domain=${d}` : '';
+      const pStr = p ? `; path=${p}` : '; path=/';
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC${pStr}${dStr};`;
+    });
+  });
+  localStorage.removeItem('saldamis_selected_lang');
+}
+
+function setLanguage(langCode) {
+  if (langCode === 'tr') {
+    clearGoogleTranslateCookies();
+    localStorage.setItem('saldamis_selected_lang', 'tr');
+    updateLangButtonUI('tr');
+
+    const select = document.querySelector('.goog-te-combo');
+    if (select) {
+      select.value = '';
+      select.dispatchEvent(new Event('change'));
+    }
+    // Orijinal Türkçe halini temiz yüklemek için sayfayı yenile
+    window.location.reload();
+    return;
+  }
+
+  const info = SALDAMIS_LANGS[langCode];
+  if (!info) return;
+
+  localStorage.setItem('saldamis_selected_lang', langCode);
+  updateLangButtonUI(langCode);
+
+  const host = window.location.hostname;
+  document.cookie = `googtrans=/tr/${langCode}; path=/;`;
+  document.cookie = `googtrans=/tr/${langCode}; path=/; domain=${host};`;
+
+  const select = document.querySelector('.goog-te-combo');
+  if (select) {
+    select.value = langCode;
+    select.dispatchEvent(new Event('change'));
+  } else {
+    window.location.reload();
+  }
+}
+
+function initLanguageSwitcher() {
+  const langBtn = document.getElementById('langBtn');
+  const langMenu = document.getElementById('langMenu');
+  const langItems = document.querySelectorAll('.lang-item');
+
+  if (!langBtn || !langMenu) return;
+
+  // Sayfa açıldığında veya yenilendiğinde aktif dili hemen butona yansıt
+  const activeLang = getActiveLanguage();
+  updateLangButtonUI(activeLang);
+
+  // Butona tıklandığında menüyü aç/kapat
+  langBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isShowing = langMenu.style.display === 'block';
+    langMenu.style.display = isShowing ? 'none' : 'block';
+  });
+
+  // Dışarı tıklanınca kapat
+  document.addEventListener('click', () => {
+    langMenu.style.display = 'none';
+  });
+
+  // Dil öğelerine tıklandığında
+  langItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      langMenu.style.display = 'none';
+      const langCode = item.getAttribute('data-lang');
+      setLanguage(langCode);
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initLanguageSwitcher();
+});
+
 
 

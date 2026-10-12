@@ -16,7 +16,7 @@
     rel="stylesheet">
 
   <!-- Stil Dosyası -->
-  <link rel="stylesheet" href="style.css?v=14">
+  <link rel="stylesheet" href="style.css?v=23">
 
   <!-- Tema Tercihini Erken Uygula -->
   <script>
@@ -81,12 +81,12 @@
         </div>
 
         <!-- Marka Başlığı -->
-        <a href="index.html" class="brand-wrapper" title="Saldamis Cafe & Restoran">
-          <div class="brand-text-block">
-            <span class="brand-title">
-              SALDA<span class="accent-lavender">MIS</span>
+        <a href="index.html" class="brand-wrapper notranslate" translate="no" title="Saldamis Cafe & Restoran">
+          <div class="brand-text-block notranslate" translate="no">
+            <span class="brand-title notranslate" translate="no">
+              SALDA<span class="accent-lavender notranslate" translate="no">MIS</span>
             </span>
-            <span class="brand-subtitle">Aile Restoranı & Hediyelik Eşya</span>
+            <span class="brand-subtitle notranslate" translate="no">Aile Restoranı & Hediyelik Eşya</span>
           </div>
         </a>
       </div>
@@ -109,7 +109,7 @@
 
 
         <!-- Dil Seçeneği (Translate) -->
-        <div class="lang-dropdown" style="position: relative; display: inline-block;">
+        <div class="lang-dropdown notranslate" translate="no" style="position: relative; display: inline-block;">
           <button class="lang-btn" id="langBtn"
             style="display: flex; align-items: center; gap: 0.5rem; background: var(--c-white); border: 1px solid var(--c-sand-200); padding: 0.4rem 0.75rem; border-radius: 9999px; cursor: pointer; font-family: var(--font-body); font-weight: 600; color: var(--c-dark-700); transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
             <img src="https://flagcdn.com/w20/tr.png" alt="TR" style="width: 20px; border-radius: 2px;">
@@ -211,7 +211,7 @@
        SAYFA BAŞLIĞI (HERO IMAGE)
        ========================================================================== -->
   <section class="menu-header-banner"
-    style="height: 30vh; min-height: 250px; max-height: 350px; width: 100%; position: relative; z-index: 0; margin-top: -50px;">
+    style="height: 30vh; min-height: 250px; max-height: 350px; width: 100%; position: relative; z-index: 0; margin-top: -68px;">
     <img src="images/menuhero.jpg" alt="Saldamis Menü"
       style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
   </section>
@@ -310,28 +310,40 @@
   <!-- ==========================================================================
        ALT BİLGİ (FOOTER)
        ========================================================================== -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <h3>SALDA<span style="color:#a78bfa;">MİS</span></h3>
-          <p>
-            Doğanın kalbinde, Salda'nın beyaz kumları ve lavantanın büyülü kokusu eşliğinde unutulmaz bir lezzet
-            deneyimi.
-          </p>
-        </div>
-
-        <div class="footer-links">
-          <h4>Hızlı Bağlantılar</h4>
-          <a href="index.html">Ana Sayfa</a>
-          <a href="menu.html">Dijital Menü</a>
-          <a href="index.html#iletisim">İletişim & Harita</a>
-        </div>
+  <!-- ==========================================================================
+       ALT BİLGİ (FOOTER) - Minimalist & Sade
+       ========================================================================== -->
+  <footer class="site-footer" id="iletisim">
+    <div class="container footer-simple-container">
+      <div class="footer-simple-brand">
+        <h3 class="brand-title">SALDA<span>MIS</span></h3>
+        <span class="footer-tagline">Aile Restoranı &amp; Hediyelik</span>
       </div>
 
-      <div class="footer-bottom">
-        <div>&copy; 2026 Saldamis Aile Restoranı. Tüm hakları saklıdır.</div>
-        <div style="font-size:0.8rem; color:#475569;">Burdur, Yeşilova - Salda Gölü</div>
+      <p class="footer-simple-text">
+        Doğanın kalbinde, Salda Gölü'nün eşsiz manzarası ve lavantanın büyülü kokusu eşliğinde unutulmaz lezzetler.
+      </p>
+
+      <div class="footer-social-links">
+        <a href="https://wa.me/905550000000?text=Merhaba,%20Saldamis%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="footer-social-btn" title="WhatsApp" aria-label="WhatsApp">
+          <i data-lucide="message-circle"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" class="footer-social-btn" title="Instagram" aria-label="Instagram">
+          <i data-lucide="instagram"></i>
+        </a>
+        <a href="https://maps.google.com" target="_blank" class="footer-social-btn" title="Harita &amp; Konum" aria-label="Konum">
+          <i data-lucide="map-pin"></i>
+        </a>
+        <a href="tel:+905550000000" class="footer-social-btn" title="Bizi Arayın" aria-label="Telefon">
+          <i data-lucide="phone"></i>
+        </a>
+      </div>
+
+      <div class="footer-simple-bottom">
+        <div class="footer-copyright">&copy; 2026 Saldamis. Tüm hakları saklıdır.</div>
+        <div class="footer-signature">
+          <span>Bu sitenin yapımı <strong class="odse-badge">ODSE Bilişim</strong> tarafından gerçekleştirilmiştir.</span>
+        </div>
       </div>
     </div>
   </footer>
@@ -392,7 +404,7 @@
   <!-- FIREBASE DİNAMİK MENÜ YÜKLEYİCİ -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBY74WvWBN3taHZ2U8s-KLbZ8t3o7mPjlw",
@@ -418,18 +430,77 @@
       'soguk-icecek': 'Soğuk İçecek'
     };
 
+    const CACHE_KEY = 'saldamis_menu_cache_v2';
+    const CACHE_TIME_KEY = 'saldamis_menu_time_v2';
+    const CACHE_TTL = 15 * 60 * 1000; // 15 dakika boyunca 0 okuma (tarayıcı önbelleği)
+
+    async function fetchMenuItems() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const forceRefresh = urlParams.get('refresh') === '1';
+
+      if (!forceRefresh) {
+        try {
+          const cached = localStorage.getItem(CACHE_KEY);
+          const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
+          if (cached && cachedTime && (Date.now() - Number(cachedTime) < CACHE_TTL)) {
+            return JSON.parse(cached);
+          }
+        } catch (e) {}
+      }
+
+      try {
+        const cachedCats = localStorage.getItem('saldamis_menu_cats_v2');
+        if (cachedCats) window.serverCategories = JSON.parse(cachedCats);
+      } catch (e) {}
+
+      // 1. Önce optimize edilmiş tek dokümanı oku (Sadece 1 Okuma!)
+      try {
+        const singleSnap = await getDoc(doc(db, "publicData", "menu"));
+        if (singleSnap.exists()) {
+          const snapData = singleSnap.data();
+          if (snapData.categories && Array.isArray(snapData.categories)) {
+            window.serverCategories = snapData.categories;
+            try {
+              localStorage.setItem('saldamis_menu_cats_v2', JSON.stringify(snapData.categories));
+            } catch (e) {}
+          }
+          if (snapData.items && snapData.items.length > 0) {
+            const items = snapData.items;
+            try {
+              localStorage.setItem(CACHE_KEY, JSON.stringify(items));
+              localStorage.setItem(CACHE_TIME_KEY, String(Date.now()));
+            } catch (e) {}
+            return items;
+          }
+        }
+      } catch (err) {
+        console.warn("Tek doküman okunamadı, koleksiyona geçiliyor:", err);
+      }
+
+      // 2. Yedek fallback: Koleksiyondan oku
+      const querySnapshot = await getDocs(collection(db, "menuItems"));
+      const items = [];
+      querySnapshot.forEach(docSnap => {
+        items.push({ id: docSnap.id, ...docSnap.data() });
+      });
+
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify(items));
+        localStorage.setItem(CACHE_TIME_KEY, String(Date.now()));
+      } catch (e) {}
+
+      return items;
+    }
+
     async function loadMenu() {
       const container = document.getElementById('menuContainer');
       if (!container) return;
 
       try {
-        const querySnapshot = await getDocs(collection(db, "menuItems"));
+        const allItems = await fetchMenuItems();
 
         const grouped = {};
-        querySnapshot.forEach(docSnap => {
-          const item = docSnap.data();
-          // Bütün ürünler listelenecek
-
+        allItems.forEach(item => {
           let cats = [];
           if (Array.isArray(item.categories)) {
             cats = item.categories;
@@ -441,7 +512,7 @@
 
           cats.forEach(c => {
             if (!grouped[c]) grouped[c] = [];
-            grouped[c].push({ ...item, id: docSnap.id });
+            grouped[c].push(item);
           });
         });
 
@@ -528,7 +599,7 @@
         });
 
         window.menuGrouped = grouped;
-        window.menuCategoryTitles = categoryTitles;
+        window.menuCategoryTitles = { ...categoryTitles };
         window.menuOrder = ['kahvalti', 'tostlar', 'yemek', 'gozlemeler', 'corbalar', 'salata', 'tatli', 'sicak-icecek', 'soguk-icecek'];
         window.menuImages = {
           'kahvalti': 'images/breakfast.jpg',
@@ -541,6 +612,37 @@
           'sicak-icecek': 'images/header-bg.jpg',
           'soguk-icecek': 'images/lemonade.jpg'
         };
+
+        // Dinamik / Firebase Kategorilerini Entegre Et
+        if (window.serverCategories && Array.isArray(window.serverCategories)) {
+          window.serverCategories.forEach(c => {
+            if (!c.value) return;
+            window.menuCategoryTitles[c.value] = c.label || c.value;
+            if (c.image) window.menuImages[c.value] = c.image;
+            if (!window.menuOrder.includes(c.value)) {
+              window.menuOrder.push(c.value);
+            }
+          });
+          const catOrderMap = {};
+          window.serverCategories.forEach(c => {
+            if (c.value) catOrderMap[c.value] = (c.order !== undefined && c.order !== null) ? Number(c.order) : 99;
+          });
+          window.menuOrder.sort((a, b) => {
+            const oA = catOrderMap[a] !== undefined ? catOrderMap[a] : 99;
+            const oB = catOrderMap[b] !== undefined ? catOrderMap[b] : 99;
+            return oA - oB;
+          });
+        }
+
+        // Ürünlerde tanımlı olan herhangi bir ek kategoriyi de otomatik ekle
+        Object.keys(grouped).forEach(cat => {
+          if (cat !== 'diger' && !window.menuOrder.includes(cat)) {
+            window.menuOrder.push(cat);
+            if (!window.menuCategoryTitles[cat]) {
+              window.menuCategoryTitles[cat] = cat.charAt(0).toUpperCase() + cat.slice(1);
+            }
+          }
+        });
 
         window.showProductDetail = function (catId, itemId) {
           const item = window.menuGrouped[catId].find(x => x.id === itemId);
@@ -735,50 +837,327 @@
   <script type="text/javascript"
     src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+
+
+  <!-- ==========================================================================
+       HEDİYELİK EŞYA & LAVANTA DÜKKANI POPUP
+       ========================================================================== -->
+  <style>
+    /* HEDİYELİK POPUP STİLLERİ */
+    .gift-popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    .gift-popup-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .gift-popup-card {
+      position: relative;
+      background: #ffffff;
+      width: 100%;
+      max-width: 440px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(109, 40, 217, 0.25), 0 0 0 1px rgba(139, 92, 246, 0.15);
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gift-popup-overlay.active .gift-popup-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .dark-theme .gift-popup-card {
+      background: #1e1b4b;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(139, 92, 246, 0.3);
+    }
+
+    .gift-popup-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      color: #1e293b;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .gift-popup-close:hover {
+      transform: scale(1.1);
+      background: #ffffff;
+      color: #ef4444;
+    }
+
+    .gift-popup-banner {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+    }
+
+    .gift-popup-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gift-popup-card:hover .gift-popup-banner img {
+      transform: scale(1.05);
+    }
+
+    .gift-popup-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 14px;
+      background: rgba(109, 40, 217, 0.88);
+      color: #ffffff;
+      padding: 0.35rem 0.8rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .gift-popup-content {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .gift-popup-title {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin: 0 0 0.6rem 0;
+      line-height: 1.3;
+    }
+
+    .dark-theme .gift-popup-title {
+      color: #f8fafc;
+    }
+
+    .gift-popup-text {
+      font-size: 0.92rem;
+      color: #64748b;
+      line-height: 1.55;
+      margin: 0 0 1.2rem 0;
+    }
+
+    .dark-theme .gift-popup-text {
+      color: #cbd5e1;
+    }
+
+    .gift-popup-features {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .gift-feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      background: #f5f3ff;
+      padding: 0.5rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #6d28d9;
+      border: 1px solid #ede9fe;
+      flex: 1;
+    }
+
+    .dark-theme .gift-feature-item {
+      background: rgba(109, 40, 217, 0.2);
+      border-color: rgba(139, 92, 246, 0.3);
+      color: #c4b5fd;
+    }
+
+    .gift-feature-icon {
+      font-size: 1.2rem;
+    }
+
+    .gift-popup-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .gift-popup-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.85rem 1.2rem;
+      background: linear-gradient(135deg, #7c3aed, #9333ea);
+      color: #ffffff !important;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 10px 20px -5px rgba(124, 58, 237, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .gift-popup-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 26px -5px rgba(124, 58, 237, 0.5);
+    }
+
+    .gift-popup-btn-secondary {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.4rem;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .gift-popup-btn-secondary:hover {
+      color: #475569;
+    }
+
+    .dark-theme .gift-popup-btn-secondary:hover {
+      color: #e2e8f0;
+    }
+  </style>
+
+  <div id="giftShopPopupOverlay" class="gift-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="giftPopupTitle">
+    <div class="gift-popup-card">
+      <!-- Kapatma Butonu -->
+      <button id="closeGiftPopupBtn" class="gift-popup-close" aria-label="Kapat">
+        <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+      </button>
+
+      <!-- Banner Görseli -->
+      <div class="gift-popup-banner">
+        <img src="images/boutique.jpg" alt="Saldamis Butik & Hediyelik" onerror="this.src='images/header-bg.jpg'">
+        <div class="gift-popup-badge">
+          <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i> Salda Hatırası
+        </div>
+      </div>
+
+      <!-- İçerik -->
+      <div class="gift-popup-content">
+        <h3 id="giftPopupTitle" class="gift-popup-title">Hediyelik Eşyalara Göz Attınız mı?</h3>
+        <p class="gift-popup-text">
+          Salda Gölü'nün meşhur <strong>%100 saf lavanta yağı</strong>, doğal el yapımı sabunları, lavanta balı ve özel hatıra hediyeliklerimizi incelemeyi unutmayın!
+        </p>
+
+        <!-- Öne Çıkan Özellikler -->
+        <div class="gift-popup-features">
+          <div class="gift-feature-item">
+            <span class="gift-feature-icon">🌿</span>
+            <span>%100 Doğal</span>
+          </div>
+          <div class="gift-feature-item">
+            <span class="gift-feature-icon">💜</span>
+            <span>Salda Lavantası</span>
+          </div>
+          <div class="gift-feature-item">
+            <span class="gift-feature-icon">🎁</span>
+            <span>Özel Hediyelik</span>
+          </div>
+        </div>
+
+        <!-- Butonlar -->
+        <div class="gift-popup-actions">
+          <a href="hediyelik.html" class="gift-popup-btn-primary" id="goGiftShopBtn">
+            <i data-lucide="shopping-bag" style="width: 18px; height: 18px;"></i>
+            Hediyelik Eşyalara Göz At
+          </a>
+          <button type="button" class="gift-popup-btn-secondary" id="dismissGiftPopupBtn">
+            Menüyü İncelemeye Devam Et
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const langBtn = document.getElementById('langBtn');
-      const langMenu = document.getElementById('langMenu');
-      const langItems = document.querySelectorAll('.lang-item');
+    (function initGiftPopup() {
+      const overlay = document.getElementById('giftShopPopupOverlay');
+      const closeBtn = document.getElementById('closeGiftPopupBtn');
+      const dismissBtn = document.getElementById('dismissGiftPopupBtn');
 
-      if (langBtn && langMenu) {
-        langBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          langMenu.style.display = langMenu.style.display === 'none' ? 'block' : 'none';
-        });
+      function openPopup() {
+        if (!overlay) return;
+        overlay.classList.add('active');
+        if (window.lucide) window.lucide.createIcons();
+      }
 
-        document.addEventListener('click', () => {
-          langMenu.style.display = 'none';
-        });
+      function closePopup() {
+        if (!overlay) return;
+        overlay.classList.remove('active');
+        try {
+          sessionStorage.setItem('saldamis_gift_popup_dismissed', 'true');
+        } catch(e) {}
+      }
 
-        langItems.forEach(item => {
-          item.addEventListener('click', () => {
-            const langCode = item.getAttribute('data-lang');
-            const langName = item.getAttribute('data-lang-name');
-            const flagCode = item.getAttribute('data-flag');
+      // Kullanıcı bu oturumda henüz kapatmadıysa 1.2 saniye sonra aç
+      const isDismissed = (function() {
+        try {
+          return sessionStorage.getItem('saldamis_gift_popup_dismissed') === 'true';
+        } catch(e) {
+          return false;
+        }
+      })();
 
-            // Butonun görüntüsünü seçilen dile göre güncelle
-            const textSpan = langBtn.querySelector('.lang-text-desktop');
-            if (textSpan) textSpan.textContent = langName;
-            langBtn.querySelector('img').src = `https://flagcdn.com/w20/${flagCode}.png`;
+      if (!isDismissed) {
+        setTimeout(openPopup, 1200);
+      }
 
-            // Google Çeviriyi Tetikle
-            const select = document.querySelector('.goog-te-combo');
-            if (select) {
-              select.value = langCode;
-              select.dispatchEvent(new Event('change'));
-            } else {
-              document.cookie = `googtrans=/tr/${langCode}; path=/; domain=${window.location.hostname}`;
-              document.cookie = `googtrans=/tr/${langCode}; path=/`;
-              window.location.reload();
-            }
-          });
+      if (closeBtn) closeBtn.addEventListener('click', closePopup);
+      if (dismissBtn) dismissBtn.addEventListener('click', closePopup);
+      if (overlay) {
+        overlay.addEventListener('click', (e) => {
+          if (e.target === overlay) closePopup();
         });
       }
-    });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay && overlay.classList.contains('active')) {
+          closePopup();
+        }
+      });
+    })();
   </script>
 
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 
 </html>
