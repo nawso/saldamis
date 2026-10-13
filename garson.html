@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Garson & Masa Takip Sistemi - Saldamış Şelalesi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +17,13 @@
       --card-border: rgba(255, 255, 255, 0.08);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
+    }
+
+    html, body {
+      overflow-x: hidden;
+      max-width: 100%;
+      width: 100%;
+      -webkit-text-size-adjust: 100%;
     }
 
     body.admin-body {
@@ -1295,6 +1302,10 @@
 
     /* Mobil Uyumluluk */
     @media (max-width: 768px) {
+      input, select, textarea, .admin-input {
+        font-size: 16px !important; /* iOS Safari odaklanmada ekranı zoomlamasın */
+      }
+
       .modal-content {
         height: 95vh;
         width: 100%;

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Dijital Menü - Saldamis Aile Restoranı & Kafe</title>
   <meta name="description"
     content="Saldamis Aile Restoranı tüm güncel menüsü. Kahvaltı, ızgara, lavanta ürünleri ve içecek çeşitlerimizi inceleyin.">
@@ -12,11 +12,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
 
   <!-- Stil Dosyası -->
-  <link rel="stylesheet" href="style.css?v=23">
+  <link rel="stylesheet" href="style.css?v=26">
 
   <!-- Tema Tercihini Erken Uygula -->
   <script>
@@ -186,9 +186,9 @@
           }
         </style>
 
-        <!-- Dükkan Sepet Butonu (Aşama 2'de Aktif Olacak) -->
-        <button class="cart-toggle-btn" id="cartToggleBtn" aria-label="Alışveriş Sepeti" style="display:none;">
-          <i data-lucide="shopping-bag" style="width:20px; height:20px;"></i>
+        <!-- Dükkan Sepet Butonu -->
+        <button class="cart-toggle-btn" id="cartToggleBtn" aria-label="Alışveriş Sepeti">
+          <i data-lucide="shopping-bag" style="width:19px; height:19px;"></i>
           <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
         </button>
 
@@ -219,69 +219,61 @@
   <!-- ==========================================================================
        EN SEVİLENLER
        ========================================================================== -->
-  <section class="popular-section"
-    style="position: relative; z-index: 10; margin-top: -30px; padding: 2.5rem 0 1rem; background-color: var(--c-white); border-radius: 30px 30px 0 0; box-shadow: 0 -5px 15px rgba(0,0,0,0.05);">
+  <section class="popular-section">
     <div class="container">
-      <h2
-        style="font-size: 1.4rem; font-family: var(--font-heading); color: var(--c-dark-900); margin-bottom: 1.2rem; font-weight: 800;">
-        EN SEVİLENLER</h2>
-      <div
-        style="display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scrollbar-width: none; -ms-overflow-style: none;">
+      <div class="popular-header-row">
+        <h2 class="popular-title">
+          <span>EN SEVİLENLER</span>
+          <span class="popular-badge-pill">Öne Çıkanlar</span>
+        </h2>
+      </div>
+      <div class="popular-cards-scroll">
 
-        <div class="popular-card"
-          style="min-width: 150px; flex: 0 0 auto; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--c-sand-200);">
-          <div style="height: 150px;">
-            <img src="images/breakfast.jpg" alt="En Sevilen 1" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="popular-card" onclick="window.goToProduct('Serpme Kahvaltı')">
+          <div class="popular-card-img-wrap">
+            <span class="popular-card-tag">Kahvaltı</span>
+            <img src="images/breakfast.jpg" alt="Serpme Kahvaltı">
           </div>
-          <div style="padding: 0.8rem; text-align: center; background-color: var(--c-white);">
-            <h3 style="font-size: 0.95rem; color: var(--c-dark-800); margin: 0 0 0.2rem 0; font-weight: 700;">Serpme
-              Kahvaltı</h3>
-            <span style="font-size: 0.85rem; color: var(--c-salda-600); font-weight: 700;">350 ₺</span>
+          <div class="popular-card-body">
+            <h3 class="popular-card-name">Serpme Kahvaltı</h3>
+            <span class="popular-card-price">1.400 ₺</span>
           </div>
         </div>
 
-        <div class="popular-card"
-          style="min-width: 150px; flex: 0 0 auto; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--c-sand-200);">
-          <div style="height: 150px;">
-            <img src="images/lemonade.jpg" alt="En Sevilen 2" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="popular-card" onclick="window.goToProduct('Lavantalı Limonata')">
+          <div class="popular-card-img-wrap">
+            <span class="popular-card-tag">İçecek</span>
+            <img src="images/lemonade.jpg" alt="Lavantalı Limonata">
           </div>
-          <div style="padding: 0.8rem; text-align: center; background-color: var(--c-white);">
-            <h3 style="font-size: 0.95rem; color: var(--c-dark-800); margin: 0 0 0.2rem 0; font-weight: 700;">Lavantalı
-              Limonata</h3>
-            <span style="font-size: 0.85rem; color: var(--c-salda-600); font-weight: 700;">85 ₺</span>
-          </div>
-        </div>
-
-        <div class="popular-card"
-          style="min-width: 150px; flex: 0 0 auto; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--c-sand-200);">
-          <div style="height: 150px;">
-            <img src="images/dessert.jpg" alt="En Sevilen 3" style="width: 100%; height: 100%; object-fit: cover;">
-          </div>
-          <div style="padding: 0.8rem; text-align: center; background-color: var(--c-white);">
-            <h3 style="font-size: 0.95rem; color: var(--c-dark-800); margin: 0 0 0.2rem 0; font-weight: 700;">San
-              Sebastian</h3>
-            <span style="font-size: 0.85rem; color: var(--c-salda-600); font-weight: 700;">140 ₺</span>
+          <div class="popular-card-body">
+            <h3 class="popular-card-name">Lavantalı Limonata</h3>
+            <span class="popular-card-price">85 ₺</span>
           </div>
         </div>
 
-        <div class="popular-card"
-          style="min-width: 150px; flex: 0 0 auto; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--c-sand-200);">
-          <div style="height: 150px;">
-            <img src="images/mekan-1.jpg" alt="En Sevilen 4" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="popular-card" onclick="window.goToProduct('San Sebastian')">
+          <div class="popular-card-img-wrap">
+            <span class="popular-card-tag">Tatlı</span>
+            <img src="images/dessert.jpg" alt="San Sebastian">
           </div>
-          <div style="padding: 0.8rem; text-align: center; background-color: var(--c-white);">
-            <h3 style="font-size: 0.95rem; color: var(--c-dark-800); margin: 0 0 0.2rem 0; font-weight: 700;">Türk
-              Kahvesi</h3>
-            <span style="font-size: 0.85rem; color: var(--c-salda-600); font-weight: 700;">60 ₺</span>
+          <div class="popular-card-body">
+            <h3 class="popular-card-name">San Sebastian</h3>
+            <span class="popular-card-price">140 ₺</span>
+          </div>
+        </div>
+
+        <div class="popular-card" onclick="window.goToProduct('Türk Kahvesi')">
+          <div class="popular-card-img-wrap">
+            <span class="popular-card-tag">Geleneksel</span>
+            <img src="images/mekan-1.jpg" alt="Türk Kahvesi">
+          </div>
+          <div class="popular-card-body">
+            <h3 class="popular-card-name">Türk Kahvesi</h3>
+            <span class="popular-card-price">70 ₺</span>
           </div>
         </div>
 
       </div>
-      <style>
-        .popular-section ::-webkit-scrollbar {
-          display: none;
-        }
-      </style>
     </div>
   </section>
 
@@ -325,16 +317,16 @@
       </p>
 
       <div class="footer-social-links">
-        <a href="https://wa.me/905550000000?text=Merhaba,%20Saldamis%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="footer-social-btn" title="WhatsApp" aria-label="WhatsApp">
+        <a href="https://wa.me/905414224892?text=Merhaba,%20Saldamis%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="footer-social-btn" title="WhatsApp" aria-label="WhatsApp">
           <i data-lucide="message-circle"></i>
         </a>
         <a href="https://instagram.com" target="_blank" class="footer-social-btn" title="Instagram" aria-label="Instagram">
           <i data-lucide="instagram"></i>
         </a>
-        <a href="https://maps.google.com" target="_blank" class="footer-social-btn" title="Harita &amp; Konum" aria-label="Konum">
+        <a href="https://maps.google.com/?q=Saldamis+Kafe+Restoran+Salda" target="_blank" class="footer-social-btn" title="Harita &amp; Konum" aria-label="Konum">
           <i data-lucide="map-pin"></i>
         </a>
-        <a href="tel:+905550000000" class="footer-social-btn" title="Bizi Arayın" aria-label="Telefon">
+        <a href="tel:+905414224892" class="footer-social-btn" title="Bizi Arayın" aria-label="Telefon">
           <i data-lucide="phone"></i>
         </a>
       </div>
@@ -372,6 +364,10 @@
     </div>
 
     <div class="cart-drawer-footer">
+      <div class="cart-note-box">
+        <label for="cartCustomerNote" class="cart-note-label">📝 Sipariş Açıklaması / Not (Opsiyonel):</label>
+        <textarea id="cartCustomerNote" rows="2" placeholder="Örn: Hediye paketi yapılsın, ekstra peçete..." class="cart-note-textarea"></textarea>
+      </div>
       <div class="cart-total-line">
         <span>Toplam Tutar:</span>
         <span id="cartTotalAmount" style="color:#7c3aed;">0 ₺</span>
@@ -393,7 +389,7 @@
     <button class="back-to-top" id="backToTopBtn" aria-label="Yukarı Çık">
       <i data-lucide="arrow-up" style="width:20px; height:20px;"></i>
     </button>
-    <a href="https://wa.me/905550000000?text=Merhaba,%20Saldamis%20hakkında%20bilgi%20almak%20istiyorum."
+    <a href="https://wa.me/905414224892?text=Merhaba,%20Saldamis%20hakkında%20bilgi%20almak%20istiyorum."
       target="_blank" class="float-wa-btn" title="WhatsApp ile İletişim">
       <i data-lucide="message-circle" style="width:28px; height:28px;"></i>
     </a>

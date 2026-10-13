@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const waText = encodeURIComponent(
       `Merhaba Saldamis Restoran! Tur acentamız adına ${count} kişilik grubumuz için "${menuName}" menüsü hakkında özel grup rezervasyonu ve servis planlaması yapmak istiyoruz.`
     );
-    tourWhatsappBtn.href = `https://wa.me/905550000000?text=${waText}`;
+    tourWhatsappBtn.href = `https://wa.me/905414224892?text=${waText}`;
   }
 
   paxRange?.addEventListener('input', updateTourCalculation);
@@ -165,6 +165,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   floatingCartBtn?.addEventListener('click', openCart);
   cartCloseBtn?.addEventListener('click', closeCart);
   cartBackdrop?.addEventListener('click', closeCart);
+  document.getElementById('cartCustomerNote')?.addEventListener('input', () => renderCart());
 
   // Sepeti Güncelle & DOM Render Et
   function renderCart() {
@@ -209,18 +210,18 @@ document.addEventListener('DOMContentLoaded', async () => {
       totalPrice += itemSubtotal;
 
       html += `
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding: 0.8rem 0; font-family: var(--font-sans);">
-          <div onclick="window.goToProduct('${item.name.replace(/'/g, "\'")}')" style="flex: 2; font-weight: 600; color: #1e293b; font-size: 0.95rem; line-height: 1.3; padding-right: 0.5rem; cursor: pointer; text-decoration: underline; text-decoration-color: #cbd5e1; text-underline-offset: 4px;">${item.name}</div>
-          <div style="display: flex; align-items: center; gap: 0.4rem; flex: 1; justify-content: center;">
-            <button onclick="window.changeItemQty(${index}, -1)" style="width: 26px; height: 26px; border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 6px; cursor: pointer; font-weight: bold; display: flex; align-items: center; justify-content: center; padding: 0; color: #475569; transition: background 0.2s;">-</button>
-            <span style="font-weight: 700; width: 20px; text-align: center; color: #0f172a;">${item.qty}</span>
-            <button onclick="window.changeItemQty(${index}, 1)" style="width: 26px; height: 26px; border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 6px; cursor: pointer; font-weight: bold; display: flex; align-items: center; justify-content: center; padding: 0; color: #475569; transition: background 0.2s;">+</button>
+        <div class="cart-item-row">
+          <div class="cart-item-name" onclick="window.goToProduct('${item.name.replace(/'/g, "\\'")}')">${item.name}</div>
+          <div class="cart-qty-ctrl">
+            <button class="cart-qty-btn" onclick="window.changeItemQty(${index}, -1)">-</button>
+            <span class="cart-qty-val">${item.qty}</span>
+            <button class="cart-qty-btn" onclick="window.changeItemQty(${index}, 1)">+</button>
           </div>
-          <div style="flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem;">
-            <span style="font-weight: 800; color: #7c3aed; font-size: 1rem;">
+          <div class="cart-item-price-box">
+            <span class="cart-item-price">
               ${(item.price * item.qty).toLocaleString('tr-TR')} ₺
             </span>
-            <button onclick="window.removeFromCart(${index})" style="background: none; border: none; cursor: pointer; color: #ef4444; display: flex; align-items: center; justify-content: center; padding: 4px;">
+            <button class="cart-item-del-btn" onclick="window.removeFromCart(${index})" title="Ürünü Sil">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
             </button>
           </div>
@@ -231,7 +232,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (cart.length > 0) {
       html += `
         <div style="margin-top: 1rem; display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
-          <button onclick="window.clearCart()" style="background: white; color: #ef4444; border: 1px solid #ef4444; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: bold; display: flex; align-items: center; gap: 0.4rem; transition: background 0.2s;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='white'">
+          <button class="cart-clear-btn" onclick="window.clearCart()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg> 
             Sepeti Boşalt
           </button>
@@ -244,12 +245,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     localStorage.setItem('saldamisCart', JSON.stringify(cart));
 
     // WhatsApp Mesajı Oluştur
+    const noteEl = document.getElementById('cartCustomerNote');
+    const customerNote = noteEl ? noteEl.value.trim() : '';
     let itemsText = cart.map(i => `• ${i.name} (${i.qty} adet - ${i.price * i.qty} ₺)`).join('\n');
-    const orderMessage = encodeURIComponent(
-      `Merhaba Saldamis Doğal Dükkan! Aşağıdaki ürünleri sipariş vermek istiyorum:\n\n${itemsText}\n\nToplam Tutar: ${totalPrice} ₺\nTeslimat adresi ve ödeme detaylarını alabilir miyim?`
-    );
+    let messageBody = `Merhaba Saldamis Doğal Dükkan! Aşağıdaki ürünleri sipariş vermek istiyorum:\n\n${itemsText}\n\nToplam Tutar: ${totalPrice.toLocaleString('tr-TR')} ₺`;
+    if (customerNote) {
+      messageBody += `\n\nSipariş Açıklaması / Notu:\n${customerNote}`;
+    }
+    messageBody += `\n\nTeslimat adresi ve ödeme detaylarını alabilir miyim?`;
+
+    const orderMessage = encodeURIComponent(messageBody);
     if (cartCheckoutBtn) {
-      cartCheckoutBtn.href = `https://wa.me/905550000000?text=${orderMessage}`;
+      cartCheckoutBtn.href = `https://wa.me/905414224892?text=${orderMessage}`;
     }
   }
 
@@ -267,16 +274,42 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
 
   window.goToProduct = (name) => {
+    if (!name) return;
+    const cleanName = String(name).trim().toLowerCase();
+
+    // Close drawer if open
+    if (typeof closeCart === 'function') closeCart();
+
+    // 1. Check window.menuGrouped
     if (window.menuGrouped) {
-        for (const cat in window.menuGrouped) {
-            const item = window.menuGrouped[cat].find(x => x.name === name);
-            if (item) {
-                // Determine if we are in menu or hediyelik by checking the url or if the item exists
-                window.location.hash = 'product-' + cat + '-' + item.id;
-                closeCart();
-                return;
-            }
+      for (const cat in window.menuGrouped) {
+        const item = window.menuGrouped[cat].find(x => (x.name || '').trim().toLowerCase() === cleanName);
+        if (item) {
+          window.location.hash = 'product-' + cat + '-' + item.id;
+          return;
         }
+      }
+    }
+
+    // 2. Check DOM elements
+    const cards = Array.from(document.querySelectorAll('.menu-card, .product-card, .popular-card, [data-product-name]'));
+    const matched = cards.find(c => {
+      const title = c.querySelector('h3, h4, .menu-item-name, .product-title, .popular-card-name');
+      return (title && title.textContent.trim().toLowerCase().includes(cleanName)) ||
+             (c.getAttribute('data-product-name') && c.getAttribute('data-product-name').toLowerCase().includes(cleanName));
+    });
+
+    if (matched) {
+      matched.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      matched.classList.add('highlight-pulse');
+      setTimeout(() => matched.classList.remove('highlight-pulse'), 2000);
+      return;
+    }
+
+    // 3. Fallback: scroll to menu container
+    const menuContainer = document.getElementById('menuContainer');
+    if (menuContainer) {
+      menuContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -460,8 +493,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!track) return;
 
   // Clone elements to create a seamless infinite loop
-  const children = Array.from(track.children);
-  children.forEach(child => {
+  const originalChildren = Array.from(track.children);
+  if (originalChildren.length === 0) return;
+
+  originalChildren.forEach(child => {
     track.appendChild(child.cloneNode(true));
   });
 
@@ -469,24 +504,39 @@ document.addEventListener('DOMContentLoaded', () => {
   let resumeTimer = null;
   let autoScrollId;
   const scrollSpeed = 0.8; // px/frame
+  let floatPos = track.scrollLeft;
+
+  let halfWidth = track.scrollWidth / 2;
+  const updateMetrics = () => {
+    halfWidth = track.scrollWidth / 2;
+  };
+
+  // Resimler yüklendikçe veya pencere boyutu değiştikçe genişliği güvenle güncelle
+  track.querySelectorAll('img').forEach(img => {
+    if (!img.complete) {
+      img.addEventListener('load', updateMetrics);
+    }
+  });
+  window.addEventListener('resize', updateMetrics);
 
   // Kullanıcı dokunmayı/tıklamayı bıraktığında kaydırmayı kesinlikle devam ettir
   const resumeScroll = () => {
     clearTimeout(resumeTimer);
     resumeTimer = setTimeout(() => {
+      floatPos = track.scrollLeft;
       isInteracting = false;
-    }, 1200); // 1.2 saniye sonra otomatik kaymaya devam eder
+    }, 1200);
   };
 
   const startAutoScroll = () => {
-    if (!isInteracting) {
-      track.scrollLeft += scrollSpeed;
-      const halfWidth = track.scrollWidth / 2;
-      if (track.scrollLeft >= halfWidth) {
-        track.scrollLeft -= halfWidth;
-      } else if (track.scrollLeft <= 0) {
-        track.scrollLeft += halfWidth;
+    if (!isInteracting && halfWidth > 0) {
+      floatPos += scrollSpeed;
+      if (floatPos >= halfWidth) {
+        floatPos -= halfWidth;
+      } else if (floatPos <= 0) {
+        floatPos += halfWidth;
       }
+      track.scrollLeft = floatPos;
     }
     autoScrollId = requestAnimationFrame(startAutoScroll);
   };
@@ -499,25 +549,31 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   track.addEventListener('mouseleave', () => {
-    if (!isTouchDevice()) isInteracting = false;
+    if (!isTouchDevice()) {
+      floatPos = track.scrollLeft;
+      isInteracting = false;
+    }
   });
 
-  // Dokunmatik / Mobil Olayları (Telefonlarda donmayı önleyen tam güvence)
+  // Dokunmatik / Mobil Olayları (Telefonlarda donmayı ve takılmayı önleyen tam güvence)
   track.addEventListener('touchstart', () => {
     clearTimeout(resumeTimer);
     isInteracting = true;
+    floatPos = track.scrollLeft;
   }, { passive: true });
 
   track.addEventListener('touchend', () => {
+    floatPos = track.scrollLeft;
     resumeScroll();
   }, { passive: true });
 
   track.addEventListener('touchcancel', () => {
+    floatPos = track.scrollLeft;
     resumeScroll();
   }, { passive: true });
 
-  // Tıklamada durup kalmasını önleme
   track.addEventListener('click', () => {
+    floatPos = track.scrollLeft;
     resumeScroll();
   });
 
@@ -525,10 +581,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let scrollDebounce;
   track.addEventListener('scroll', () => {
     if (isInteracting) {
+      floatPos = track.scrollLeft;
       clearTimeout(scrollDebounce);
       scrollDebounce = setTimeout(() => {
         resumeScroll();
-      }, 800);
+      }, 700);
     }
   }, { passive: true });
 

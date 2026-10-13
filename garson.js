@@ -1,4 +1,4 @@
-import { db, auth, collection, getDocs, getDoc, addDoc, updateDoc, deleteDoc, doc, signInWithEmailAndPassword, onAuthStateChanged, signOut, onSnapshot } from './firebase-config.js';
+import { db, auth, collection, getDocs, getDoc, addDoc, updateDoc, deleteDoc, doc, signInWithEmailAndPassword, onAuthStateChanged, signOut, onSnapshot, query, where, limit } from './firebase-config.js';
 
 // DOM Elements
 const loginSection = document.getElementById('loginSection');
@@ -88,6 +88,37 @@ function resolveDefaultWaiterName(user) {
   return 'Garson';
 }
 
+async function autoPruneOldLogs() {
+  try {
+    const lastPrune = localStorage.getItem('saldamis_last_log_prune');
+    const now = Date.now();
+    if (lastPrune && now - Number(lastPrune) < 24 * 60 * 60 * 1000) return;
+    const cutoff = now - 7 * 24 * 60 * 60 * 1000; // 7 gün saklama süresi
+    try {
+      const q = query(collection(db, "waiterActivities"), where("timestamp", "<", cutoff), limit(100));
+      const oldSnap = await getDocs(q);
+      if (!oldSnap.empty) {
+        const delPromises = [];
+        oldSnap.forEach(d => delPromises.push(deleteDoc(doc(db, "waiterActivities", d.id))));
+        await Promise.all(delPromises);
+      }
+    } catch (qErr) {
+      const allSnap = await getDocs(query(collection(db, "waiterActivities"), limit(120)));
+      const delPromises = [];
+      allSnap.forEach(d => {
+        const data = d.data();
+        if (data.timestamp && data.timestamp < cutoff) {
+          delPromises.push(deleteDoc(doc(db, "waiterActivities", d.id)));
+        }
+      });
+      if (delPromises.length > 0) await Promise.all(delPromises);
+    }
+    localStorage.setItem('saldamis_last_log_prune', String(now));
+  } catch (err) {
+    console.warn("Otomatik log budama:", err);
+  }
+}
+
 function updateActiveWaiterUI() {
   const name = activeWaiterName || 'Garson';
   if (activeWaiterNameDisplay) activeWaiterNameDisplay.textContent = name;
@@ -144,8 +175,16 @@ onAuthStateChanged(auth, (user) => {
       }
     }
 
+    // Yeni masa ekleme yetkisi sadece adminlere özel
+    if (addTableBtn) {
+      const email = (user.email || '').toLowerCase().trim();
+      const isUserAdmin = email.includes('admin') || !email.includes('garson');
+      addTableBtn.style.display = isUserAdmin ? 'inline-flex' : 'none';
+    }
+
     loadMenu();
     listenToTables();
+    autoPruneOldLogs().catch(e => console.warn(e));
   } else {
     if (unsubscribeTables) {
       unsubscribeTables();
@@ -433,6 +472,13 @@ function renderTablesGrid() {
 }
 
 addTableBtn.addEventListener('click', async () => {
+  const currentUserEmail = (auth.currentUser?.email || '').toLowerCase().trim();
+  const isUserAdmin = currentUserEmail.includes('admin') || !currentUserEmail.includes('garson');
+  if (!isUserAdmin) {
+    alert("Yetkisiz İşlem: Yeni masa ekleme fonksiyonu sadece yöneticilere (Admin) özeldir.");
+    return;
+  }
+
   const tableNumber = prompt("Eklenecek Masa İsmi (Örn: 1 veya Bahçe 1):");
   if (tableNumber && tableNumber.trim() !== '') {
     try {
@@ -442,6 +488,7 @@ addTableBtn.addEventListener('click', async () => {
         orders: [],
         total: 0
       });
+      alert(`"${tableNumber.trim()}" masası başarıyla eklendi.`);
     } catch (error) {
       alert("Masa eklenirken bir hata oluştu.");
     }
@@ -526,6 +573,11 @@ function renderPendingOrders() {
         </div>
         ${itemTotal ? `<span class="pending-item-price">${itemTotal}</span>` : ''}
       </div>
+      ${item.note ? `
+        <div class="pending-item-note" style="margin: 4px 0 6px 0; padding: 4px 8px; background: rgba(245, 158, 11, 0.15); border: 1px dashed rgba(245, 158, 11, 0.4); border-radius: 6px; color: #fbbf24; font-size: 0.8rem; font-weight: 600; display: flex; align-items: flex-start; gap: 4px; line-height: 1.3;">
+          <span>📝</span> <span><strong>Not:</strong> ${item.note}</span>
+        </div>
+      ` : ''}
       <div class="pending-order-meta">
         <span class="pending-waiter-badge">
           👤 Garson: <strong>${waiterName}</strong>
@@ -1031,11 +1083,19 @@ function addToNewOrder(item) {
       id: item.id,
       name: item.name,
       price: parseFloat(item.price),
-      qty: 1
+      qty: 1,
+      note: ''
     });
   }
   renderNewOrderList();
 }
+
+window.updateItemNoteNew = (tempId, noteText) => {
+  const item = newOrdersArray.find(o => o.tempId === tempId);
+  if (item) {
+    item.note = noteText;
+  }
+};
 
 window.updateQtyNew = (tempId, delta) => {
   const index = newOrdersArray.findIndex(o => o.tempId === tempId);
@@ -1059,6 +1119,7 @@ function renderNewOrderList() {
   newOrdersArray.forEach(item => {
     const itemTotal = item.price * item.qty;
     total += itemTotal;
+    const safeNote = (item.note || '').replace(/"/g, '&quot;');
 
     const div = document.createElement('div');
     div.className = 'order-item new-item';
@@ -1074,6 +1135,10 @@ function renderNewOrderList() {
           <button class="qty-btn" onclick="window.updateQtyNew(${item.tempId}, 1)">+</button>
         </div>
         <div style="font-weight: 700; margin-left: 15px; color: #34d399;">${itemTotal} ₺</div>
+      </div>
+      <div class="order-item-note-row" style="margin-top: 6px; display: flex; align-items: center; gap: 6px;">
+        <span style="font-size: 0.85rem; opacity: 0.85;">📝</span>
+        <input type="text" class="order-note-input" placeholder="Açıklama / Not ekle (örn: Az şekerli, sossuz...)" value="${safeNote}" oninput="window.updateItemNoteNew(${item.tempId}, this.value)" style="flex: 1; background: rgba(15, 23, 42, 0.65); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 6px; color: #f1f5f9; font-size: 0.82rem; padding: 5px 9px; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#6366f1'" onblur="this.style.borderColor='rgba(255, 255, 255, 0.12)'">
       </div>
     `;
     newOrderList.appendChild(div);
@@ -1106,6 +1171,7 @@ saveOrderBtn.addEventListener('click', async () => {
     name: o.name,
     price: o.price,
     qty: o.qty,
+    note: (o.note || '').trim(),
     status: 'bekliyor',
     timestamp: now,
     timeStr: timeFormatted,
@@ -1136,7 +1202,7 @@ saveOrderBtn.addEventListener('click', async () => {
         waiterEmail: auth.currentUser?.email || '',
         tableNumber: String(currentTableData.number || ''),
         tableId: currentTableId,
-        items: newOrdersArray.map(o => ({ name: o.name, qty: o.qty, price: o.price })),
+        items: newOrdersArray.map(o => ({ name: o.name, qty: o.qty, price: o.price, note: (o.note || '').trim() })),
         total: newOrdersArray.reduce((sum, it) => sum + (it.price * it.qty), 0),
         timestamp: now,
         timeStr: timeFormatted,
@@ -1199,6 +1265,11 @@ function renderDetailsScreen() {
           <h4 style="margin: 0; font-size: 0.94rem; color: #ffffff; font-weight: 700;">${item.qty}x ${item.name}</h4>
           <span style="color: #94a3b8; font-size: 0.76rem;">(${item.price} ₺ / Adet)</span>
         </div>
+        ${item.note ? `
+          <div style="font-size: 0.8rem; color: #fbbf24; margin: 4px 0; background: rgba(245, 158, 11, 0.12); padding: 3px 7px; border-radius: 5px; border: 1px dashed rgba(245, 158, 11, 0.35); display: flex; align-items: center; gap: 4px;">
+            <span>📝</span> <span><strong>Not:</strong> ${item.note}</span>
+          </div>
+        ` : ''}
         <div class="order-meta-badges">
           <span class="meta-pill meta-waiter" title="Siparişi Giren Garson">
             <span>👤</span> <strong>${waiterName}</strong>
@@ -1207,6 +1278,10 @@ function renderDetailsScreen() {
             <span>🕒</span> <strong>${displayTime}</strong>
           </span>
           <span class="status-badge ${statusClass}">${statusText}</span>
+
+          <button type="button" class="btn-note-item" title="Siparişe açıklama veya özel not ekle" style="padding: 2px 8px; font-size: 0.7rem; background: rgba(245, 158, 11, 0.18); border: 1px solid rgba(245, 158, 11, 0.35); color: #fde68a; border-radius: 6px; cursor: pointer;" onclick="window.editOrderItemNote('${currentTableId}', ${item.uid ? `'${item.uid}'` : 'null'}, ${index})">
+            📝 ${item.note ? 'Notu Düzenle' : 'Not Ekle'}
+          </button>
           
           <button type="button" class="btn-move-item" title="Bu siparişi başka masaya taşı" onclick="window.startMoveOrderItem('${currentTableId}', ${item.uid ? `'${item.uid}'` : 'null'}, ${index})">
             🔄 Taşı
@@ -1226,6 +1301,34 @@ function renderDetailsScreen() {
 
   detailsTotalDisplay.textContent = `${total} ₺`;
 }
+
+window.editOrderItemNote = async (tableId, orderUid, orderIndex) => {
+  const table = allTablesData.find(t => t.id === tableId) || currentTableData;
+  if (!table || !table.orders) return;
+  const updatedOrders = [...table.orders];
+  let targetIndex = -1;
+  if (orderUid) targetIndex = updatedOrders.findIndex(o => o.uid === orderUid);
+  if (targetIndex === -1 && typeof orderIndex === 'number') targetIndex = orderIndex;
+  if (targetIndex === -1 || !updatedOrders[targetIndex]) return;
+
+  const currentNote = updatedOrders[targetIndex].note || '';
+  const newNote = prompt(`"${updatedOrders[targetIndex].name}" siparişi için açıklama/not girin:`, currentNote);
+  if (newNote !== null) {
+    updatedOrders[targetIndex] = {
+      ...updatedOrders[targetIndex],
+      note: newNote.trim()
+    };
+    try {
+      await updateDoc(doc(db, "tables", tableId), { orders: updatedOrders });
+      if (currentTableData && currentTableData.id === tableId) {
+        currentTableData.orders = updatedOrders;
+        renderDetailsScreen();
+      }
+    } catch (e) {
+      alert("Not güncellenirken hata oluştu.");
+    }
+  }
+};
 
 checkoutBtn.addEventListener('click', async () => {
   if (!currentTableId || (currentTableData.orders || []).length === 0) {
