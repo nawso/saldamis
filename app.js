@@ -487,12 +487,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 
-// Carousel Otomatik Kaydırma (Auto-scroll) Sistemi
+// Carousel Otomatik Kaydırma + Tam Kullanıcı Kontrolü (Drag, Swipe, Oklar)
 document.addEventListener('DOMContentLoaded', () => {
   const track = document.querySelector('.carousel-track');
   if (!track) return;
 
-  // Clone elements to create a seamless infinite loop
+  const prevBtn = document.getElementById('carouselPrevBtn');
+  const nextBtn = document.getElementById('carouselNextBtn');
+
+  // Lucide ikonlarını yeniden tara
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+
+  // Sonsuz döngü için elemanları klonla
   const originalChildren = Array.from(track.children);
   if (originalChildren.length === 0) return;
 
@@ -502,8 +510,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let isInteracting = false;
   let resumeTimer = null;
-  let autoScrollId;
-  const scrollSpeed = 0.8; // px/frame
+  let autoScrollId = null;
+  const scrollSpeed = 0.75; // px/frame (ideal akıcılıkta hız)
   let floatPos = track.scrollLeft;
 
   let halfWidth = track.scrollWidth / 2;
@@ -511,7 +519,6 @@ document.addEventListener('DOMContentLoaded', () => {
     halfWidth = track.scrollWidth / 2;
   };
 
-  // Resimler yüklendikçe veya pencere boyutu değiştikçe genişliği güvenle güncelle
   track.querySelectorAll('img').forEach(img => {
     if (!img.complete) {
       img.addEventListener('load', updateMetrics);
@@ -519,15 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   window.addEventListener('resize', updateMetrics);
 
-  // Kullanıcı dokunmayı/tıklamayı bıraktığında kaydırmayı kesinlikle devam ettir
-  const resumeScroll = () => {
-    clearTimeout(resumeTimer);
-    resumeTimer = setTimeout(() => {
-      floatPos = track.scrollLeft;
-      isInteracting = false;
-    }, 1200);
-  };
-
+  // Otomatik kaydırmayı başlat
   const startAutoScroll = () => {
     if (!isInteracting && halfWidth > 0) {
       floatPos += scrollSpeed;
@@ -537,58 +536,108 @@ document.addEventListener('DOMContentLoaded', () => {
         floatPos += halfWidth;
       }
       track.scrollLeft = floatPos;
+      autoScrollId = requestAnimationFrame(startAutoScroll);
     }
-    autoScrollId = requestAnimationFrame(startAutoScroll);
   };
 
-  // Dokunmatik telefon kontrolü (Mobil cihazlarda mouseenter kilidini önler)
-  const isTouchDevice = () => window.matchMedia('(pointer: coarse)').matches;
-
-  track.addEventListener('mouseenter', () => {
-    if (!isTouchDevice()) isInteracting = true;
-  });
-
-  track.addEventListener('mouseleave', () => {
-    if (!isTouchDevice()) {
+  // Kullanıcı etkileşimi durdurduğunda otomatik kaydırmayı yeniden devreye al
+  const pauseAndResume = (delay = 2400) => {
+    isInteracting = true;
+    if (autoScrollId) {
+      cancelAnimationFrame(autoScrollId);
+      autoScrollId = null;
+    }
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => {
       floatPos = track.scrollLeft;
       isInteracting = false;
-    }
+      autoScrollId = requestAnimationFrame(startAutoScroll);
+    }, delay);
+  };
+
+  // 1. Ok Butonları ile Kontrol
+  const getScrollStep = () => {
+    const firstSlice = track.querySelector('.carousel-slice');
+    return firstSlice ? (firstSlice.offsetWidth + 24) : 340;
+  };
+
+  prevBtn?.addEventListener('click', () => {
+    pauseAndResume(2800);
+    track.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
+    setTimeout(() => { floatPos = track.scrollLeft; }, 400);
   });
 
-  // Dokunmatik / Mobil Olayları (Telefonlarda donmayı ve takılmayı önleyen tam güvence)
+  nextBtn?.addEventListener('click', () => {
+    pauseAndResume(2800);
+    track.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
+    setTimeout(() => { floatPos = track.scrollLeft; }, 400);
+  });
+
+  // 2. Masaüstü Mouse ile Tutup Sürükleme (Drag-to-Scroll)
+  let isMouseDown = false;
+  let startX = 0;
+  let initialScrollLeft = 0;
+  let hasDragged = false;
+
+  track.addEventListener('mousedown', (e) => {
+    if (e.button !== 0) return;
+    isMouseDown = true;
+    hasDragged = false;
+    pauseAndResume(3000);
+    track.classList.add('grabbing');
+    startX = e.pageX - track.offsetLeft;
+    initialScrollLeft = track.scrollLeft;
+  });
+
+  const stopMouseDrag = () => {
+    if (isMouseDown) {
+      isMouseDown = false;
+      track.classList.remove('grabbing');
+      floatPos = track.scrollLeft;
+      pauseAndResume(2400);
+    }
+  };
+
+  window.addEventListener('mouseup', stopMouseDrag);
+  track.addEventListener('mouseleave', () => {
+    if (isMouseDown) stopMouseDrag();
+  });
+
+  track.addEventListener('mousemove', (e) => {
+    if (!isMouseDown) return;
+    e.preventDefault();
+    const currentX = e.pageX - track.offsetLeft;
+    const walk = (currentX - startX) * 1.3;
+    if (Math.abs(walk) > 4) hasDragged = true;
+    track.scrollLeft = initialScrollLeft - walk;
+    floatPos = track.scrollLeft;
+  });
+
+  track.addEventListener('click', (e) => {
+    if (hasDragged) {
+      e.preventDefault();
+      e.stopPropagation();
+      hasDragged = false;
+    }
+  }, true);
+
+  // 3. Mobil Dokunmatik (Touch Swipe)
   track.addEventListener('touchstart', () => {
-    clearTimeout(resumeTimer);
-    isInteracting = true;
+    pauseAndResume(3500);
+    floatPos = track.scrollLeft;
+  }, { passive: true });
+
+  track.addEventListener('touchmove', () => {
+    pauseAndResume(3500);
     floatPos = track.scrollLeft;
   }, { passive: true });
 
   track.addEventListener('touchend', () => {
     floatPos = track.scrollLeft;
-    resumeScroll();
+    pauseAndResume(2200);
   }, { passive: true });
 
-  track.addEventListener('touchcancel', () => {
-    floatPos = track.scrollLeft;
-    resumeScroll();
-  }, { passive: true });
-
-  track.addEventListener('click', () => {
-    floatPos = track.scrollLeft;
-    resumeScroll();
-  });
-
-  // Elle kaydırma (swipe/momentum) bittiğinde otomatik devam etsin
-  let scrollDebounce;
-  track.addEventListener('scroll', () => {
-    if (isInteracting) {
-      floatPos = track.scrollLeft;
-      clearTimeout(scrollDebounce);
-      scrollDebounce = setTimeout(() => {
-        resumeScroll();
-      }, 700);
-    }
-  }, { passive: true });
-
+  // 4. Otomatik döngüyü ilk kez başlat
   autoScrollId = requestAnimationFrame(startAutoScroll);
 });
 

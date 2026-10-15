@@ -59,7 +59,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <!-- Modern Özel Tasarım Sistemi (CSS) -->
-  <link rel="stylesheet" href="style.css?v=26">
+  <link rel="stylesheet" href="style.css?v=27">
 
   <!-- Tema Tercihini Erken Uygula -->
   <script>
@@ -233,12 +233,6 @@
             box-shadow: none !important;
           }
         </style>
-
-        <!-- Dükkan Sepet Butonu -->
-        <button class="cart-toggle-btn" id="cartToggleBtn" aria-label="Alışveriş Sepeti">
-          <i data-lucide="shopping-bag" style="width:19px; height:19px;"></i>
-          <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
-        </button>
 
         <!-- Hızlı Masa / Grup Rezervasyon Butonu -->
         <a href="index.html#turlar" class="btn btn-primary btn-sm">
@@ -758,7 +752,10 @@
       <!-- Sağ Görsel Kolajı (Artık Üstte/Solda) -->
       <div class="discover-image-col">
         <div class="elegant-carousel">
-          <div class="carousel-track">
+          <button class="carousel-nav-btn carousel-prev" id="carouselPrevBtn" aria-label="Önceki Görseller">
+            <i data-lucide="chevron-left"></i>
+          </button>
+          <div class="carousel-track" id="discoverCarouselTrack">
             <!-- carosel 1. foto 2. Kısım (Sağ) -->
             <div class="carousel-slice">
               <img src="images/carousel/carousel.jpg" class="img-right" alt="Kahvaltı Sağ">
@@ -800,6 +797,9 @@
               <img src="images/carousel/carousel.jpg" class="img-left" alt="Kahvaltı Sol">
             </div>
           </div>
+          <button class="carousel-nav-btn carousel-next" id="carouselNextBtn" aria-label="Sonraki Görseller">
+            <i data-lucide="chevron-right"></i>
+          </button>
         </div>
       </div>
 
@@ -904,7 +904,7 @@
 
 
   <!-- Özel JavaScript Dosyası -->
-  <script src="app.js?v=4"></script>
+  <script src="app.js?v=6"></script>
 </body>
 
 </html>

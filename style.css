@@ -3451,14 +3451,72 @@ body.dark-theme .cart-badge {
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   align-items: flex-start; /* Zik zak için flex-start şart */
-  scroll-behavior: auto !important;
-  touch-action: pan-y;
+  scroll-behavior: smooth;
+  touch-action: pan-x pan-y;
   overscroll-behavior-x: contain;
-  will-change: scroll-position;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.carousel-track.grabbing {
+  cursor: grabbing;
+  scroll-behavior: auto !important;
 }
 
 .carousel-track::-webkit-scrollbar {
   display: none;
+}
+
+.carousel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: var(--c-dark-800, #1e293b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+  transition: all 0.25s ease;
+}
+
+.carousel-nav-btn:hover {
+  background: #ffffff;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.22);
+}
+
+.carousel-nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-prev {
+  left: 12px;
+}
+
+.carousel-next {
+  right: 12px;
+}
+
+body.dark-theme .carousel-nav-btn,
+.dark-theme .carousel-nav-btn {
+  background: rgba(30, 41, 59, 0.88);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-theme .carousel-nav-btn:hover,
+.dark-theme .carousel-nav-btn:hover {
+  background: #334155;
 }
 
 .carousel-slice {
@@ -3468,8 +3526,10 @@ body.dark-theme .cart-badge {
   overflow: hidden;
   box-shadow: var(--shadow-md);
   transition: transform 0.4s ease;
-  touch-action: pan-y;
+  touch-action: pan-x pan-y;
   flex-shrink: 0;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 /* Zik-zak (Alt/Üst) Etkisi */
